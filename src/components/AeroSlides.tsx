@@ -3081,10 +3081,6 @@ export const SoftAppsSlide: React.FC = () => {
       {/* Slide Header */}
       <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Autonomous Mobile Robot</span>
-          </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Future Industry Applications</h2>
         </div>
       </div>
@@ -3149,58 +3145,45 @@ export const SoftThankYouSlide: React.FC = () => {
       {/* Slide Header */}
       <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Autonomous Mobile Robot</span>
-          </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Thank You</h2>
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column (col-span-5): Warm acknowledgement */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Borg El Arab Technological University</h3>
-            <p className="text-[9.5px] text-gray-400 font-bold uppercase tracking-widest leading-none mb-3">FACULTY OF INDUSTRY & ENERGY | IT DEPT</p>
-            <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed font-sans font-medium">
-              We express our deepest gratitude to our academic advisors, faculty mentors, and fellow peers for their unwavering guidance, technical reviews, and support throughout the design, construction, and software orchestration of the ASAR project.
-            </p>
+      {/* Main Full-Width Content: Symmetrical Vertical Stack */}
+      <div className="flex flex-col flex-grow justify-between mt-4 z-10 relative select-text">
+        
+        {/* Upper Part: Giant 2-Column Side-by-Side Images Showcase */}
+        <div className="grid grid-cols-2 gap-6 w-full">
+          {/* Image 1: Team Group Selfie */}
+          <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm h-[320px]">
+            <img 
+              src="assets/images/d8d391d0-f2ca-44e0-a3ca-a7508fdf4e99.jpg" 
+              alt="ASAR Presenter Team Group Selfie" 
+              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+
+          {/* Image 2: ASAR Robot Close-up */}
+          <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm h-[320px]">
+            <img 
+              src="assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
+              alt="ASAR Mecanum Robot Assembly Close-up" 
+              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
           </div>
         </div>
 
-        {/* Right Column (col-span-7): Real team member & robot close-up 2-column showcase */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-2 uppercase tracking-widest leading-none mb-2">
-              ASAR_TEAM_SNAPSHOT_&_PHYSICAL_ROBOT_RECORD // STAGE_GRID
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 flex-grow relative overflow-hidden h-[85%]">
-              {/* Image 1: Team Group Selfie */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[265px]">
-                <img 
-                  src="assets/images/d8d391d0-f2ca-44e0-a3ca-a7508fdf4e99.jpg" 
-                  alt="ASAR Presenter Team Group Selfie" 
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
-              {/* Image 2: Robot Chassis Close-up */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[265px]">
-                <img 
-                  src="assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
-                  alt="ASAR Mecanum Robot Assembly Close-up" 
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            </div>
-
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-100 pt-2 text-center uppercase leading-none mt-2">
-              Developing smart solutions for real-world automated logistics and indoor navigation.
-            </div>
-          </div>
+        {/* Lower Part: Wide-Span Thank You Footer Note (positioned below the images!) */}
+        <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs w-full mt-4">
+          <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed text-center font-sans font-medium">
+            We express our deepest gratitude to our academic advisors, faculty mentors, and Borg El Arab Technological University (Faculty of Industry &amp; Energy Technology | IT Department) for their unwavering guidance, technical reviews, and support throughout the design, construction, and software orchestration of the ASAR project.
+          </p>
         </div>
+
+        <div className="font-mono text-[9px] text-gray-500 font-bold text-center uppercase leading-none mt-3.5">
+          Developing smart solutions for real-world automated logistics and indoor navigation.
+        </div>
+
       </div>
     </div>
   );

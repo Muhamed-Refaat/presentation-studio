@@ -1,0 +1,6 @@
+{
+  "name": "Zooming Presentation Studio",
+  "description": "An interactive slideshow application with smooth, spatial Prezi-style zooming and panning transitions between slides, featuring a simulated Google Apps Script automation editor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

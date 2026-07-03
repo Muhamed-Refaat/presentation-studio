@@ -231,7 +231,7 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
         // Mode 1: Presentation (Prezi inverse positioning)
         x: 0,
         y: -32, // Shift center slightly up to make room for bottom controllers
-        scale: (1 / activeSlide.coordinates.scale) * 0.90, // Scale down slightly so 100% of slide fits nicely
+        scale: (1 / activeSlide.coordinates.scale) * 0.97, // Scale down slightly so 100% of slide fits nicely
         rotate: -activeSlide.coordinates.rotate,
         translateX: -activeSlide.coordinates.x,
         translateY: -activeSlide.coordinates.y,
@@ -248,7 +248,7 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
 
   const cameraX = isPresentationMode ? activeSlide.coordinates.x : -pan.x;
   const cameraY = isPresentationMode ? activeSlide.coordinates.y : -pan.y;
-  const cameraZoom = isPresentationMode ? ((1 / activeSlide.coordinates.scale) * 0.90) : zoom;
+  const cameraZoom = isPresentationMode ? ((1 / activeSlide.coordinates.scale) * 0.97) : zoom;
 
   return (
     <div 
@@ -284,7 +284,7 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
             ? [
                 null, 
                 (1 / (previousSlideRef.current?.coordinates.scale || 1)) * 2.35, 
-                (1 / activeSlide.coordinates.scale) * 0.90
+                (1 / activeSlide.coordinates.scale) * 0.97
               ]
             : cameraTransform.scale,
           rotate: cameraTransform.rotate,

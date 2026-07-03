@@ -1156,12 +1156,29 @@ export const ElecComponentsSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes pulse-signal {
-          0%, 100% { stroke-width: 1.5px; opacity: 0.5; }
-          50% { stroke-width: 3.5px; opacity: 1.0; }
+        @keyframes spin-dome {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
-        .signal-pulse {
-          animation: pulse-signal 2.5s ease-in-out infinite;
+        @keyframes flow-databus {
+          0% { stroke-dashoffset: 24; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes wheel-rot {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -12; }
+        }
+        .lidar-sweep-spin {
+          animation: spin-dome 3s linear infinite;
+          transform-origin: 150px 80px;
+        }
+        .databus-flow-line {
+          stroke-dasharray: 6 3;
+          animation: flow-databus 1s linear infinite;
+        }
+        .wheel-thread-anim {
+          stroke-dasharray: 4 2;
+          animation: wheel-rot 1.5s linear infinite;
         }
       `}} />
 
@@ -1173,45 +1190,178 @@ export const ElecComponentsSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">ASAR_CIRCUITS // MODULE_01</span>
+            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Logic Component Selection</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Component Selection</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
+        {/* Left Column (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          {/* Sibling Card 1: Selected Hardware List */}
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Electronic Component Matrix</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              Selection criteria were strictly tailored for high reliability, stable clock timing, and low electrical noise ratios.
+            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Selected Hardware List</h3>
+            
+            {/* Structured Dual Column Component list */}
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11.5px] text-slate-800 font-bold uppercase pl-1 leading-tight">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>Arduino Mega 2560</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>ESP32 DevKit V1</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>L298N Motor Driver</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>JGA25-370 DC Motors</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>80mm Mecanum Wheels</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>LiDAR Sensor</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>4 Ultrasonic Sensors</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>MPU6050 IMU</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Sibling Card 2: Standalone Highlighted Selection Criteria Box */}
+          <div className="bg-blue-50/50 border border-blue-200/50 p-4 rounded-xl shadow-xs">
+            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-1.5 block">Selection Criteria</span>
+            <p className="text-[12.5px] text-slate-700 font-semibold leading-relaxed font-sans font-medium">
+              Every element has been strictly chosen for high reliability, stable clock timing, and low electrical noise ratios to guarantee safe, real-time indoor self-driving.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• DUAL CHIPS: ATMEGA2560 (8-BIT) & ESP32 (32-BIT DUAL CORE)</li>
-              <li>• SWITCHING: H-BRIDGE L298N BIPOLAR TORQUE MOTOR DRIVER</li>
-              <li>• SIGNAL SHIELDS: ELECTROSTATIC NOISE ISOLATION COVERS</li>
-            </ul>
           </div>
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
+        {/* Right column: Literal Top-Down Component-Mapped Robot Schematic */}
+        <div className="col-span-6 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              HARDWARE_LOGIC_INTEGRATION_MAP // SCHEMATIC
+              ASAR_HARDWARE_MAPPING_MODEL // COMPONENT_BLUEPRINT
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
               <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="30" y="30" width="80" height="100" rx="3" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.5" />
-                <rect x="190" y="30" width="80" height="100" rx="3" fill="#f8fafc" stroke="#10b981" strokeWidth="1.5" />
-                <line x1="110" y1="80" x2="190" y2="80" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3 3" className="signal-pulse" />
-                <text x="70" y="83" fill="#2563eb" textAnchor="middle" className="font-mono text-[8px] font-bold font-sans">ATMEGA2560</text>
-                <text x="230" y="83" fill="#10b981" textAnchor="middle" className="font-mono text-[8px] font-bold font-sans">ESP32-WROOM</text>
+                {/* 1. Wheels underneath Lower Plate */}
+                {/* Top-Left Wheel */}
+                <rect x="65" y="25" width="22" height="32" rx="3" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 67,27 L 83,32 M 67,35 L 83,40 M 67,43 L 83,48" stroke="#94a3b8" strokeWidth="1" className="wheel-thread-anim" />
+                
+                {/* Bottom-Left Wheel */}
+                <rect x="65" y="103" width="22" height="32" rx="3" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 67,105 L 83,110 M 67,113 L 83,118 M 67,121 L 83,126" stroke="#94a3b8" strokeWidth="1" className="wheel-thread-anim" />
+
+                {/* Top-Right Wheel */}
+                <rect x="213" y="25" width="22" height="32" rx="3" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 215,27 L 233,32 M 215,35 L 233,40 M 215,43 L 233,48" stroke="#94a3b8" strokeWidth="1" className="wheel-thread-anim" />
+
+                {/* Bottom-Right Wheel */}
+                <rect x="213" y="103" width="22" height="32" rx="3" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 215,105 L 233,110 M 215,113 L 233,118 M 215,121 L 233,126" stroke="#94a3b8" strokeWidth="1" className="wheel-thread-anim" />
+
+                {/* Main Chassis Base Plate */}
+                <rect x="87" y="32" width="126" height="96" rx="14" fill="rgba(37,99,235,0.04)" stroke="#2563eb" strokeWidth="2.5" />
+
+                {/* Moving Data Flow Arrows between sensors, CPU core and motors */}
+                <path d="M 150,55 V 80" stroke="#3b82f6" strokeWidth="1.5" className="databus-flow-line" />
+                <path d="M 150,80 L 76,41" stroke="#3b82f6" strokeWidth="1.5" className="databus-flow-line" />
+                <path d="M 150,80 L 76,119" stroke="#3b82f6" strokeWidth="1.5" className="databus-flow-line" />
+                <path d="M 150,80 L 224,41" stroke="#3b82f6" strokeWidth="1.5" className="databus-flow-line" />
+                <path d="M 150,80 L 224,119" stroke="#3b82f6" strokeWidth="1.5" className="databus-flow-line" />
+
+                {/* Central Dual CPU Module (Arduino Mega + ESP32) */}
+                <rect x="120" y="65" width="60" height="30" rx="2" fill="#eff6ff" stroke="#3b82f6" strokeWidth="1.5" />
+                <text x="150" y="82" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[6.5px] font-extrabold font-sans">DUAL CPU</text>
+
+                {/* Central LiDAR Scanner Dome */}
+                <circle cx="150" cy="80" r="18" fill="#f0fdf4" stroke="#10b981" strokeWidth="2" />
+                <circle cx="150" cy="80" r="7" fill="#111827" />
+                
+                {/* Spinning LiDAR Laser beam indicator */}
+                <line x1="150" y1="80" x2="166" y2="72" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" className="lidar-sweep-spin" />
+
+                {/* Pointers and Component Labels */}
+                {/* Pointer 1: Mecanum Wheels (Far Left) */}
+                <g>
+                  <path d="M 76,41 L 45,20 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="76" cy="41" r="2" fill="#475569" />
+                  <text x="5" y="15" fill="#334155" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">MECANUM WHEELS</text>
+                </g>
+
+                {/* Pointer 2: LiDAR Dome (Far Left) */}
+                <g>
+                  <path d="M 150,62 L 120,48 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="150" cy="62" r="2" fill="#047857" />
+                  <text x="5" y="43" fill="#047857" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">LIDAR SENSOR</text>
+                </g>
+
+                {/* Pointer 3: Arduino Mega 2560 (Far Left) */}
+                <g>
+                  <path d="M 135,85 L 115,100 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="135" cy="85" r="2" fill="#1d4ed8" />
+                  <text x="5" y="95" fill="#1d4ed8" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">MEGA 2560 MCU</text>
+                </g>
+
+                {/* Pointer 4: ESP32 co-processor (Far Right) */}
+                <g>
+                  <path d="M 165,85 L 185,100 H 215" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="165" cy="85" r="2" fill="#1d4ed8" />
+                  <text x="215" y="95" fill="#1d4ed8" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">ESP32 DEVKIT</text>
+                </g>
+
+                {/* Pointer 5: L298N driver (Far Left) */}
+                <g>
+                  <path d="M 150,95 L 130,115 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="150" cy="95" r="2" fill="#d97706" />
+                  <text x="5" y="110" fill="#d97706" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">L298N DRIVER</text>
+                </g>
+
+                {/* Pointer 6: JGA25 Motors (Far Right) */}
+                <g>
+                  <path d="M 224,119 L 254,135 H 215" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="224" cy="119" r="2" fill="#1e293b" />
+                  <text x="215" y="130" fill="#475569" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">JGA25 MOTORS</text>
+                </g>
+
+                {/* Pointer 7: MPU6050 Gyro (Far Left) */}
+                <g>
+                  <path d="M 135,75 L 105,60 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="135" cy="75" r="2" fill="#a78bfa" />
+                  <text x="5" y="55" fill="#7c3aed" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">MPU6050 IMU</text>
+                </g>
+
+                {/* Pointer 8: Front Sonar (Far Right) */}
+                <g>
+                  <path d="M 150,32 L 150,15 H 215" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="150" cy="32" r="2" fill="#2563eb" />
+                  <text x="215" y="10" fill="#2563eb" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">FRONT SONARS</text>
+                </g>
+
+                {/* Pointer 9: Rear Sonar (Far Right) */}
+                <g>
+                  <path d="M 150,128 L 150,145 H 215" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="150" cy="128" r="2" fill="#2563eb" />
+                  <text x="215" y="140" fill="#2563eb" textAnchor="start" className="font-mono text-[5.5px] font-extrabold font-sans">REAR SONARS</text>
+                </g>
               </svg>
             </div>
             <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Combining 8-bit deterministic speed with 32-bit dual-core computing power.
+              Physical layout outlines positions and data feedback paths of the selected electronics.
             </div>
           </div>
         </div>
@@ -1225,70 +1375,116 @@ export const ElecControllersSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes flow-packets {
-          0% { stroke-dashoffset: 60; }
+        @keyframes uart-burst {
+          0% { stroke-dashoffset: 40; }
           100% { stroke-dashoffset: 0; }
         }
-        .uart-flow {
-          stroke-dasharray: 8 4;
-          animation: flow-packets 2s linear infinite;
+        @keyframes wifi-pulse {
+          0%, 100% { opacity: 0.3; transform: scale(0.9); }
+          50% { opacity: 1.0; transform: scale(1.1); }
+        }
+        .uart-signal-line {
+          stroke-dasharray: 6 3;
+          animation: uart-burst 1s linear infinite;
+        }
+        .wifi-glowing {
+          animation: wifi-pulse 2s ease-in-out infinite;
+          transform-origin: 235px 50px;
         }
       `}} />
 
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
-      <div className="border-l-4 border-amber-500 pl-4 py-1 flex justify-between items-center z-10">
+      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">ASAR_CIRCUITS // MODULE_02</span>
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Dual-Controller Topology</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
+        {/* Left Column (col-span-6 to allow plenty of space) */}
+        <div className="col-span-6 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Bifurcated Computing separation</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              We separate high-frequency motor actuation from mathematical SLAM computations by partitioning critical tasks onto separate microcontrollers.
+            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Bifurcated Dual-Brain Computing</h3>
+            <p className="text-[13.5px] text-slate-700 font-semibold mb-4 leading-relaxed font-sans font-medium">
+              We separate low-level motor actuation from high-level mapping and decision algorithms by partitioning critical tasks onto separate microcontrollers. This bifurcated dual-brain topology eliminates computing lag and resolves latency bottlenecks.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• ARDUINO MEGA: HANDLES DETERMINISTIC Real-time PWM & SONARS</li>
-              <li>• ESP32 CORE: EXECUTES ASYNC SLAM, WI-FI API, & CLOUD ROUTING</li>
-              <li>• SYNC PROTOCOL: HIGH-RATE BI-DIRECTIONAL HARDWARE UART</li>
+            
+            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">Processing Division of Labor</span>
+            <ul className="space-y-2 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Arduino Mega 2560: Handles real-time motor PWM speed outputs and sonar poller interrupts</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>ESP32 Co-Processor: Executes SLAM environmental mapping and processes cloud AI API calls</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>UART communication: High-speed, CRC-8 validated serial packet bridge to prevent signal noise</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
+        {/* Right column: High-Fidelity Co-Processor PCB Layout */}
+        <div className="col-span-6 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              DIVERGENT_CONTROLLER_TOPOLOGY // ARCHITECTURE
+              DIVERGENT_CONTROLLER_TOPOLOGY // PCB_LAYOUT
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="20" y="30" width="105" height="100" rx="4" stroke="#2563eb" strokeWidth="1.5" fill="#f8fafc" />
-                <rect x="175" y="30" width="105" height="100" rx="4" stroke="#10b981" strokeWidth="1.5" fill="#f8fafc" />
-                <text x="72.5" y="50" fill="#2563eb" textAnchor="middle" className="font-mono text-[8px] font-bold">MEGA 2560 (8-BIT)</text>
-                <text x="72.5" y="80" fill="#334155" textAnchor="middle" className="font-mono text-[7px] font-semibold">REAL-TIME DRIVERS</text>
-                <text x="72.5" y="100" fill="#334155" textAnchor="middle" className="font-mono text-[7px] font-semibold">PWM MOTOR AXIS</text>
-                
-                <text x="227.5" y="50" fill="#10b981" textAnchor="middle" className="font-mono text-[8px] font-bold">ESP32 (32-BIT)</text>
-                <text x="227.5" y="80" fill="#334155" textAnchor="middle" className="font-mono text-[7px] font-semibold">SLAM PARSING</text>
-                <text x="227.5" y="100" fill="#334155" textAnchor="middle" className="font-mono text-[7px] font-semibold">MQTT / WI-FI STACK</text>
-                
-                {/* Active packet flow */}
-                <path d="M125 80 H175" stroke="#a78bfa" strokeWidth="2.5" className="uart-flow" />
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
+              <svg className="w-[95%] h-[95%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
+                {/* 1. Arduino Mega Block with pin headers along borders */}
+                <g>
+                  <rect x="15" y="20" width="100" height="120" rx="3" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.5" />
+                  <text x="65" y="40" fill="#2563eb" textAnchor="middle" className="font-mono text-[7px] font-extrabold">ARDUINO MEGA</text>
+                  <text x="65" y="50" fill="#94a3b8" textAnchor="middle" className="font-mono text-[5px]">8-BIT ATMEGA2560</text>
+                  <text x="65" y="80" fill="#475569" textAnchor="middle" className="font-mono text-[6px] font-bold font-sans">MOTOR PWM CORE</text>
+                  <text x="65" y="90" fill="#64748b" textAnchor="middle" className="font-mono text-[5.5px]">INTERRUPT MANAGER</text>
+
+                  {/* Pin headers row left */}
+                  <rect x="20" y="10" width="90" height="4" fill="#334155" />
+                  {/* Pin headers row right */}
+                  <rect x="20" y="146" width="90" height="4" fill="#334155" />
+                </g>
+
+                {/* 2. ESP32 Co-Processor Block with Pin lines */}
+                <g>
+                  <rect x="185" y="40" width="100" height="80" rx="4" stroke="#10b981" strokeWidth="1.5" fill="#f8fafc" />
+                  <text x="235" y="60" fill="#10b981" textAnchor="middle" className="font-mono text-[7px] font-extrabold">ESP32-WROOM</text>
+                  <text x="235" y="70" fill="#94a3b8" textAnchor="middle" className="font-mono text-[5px]">32-BIT DUAL CORE</text>
+                  <text x="235" y="95" fill="#047857" textAnchor="middle" className="font-mono text-[6px] font-bold font-sans">API CLOUD DECISION</text>
+                  <text x="235" y="105" fill="#64748b" textAnchor="middle" className="font-mono text-[5.5px]">SLAM MAP PROCESSOR</text>
+
+                  {/* Pulsing Wi-Fi signal indicator next to ESP32 */}
+                  <g className="wifi-glowing" style={{ transformOrigin: '235px 35px' }}>
+                    <path d="M 225,32 A 15,15 0 0,1 245,32" stroke="#10b981" strokeWidth="1" fill="none" />
+                    <path d="M 220,27 A 22,22 0 0,1 250,27" stroke="#34d399" strokeWidth="1.2" fill="none" />
+                  </g>
+                </g>
+
+                {/* 3. Bidirectional UART TX/RX Copper Bus Lines */}
+                {/* TX Line (Mega to ESP32) */}
+                <path d="M 115,65 H 185" stroke="#fbbf24" strokeWidth="1.5" className="uart-signal-line" />
+                <circle cx="115" cy="65" r="2" fill="#fbbf24" />
+                <text x="150" y="59" fill="#b45309" textAnchor="middle" className="font-mono text-[5px] font-extrabold">TX ➔ RX [115200 BAUD]</text>
+
+                {/* RX Line (ESP32 to Mega) */}
+                <path d="M 185,100 H 115" stroke="#f59e0b" strokeWidth="1.5" className="uart-signal-line" style={{ animationDirection: 'reverse' }} />
+                <circle cx="185" cy="100" r="2" fill="#f59e0b" />
+                <text x="150" y="111" fill="#b45309" textAnchor="middle" className="font-mono text-[5px] font-extrabold">RX ➔ TX [CRC-8 OK]</text>
               </svg>
             </div>
             <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Isolating motor drivers from compute cores removes latency overheads.
+              Bidirectional UART lines provide robust real-time co-processor synchronization.
             </div>
           </div>
         </div>
@@ -1320,7 +1516,7 @@ export const ElecPowerSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">ASAR_CIRCUITS // MODULE_03</span>
+            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Power Step-Down Regulators</h2>
         </div>
@@ -1397,7 +1593,7 @@ export const ElecBmsSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">ASAR_CIRCUITS // MODULE_04</span>
+            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">BMS Battery Protection</h2>
         </div>
@@ -1475,7 +1671,7 @@ export const ElecWiringSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">ASAR_CIRCUITS // MODULE_05</span>
+            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Sensor Interfacing Schematic</h2>
         </div>
@@ -1559,7 +1755,7 @@ export const SoftStaticSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_01</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Static Software Architecture</h2>
         </div>
@@ -1636,7 +1832,7 @@ export const SoftDynamicSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_02</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Dynamic Serial Handshakes</h2>
         </div>
@@ -1721,7 +1917,7 @@ export const SoftSlamSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_03</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">LiDAR SLAM Occupancy Mapping</h2>
         </div>
@@ -1809,7 +2005,7 @@ export const SoftKalmanSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_04</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Kalman Attitude Math</h2>
         </div>
@@ -1886,7 +2082,7 @@ export const SoftFsmSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_05</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">FSM Obstacle Avoidance Loop</h2>
         </div>
@@ -1963,7 +2159,7 @@ export const SoftGithubSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">ASAR_ALGORITHMS // MODULE_06</span>
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">VCS Integration & GitHub Hosting</h2>
         </div>

@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Slide, TransitionType } from '../types';
 import { DynamicSlide } from './AeroSlides';
-import { Move, RefreshCw, ZoomIn, ZoomOut, Compass, Sparkles } from 'lucide-react';
+import { Move, RefreshCw, ZoomIn, ZoomOut, Compass, Sparkles, Settings } from 'lucide-react';
 import { Background3D } from './Background3D';
 
 interface SlidesCanvasProps {
@@ -16,6 +16,7 @@ interface SlidesCanvasProps {
   isPresentationMode: boolean;
   onSelectSlide: (id: string) => void;
   onUpdateSlideCoordinates: (id: string, coords: { x: number; y: number; scale: number; rotate: number }) => void;
+  onUpdateSlide: (slide: Slide) => void;
   globalTransition: TransitionType;
 }
 
@@ -25,6 +26,7 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
   isPresentationMode,
   onSelectSlide,
   onUpdateSlideCoordinates,
+  onUpdateSlide,
   globalTransition,
 }) => {
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0];
@@ -45,9 +47,40 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
   const dragStartRef = useRef({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLDivElement>(null);
 
+  // States to support custom glowing red-dot cursor in presentation mode
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isMouseOver, setIsMouseOver] = useState(false);
+
   // Dragging individual slides in Design Mode
   const [draggingSlideId, setDraggingSlideId] = useState<string | null>(null);
   const slideDragOffset = useRef({ x: 0, y: 0 });
+
+  // State to support rotational handles dragging on canvas
+  const [rotatingSlideId, setRotatingSlideId] = useState<string | null>(null);
+
+  // Handle native wheel listener to safely bypass passive scrolling checks on modern browsers
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleNativeWheel = (e: WheelEvent) => {
+      if (isPresentationMode) return;
+      e.preventDefault(); // prevent page background scroll in editor
+
+      const zoomFactor = 0.03; // smooth zoom step
+      const delta = e.deltaY < 0 ? zoomFactor : -zoomFactor;
+
+      setZoom(prev => {
+        const nextZoom = parseFloat((prev + delta).toFixed(2));
+        return Math.min(Math.max(nextZoom, 0.05), 1.5); // restrict zoom between 5% and 150%
+      });
+    };
+
+    canvas.addEventListener('wheel', handleNativeWheel, { passive: false });
+    return () => {
+      canvas.removeEventListener('wheel', handleNativeWheel);
+    };
+  }, [isPresentationMode]);
 
   // Handle manual panning on canvas in Design Mode
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -62,7 +95,15 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isPanning) {
+    if (isPresentationMode) {
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (rect) {
+        setMousePos({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+      }
+    } else if (isPanning) {
       setPan({
         x: e.clientX - dragStartRef.current.x,
         y: e.clientY - dragStartRef.current.y,
@@ -84,12 +125,38 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
           });
         }
       }
+    } else if (rotatingSlideId) {
+      const slideToRotate = slides.find(s => s.id === rotatingSlideId);
+      if (slideToRotate) {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (rect) {
+          // Calculate screen center point of the slide card
+          const cx = rect.left + rect.width / 2 + pan.x + slideToRotate.coordinates.x * zoom;
+          const cy = rect.top + rect.height / 2 + pan.y + slideToRotate.coordinates.y * zoom;
+
+          const dx = e.clientX - cx;
+          const dy = e.clientY - cy;
+
+          // Calculate angle in degrees
+          let angleDeg = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
+          
+          // Add 90 degrees offset to compensate for the handle positioned above the center top
+          let finalAngle = (angleDeg + 90) % 360;
+          if (finalAngle < 0) finalAngle += 360;
+
+          onUpdateSlideCoordinates(rotatingSlideId, {
+            ...slideToRotate.coordinates,
+            rotate: finalAngle,
+          });
+        }
+      }
     }
   };
 
   const handleMouseUp = () => {
     setIsPanning(false);
     setDraggingSlideId(null);
+    setRotatingSlideId(null);
   };
 
   // Center on active slide in Design Mode
@@ -192,7 +259,11 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      onMouseEnter={() => setIsMouseOver(true)}
+      onMouseLeave={() => {
+        setIsMouseOver(false);
+        handleMouseUp();
+      }}
     >
       {/* 3D Responsive Background Animation with spatial depth */}
       <Background3D cameraX={cameraX} cameraY={cameraY} cameraZoom={cameraZoom} />
@@ -338,36 +409,148 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
                   />
                 </div>
 
-                {/* Editor-mode Node Controls (Drag handle, dimensions widget) */}
-                {!isPresentationMode && (
-                  <div className="absolute -top-12 left-0 right-0 flex justify-between items-center bg-white/95 backdrop-blur border border-gray-200/80 px-3 py-1.5 rounded-lg z-40 pointer-events-auto shadow-md">
-                    <div className="flex items-center gap-2">
-                      <span className="w-5 h-5 rounded bg-blue-50 border border-blue-200 flex items-center justify-center font-mono text-[10px] text-blue-600 font-bold">
-                        {slides.indexOf(slide) + 1}
-                      </span>
-                      <span className="font-mono text-[10px] text-gray-900 font-bold max-w-[120px] truncate">{slide.title}</span>
-                    </div>
-
-                    <div className="flex gap-2 text-[9px] font-mono text-gray-500">
-                      <span>X: {slide.coordinates.x}</span>
-                      <span>Y: {slide.coordinates.y}</span>
-                      <span>S: {slide.coordinates.scale}x</span>
-                      <span>R: {slide.coordinates.rotate}°</span>
-                    </div>
-
-                    {/* Draggable move anchor button */}
-                    <button
+                {/* Editor-mode Node Controls (Draggable title bar, Connected Rotation Handle, Floating Self-Positioning HUD) */}
+                {!isPresentationMode && isActive && (
+                  <>
+                    {/* Draggable Command Header Bar */}
+                    <div 
                       onMouseDown={(e) => {
+                        const target = e.target as HTMLElement;
+                        if (target.closest('input') || target.closest('button')) return; // let controls function
                         e.stopPropagation();
+                        e.preventDefault();
                         setDraggingSlideId(slide.id);
                         onSelectSlide(slide.id);
                       }}
-                      className="cursor-move p-1 bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600 border border-gray-200 rounded transition-colors"
-                      title="Hold and drag to reposition slide on canvas"
+                      className="absolute -top-14 left-0 right-0 h-14 flex justify-between items-center bg-slate-900 text-white border border-slate-800 px-4 py-2 rounded-t-xl z-40 pointer-events-auto shadow-lg cursor-grab active:cursor-grabbing font-mono select-none"
                     >
-                      <Move className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded bg-blue-600 flex items-center justify-center font-mono text-[10px] text-white font-bold">
+                          {slides.indexOf(slide) + 1}
+                        </span>
+                        <span className="font-mono text-[10px] text-slate-100 font-bold max-w-[150px] truncate uppercase">{slide.title}</span>
+                      </div>
+
+                      <div className="flex gap-4 text-[9px] font-mono text-slate-400">
+                        <span>X: {slide.coordinates.x}px</span>
+                        <span>Y: {slide.coordinates.y}px</span>
+                        <span>S: {slide.coordinates.scale}x</span>
+                        <span>R: {slide.coordinates.rotate}°</span>
+                      </div>
+
+                      <button
+                        className="p-1 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded border border-slate-700 pointer-events-none"
+                        title="Grab and drag anywhere on this dark header bar to move slide"
+                      >
+                        <Move className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    {/* Circular Connected Rotation Handle */}
+                    <div className="absolute left-1/2 -translate-x-1/2 -top-14 w-[1px] h-12 bg-blue-500 z-30 pointer-events-none" />
+                    <div 
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setRotatingSlideId(slide.id);
+                      }}
+                      className="absolute left-1/2 -translate-x-1/2 -top-26 w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 border-2 border-white flex items-center justify-center cursor-alias shadow-lg text-white pointer-events-auto hover:scale-110 active:scale-95 transition-transform z-40"
+                      title="Hold and drag circular handle around slide center to rotate"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5 animate-pulse" />
+                    </div>
+
+                    {/* Self-Positioning floating dark HUD parameter board underneath card */}
+                    <div 
+                      className="absolute top-[700px] left-1/2 -translate-x-1/2 w-[760px] bg-slate-900/98 backdrop-blur border border-slate-800 p-5 rounded-xl shadow-2xl flex flex-col gap-4 text-white pointer-events-auto select-text z-40 font-sans"
+                      onMouseDown={(e) => e.stopPropagation()} // stop canvas drag events while editing
+                    >
+                      <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+                        <span className="font-mono text-xs text-blue-400 font-bold uppercase tracking-wider flex items-center gap-2">
+                          <Settings className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} />
+                          Slide Spatial Coordinates & Content Controller
+                        </span>
+                        <span className="font-mono text-[10px] text-slate-500 uppercase">{slide.id}</span>
+                      </div>
+
+                      {/* Title / Subtitle Text Controls */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Slide Title</label>
+                          <input
+                            type="text"
+                            value={slide.title}
+                            onChange={(e) => onUpdateSlide({ ...slide, title: e.target.value })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-sans focus:outline-none focus:border-blue-500 transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Slide Subtitle / Description</label>
+                          <input
+                            type="text"
+                            value={slide.subtitle}
+                            onChange={(e) => onUpdateSlide({ ...slide, subtitle: e.target.value })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 font-sans focus:outline-none focus:border-blue-500 transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Precise Coordinate Inputs */}
+                      <div className="grid grid-cols-4 gap-4 pt-1">
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">X Coord (px)</label>
+                          <input
+                            type="number"
+                            value={slide.coordinates.x}
+                            onChange={(e) => onUpdateSlide({
+                              ...slide,
+                              coordinates: { ...slide.coordinates, x: parseInt(e.target.value) || 0 }
+                            })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Y Coord (px)</label>
+                          <input
+                            type="number"
+                            value={slide.coordinates.y}
+                            onChange={(e) => onUpdateSlide({
+                              ...slide,
+                              coordinates: { ...slide.coordinates, y: parseInt(e.target.value) || 0 }
+                            })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Scale Scale (1.0 = 100%)</label>
+                          <input
+                            type="number"
+                            step="0.1"
+                            min="0.1"
+                            max="3.0"
+                            value={slide.coordinates.scale}
+                            onChange={(e) => onUpdateSlide({
+                              ...slide,
+                              coordinates: { ...slide.coordinates, scale: parseFloat(e.target.value) || 1.0 }
+                            })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Rotation Angle (deg)</label>
+                          <input
+                            type="number"
+                            value={slide.coordinates.rotate}
+                            onChange={(e) => onUpdateSlide({
+                              ...slide,
+                              coordinates: { ...slide.coordinates, rotate: parseInt(e.target.value) || 0 }
+                            })}
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 )}
               </motion.div>
             );
@@ -407,6 +590,22 @@ export const SlidesCanvas: React.FC<SlidesCanvasProps> = ({
             <Compass className="w-4 h-4" />
           </button>
         </div>
+      )}
+
+      {/* Custom Glowing Laser Pointer Cursor (visible in full presentation) */}
+      {isPresentationMode && isMouseOver && (
+        <div 
+          className="absolute rounded-full bg-red-500 pointer-events-none z-50 shadow-[0_0_8px_#ef4444,0_0_15px_#ef4444,0_0_25px_#ef4444]"
+          style={{
+            left: 0,
+            top: 0,
+            width: '12px',
+            height: '12px',
+            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) translate(-50%, -50%)`,
+            border: '2px solid rgba(255,255,255,0.9)',
+            willChange: 'transform',
+          }}
+        />
       )}
     </div>
   );

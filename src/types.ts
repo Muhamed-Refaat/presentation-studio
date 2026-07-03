@@ -16,13 +16,9 @@ export interface Slide {
   id: string;
   title: string;
   subtitle: string;
-  type: 'mission_control' | 'metrics' | 'team' | 'perception' | 'power' | 'architecture' | 'custom';
+  type: 'mission_control' | 'metrics' | 'team' | 'perception' | 'power' | 'architecture';
   coordinates: SlideCoordinates;
   transitionType?: TransitionType;
-  customData?: {
-    bodyText?: string;
-    stats?: { label: string; value: string }[];
-  };
 }
 
 export interface ExecutionLog {

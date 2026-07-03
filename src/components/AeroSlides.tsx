@@ -910,82 +910,6 @@ export const ArchitectureSlide: React.FC = () => {
   );
 };
 
-// Simple Fallback/Custom slide
-export const CustomSlide: React.FC<{ slide: any }> = ({ slide }) => {
-  return (
-    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-12 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-[scan_3s_linear_infinite]" />
-      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] bg-[size:32px_32px] opacity-70 pointer-events-none" />
-
-      {/* Design accents */}
-      <div className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-blue-200/60" />
-      <div className="absolute top-10 right-10 w-8 h-8 border-t-2 border-r-2 border-blue-200/60" />
-      <div className="absolute bottom-10 left-10 w-8 h-8 border-b-2 border-l-2 border-blue-200/60" />
-      <div className="absolute bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-blue-200/60" />
-
-      {/* Header */}
-      <div className="flex justify-between items-center border-l-4 border-blue-600 pl-4 py-1">
-        <div>
-          <span className="font-mono text-[9px] text-blue-600 tracking-wider font-bold uppercase block mb-1">AUTOMATED WORKSPACE // CUSTOM VIEW</span>
-          <h2 className="text-4xl font-extrabold uppercase tracking-tight text-gray-900">{slide.title}</h2>
-        </div>
-        <div className="font-mono text-[10px] text-gray-400 font-bold">{slide.id.toUpperCase()}</div>
-      </div>
-
-      {/* Body */}
-      <div className="my-auto max-w-3xl font-sans text-gray-500 font-semibold text-lg leading-relaxed z-10">
-        <p className="mb-6">
-          {slide.subtitle}
-        </p>
-        {slide.customData?.bodyText ? (
-          <p className="border-l-2 border-blue-500 pl-6 text-base italic text-gray-600">
-            {slide.customData.bodyText}
-          </p>
-        ) : (
-          <p className="border-l-2 border-blue-500 pl-6 text-base italic text-gray-600">
-            This slide was dynamically generated and positioned on the infinite spatial grid. Use Google Apps Script controls to manipulate its coordinates and dimensions in real time.
-          </p>
-        )}
-      </div>
-
-      {/* Info Stats widgets */}
-      <div className="grid grid-cols-4 gap-4 z-10 bg-gray-50/80 p-4 rounded-lg border border-gray-150">
-        {slide.customData?.stats?.map((s: any, i: number) => (
-          <div key={i} className="border-r border-gray-200 last:border-0 px-2">
-            <span className="font-mono text-[9px] text-blue-600 font-bold uppercase block mb-0.5">{s.label}</span>
-            <span className="font-mono font-bold text-sm text-emerald-600">{s.value}</span>
-          </div>
-        )) || (
-          <>
-            <div className="border-r border-gray-200 px-2">
-              <span className="font-mono text-[9px] text-blue-600 font-bold uppercase block mb-0.5">X_COORD</span>
-              <span className="font-mono font-bold text-sm text-emerald-600">{slide.coordinates.x}px</span>
-            </div>
-            <div className="border-r border-gray-200 px-2">
-              <span className="font-mono text-[9px] text-blue-600 font-bold uppercase block mb-0.5">Y_COORD</span>
-              <span className="font-mono font-bold text-sm text-emerald-600">{slide.coordinates.y}px</span>
-            </div>
-            <div className="border-r border-gray-200 px-2">
-              <span className="font-mono text-[9px] text-blue-600 font-bold uppercase block mb-0.5">SCALE</span>
-              <span className="font-mono font-bold text-sm text-emerald-600">{slide.coordinates.scale}x</span>
-            </div>
-            <div className="px-2">
-              <span className="font-mono text-[9px] text-blue-600 font-bold uppercase block mb-0.5">ROTATION</span>
-              <span className="font-mono font-bold text-sm text-emerald-600">{slide.coordinates.rotate}°</span>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="flex justify-between text-[10px] font-mono text-gray-400 font-bold uppercase">
-        <span>GENERATED VIA SCRIPT RUNNER</span>
-        <span>AERO_BOTICS COMPACT DECK v4.2</span>
-      </div>
-    </div>
-  );
-};
-
 // Dispatcher component that selects the slide render template
 import { Slide } from '../types';
 
@@ -1010,8 +934,7 @@ export const DynamicSlide: React.FC<DynamicSlideProps> = ({ slide, onStartPlay, 
       return <PowerSlide />;
     case 'architecture':
       return <ArchitectureSlide />;
-    case 'custom':
     default:
-      return <CustomSlide slide={slide} />;
+      return null;
   }
 };

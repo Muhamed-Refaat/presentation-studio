@@ -74,10 +74,6 @@ export default function App() {
   }, [isAutoPlaying, activeIndex, slides]);
 
   // Handle slide CRUD operations
-  const handleAddSlide = (newSlide: Slide) => {
-    setSlides(prev => [...prev, newSlide]);
-  };
-
   const handleDeleteSlide = (id: string) => {
     if (id === 'slide_1') return; // protect introduction cover slide
     setSlides(prev => prev.filter(s => s.id !== id));
@@ -255,7 +251,6 @@ export default function App() {
             slides={slides}
             activeSlideId={activeSlideId}
             onSelectSlide={handleSelectSlide}
-            onAddSlide={handleAddSlide}
             onDeleteSlide={handleDeleteSlide}
             onUpdateSlide={handleUpdateSlide}
             onReorderSlides={handleReorderSlides}
@@ -272,6 +267,7 @@ export default function App() {
             isPresentationMode={isPresentationMode}
             onSelectSlide={handleSelectSlide}
             onUpdateSlideCoordinates={handleUpdateSlideCoordinates}
+            onUpdateSlide={handleUpdateSlide}
             globalTransition={globalTransition}
           />
         </div>

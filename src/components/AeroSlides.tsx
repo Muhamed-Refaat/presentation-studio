@@ -806,41 +806,104 @@ export const MechChassisSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_MECHANICS // MODULE_01</span>
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Mechanical Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Chassis Design & 3D Geometry</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
+        {/* Left Column (col-span-6 to allow plenty of space for the Merit List) */}
+        <div className="col-span-6 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-blue-600 font-bold uppercase mb-2">Structural Acrylic Design</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              Our 3D geometry utilizes a rounded double-deck chassis configuration. The dual-level layout separates logical compute elements from high-torque motor vibrations.
+            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Structural Acrylic Design</h3>
+            <p className="text-[13.5px] text-slate-700 font-semibold mb-4 leading-relaxed font-sans font-medium">
+              Our robot uses a rounded double-deck chassis. The dual-level layout separates logical compute elements from high-torque motor vibrations, keeping our delicate sensors stable.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• SHAPE: AERODYNAMIC ROUNDED CORNER CORRIDOR DESIGN</li>
-              <li>• LEVELS: TWIN PLATE COMPACT STACK (BASE + COMPUTER LEVEL)</li>
-              <li>• PROFILE: LOW VERTICAL CENTER OF GRAVITY IN LOCOMOTION</li>
+            
+            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">System Advantages (Merits)</span>
+            <ul className="space-y-2 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Lightweight Build: Lowers motor power draw so our battery pack lasts much longer</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Open for Diagnostics & Ventilation: Allows us to quickly check for overheated components</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Easy Troubleshooting: Seamlessly inspect, repair, and patch our wiring connections</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Durable Acrylic: Robust material that endures heat and collisions without fracturing</span>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Right column: 3D CAD schematic with white background */}
-        <div className="col-span-7 h-full">
+        <div className="col-span-6 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
+            <style dangerouslySetInnerHTML={{__html: `
+              @keyframes hover-chassis {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-6px); }
+              }
+              .chassis-3d-float {
+                animation: hover-chassis 4s ease-in-out infinite;
+              }
+              @keyframes scan-laser {
+                0%, 100% { transform: translateY(0px); opacity: 0.2; }
+                50% { transform: translateY(110px); opacity: 0.9; }
+              }
+              .chassis-laser {
+                animation: scan-laser 3s ease-in-out infinite;
+              }
+            `}} />
+
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              CHASSIS_CAD_WIRE_V4 // ISOMETRIC_TOPOLOGY
+              ASAR_PHYSICAL_CHASSIS_LAYOUT // 3D_ISOMETRIC_VIEW
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible chassis-float" viewBox="0 0 300 160" fill="none">
-                <polygon points="150,130 220,105 220,65 150,90 80,105 80,65" stroke="#2563eb" strokeWidth="2.5" fill="rgba(37,99,235,0.03)" />
-                <polygon points="150,95 220,70 220,30 150,55 80,70 80,30" stroke="#60a5fa" strokeWidth="2.5" fill="rgba(96,165,250,0.08)" />
-                <line x1="80" y1="105" x2="80" y2="70" stroke="#94a3b8" strokeWidth="2" strokeDasharray="3 3" />
-                <line x1="220" y1="105" x2="220" y2="70" stroke="#94a3b8" strokeWidth="2" strokeDasharray="3 3" />
-                <line x1="150" y1="130" x2="150" y2="95" stroke="#94a3b8" strokeWidth="2" />
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
+              {/* Sweeping Laser Scan line across the 3D layout */}
+              <div className="absolute top-[30px] left-1/2 -translate-x-1/2 w-[85%] h-[2px] bg-blue-500 chassis-laser pointer-events-none z-10 shadow-[0_0_6px_rgba(59,130,246,0.7)]" />
+
+              <svg className="w-[90%] h-[90%] text-slate-400 overflow-visible chassis-3d-float" viewBox="0 0 300 165" fill="none">
+                {/* 1. Lower Deck Plate (Thick Isometric Blue Acrylic) */}
+                {/* Side thickness faces */}
+                <polygon points="80,105 150,135 150,140 80,110" fill="#1d4ed8" stroke="#1e40af" strokeWidth="1" />
+                <polygon points="150,135 220,105 220,110 150,140" fill="#1d4ed8" stroke="#1e40af" strokeWidth="1" />
+                {/* Top face */}
+                <polygon points="80,105 150,135 220,105 150,75" fill="rgba(37,99,235,0.06)" stroke="#2563eb" strokeWidth="2.2" />
+
+                {/* 2. Supporting Metal Pillars (Vertical cylinders) */}
+                <line x1="100" y1="102" x2="100" y2="65" stroke="#94a3b8" strokeWidth="3" />
+                <line x1="200" y1="102" x2="200" y2="65" stroke="#94a3b8" strokeWidth="3" />
+                <line x1="150" y1="117" x2="150" y2="80" stroke="#64748b" strokeWidth="3.5" />
+
+                {/* 3. Upper Deck Plate (Thick Isometric Cyan Acrylic) */}
+                {/* Side thickness faces */}
+                <polygon points="100,65 150,85 150,89 100,69" fill="#2563eb" stroke="#1d4ed8" strokeWidth="1" />
+                <polygon points="150,85 200,65 200,69 150,89" fill="#2563eb" stroke="#1d4ed8" strokeWidth="1" />
+                {/* Top face */}
+                <polygon points="100,65 150,85 200,65 150,45" fill="rgba(96,165,250,0.12)" stroke="#60a5fa" strokeWidth="2.2" />
+
+                {/* 4. Merit Pointer Labels */}
+                {/* Merit A: Durable Acrylic */}
+                <g>
+                  <path d="M 80,105 L 45,95 H 10" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="80" cy="105" r="2.5" fill="#ef4444" />
+                  <text x="10" y="90" fill="#334155" className="font-mono text-[5.5px] font-extrabold">DURABLE ACRYLIC</text>
+                </g>
+
+                {/* Merit B: Open Frame Diagnostics & Ventilation */}
+                <g>
+                  <path d="M 120,95 L 90,120 H 5" stroke="#64748b" strokeWidth="0.8" />
+                  <circle cx="120" cy="95" r="2.5" fill="#fbbf24" />
+                  <text x="5" y="115" fill="#d97706" className="font-mono text-[5.5px] font-extrabold">OPEN DIAGNOSIS & VENTILATION</text>
+                </g>
               </svg>
             </div>
             <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
@@ -858,21 +921,21 @@ export const MechPowertrainSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes trace-glow {
-          0% { stroke-dashoffset: 240; }
+        @keyframes signal-pwm {
+          0% { stroke-dashoffset: 32; }
           100% { stroke-dashoffset: 0; }
         }
-        .curve-trace {
-          stroke-dasharray: 240;
-          stroke-dashoffset: 240;
-          animation: trace-glow 4s linear infinite;
+        @keyframes wheel-spin-slow {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -12; }
         }
-        @keyframes gliders {
-          0% { cx: 40; cy: 140; }
-          100% { cx: 260; cy: 30; }
+        .pwm-wire {
+          stroke-dasharray: 6 3;
+          animation: signal-pwm 1s linear infinite;
         }
-        .tracer-dot {
-          animation: gliders 4s ease-in-out infinite;
+        .wheel-thread-anim {
+          stroke-dasharray: 4 2;
+          animation: wheel-spin-slow 1s linear infinite;
         }
       `}} />
 
@@ -884,53 +947,86 @@ export const MechPowertrainSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_MECHANICS // MODULE_02</span>
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Mechanical Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Power Train System & Motors</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Specs */}
-        <div className="col-span-5 flex flex-col gap-4">
+        {/* Left Specs (col-span-6 to allow plenty of space for the Merit List) */}
+        <div className="col-span-6 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-blue-600 font-bold uppercase mb-2">Locomotion Actuators</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              The robot is powered by four **JGA25-370 DC Geared Motors** integrated with 1:48 gear boxes, providing robust low-end torque profiles.
+            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Independent Hub Actuation</h3>
+            <p className="text-[13.5px] text-slate-700 font-semibold mb-4 leading-relaxed font-sans font-medium">
+              ASAR utilizes a 4-wheeled power train where each wheel hub is driven by its own independent geared DC motor. This 4-wheel independent setup provides massive torque and lets us control each wheel separately for smart driving maneuvers.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• TYPE: JGA25-370 HIGH-TORQUE BRUSHED GEARED MOTORS</li>
-              <li>• GEAR RATIO: 1:48 COUPLING TO 80MM MECANUMS</li>
-              <li>• SYNC LOOP: INDEPENDENT FOUR-WHEEL ENCODER ALIGNMENT</li>
+            
+            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">Powertrain Merits (Advantages)</span>
+            <ul className="space-y-2 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>4-Wheel Independence: Each wheel hub has its own motor, allowing us to control speeds individually</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>High Startup Torque: Generates immense physical torque to easily carry heavy computing boards and battery packs</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Isolated Back-Up Safety: If one motor or gear fails, the remaining wheels can keep the robot moving</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Zero-Radius Pivoting: Allows the robot to translate sideways or rotate on its center point without changing angle</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Right chart: White Background */}
-        <div className="col-span-7 h-full">
+        {/* Right column: 4-Wheel Independent Actuation Map with white background */}
+        <div className="col-span-6 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              MOTOR_TORQUE_PWM_CURVE // DATA_INTEGRITY
+              INDEPENDENT_4WD_ACTUATION_MAP // CONTROL_BLUEPRINT
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
               <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <path d="M 40,20 L 40,140 L 280,140" stroke="#94a3b8" strokeWidth="1.5" />
-                {/* Secondary guide lines */}
-                <line x1="40" y1="85" x2="280" y2="85" stroke="#e2e8f0" strokeWidth="1" />
-                <line x1="160" y1="20" x2="160" y2="140" stroke="#e2e8f0" strokeWidth="1" />
-                
-                {/* Moving Graph Curve line */}
-                <path d="M 40,140 Q 140,80 260,30" stroke="#2563eb" strokeWidth="2.5" className="curve-trace" />
-                
-                {/* Gliding target point indicator */}
-                <circle cx="260" cy="30" r="5" fill="#10b981" stroke="white" strokeWidth="1.5" className="tracer-dot" />
-                
-                <text x="230" y="25" fill="#2563eb" className="font-mono text-[8.5px] font-extrabold">TORQUE (N·m)</text>
-                <text x="210" y="152" fill="#475569" className="font-mono text-[8px] font-bold">PWM DUTY CYCLE</text>
+                {/* 4 Corner Independent Motor Hubs */}
+                {/* Front-Left Motor */}
+                <rect x="35" y="15" width="20" height="30" rx="2" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 37,17 L 53,22 M 37,25 L 53,30 M 37,33 L 53,38" stroke="#cbd5e1" strokeWidth="1" className="wheel-thread-anim" />
+                <text x="45" y="55" fill="#475569" textAnchor="middle" className="font-mono text-[5.5px] font-bold">M1 (FL)</text>
+
+                {/* Rear-Left Motor */}
+                <rect x="35" y="105" width="20" height="30" rx="2" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 37,107 L 53,112 M 37,115 L 53,120 M 37,123 L 53,128" stroke="#cbd5e1" strokeWidth="1" className="wheel-thread-anim" />
+                <text x="45" y="145" fill="#475569" textAnchor="middle" className="font-mono text-[5.5px] font-bold">M3 (RL)</text>
+
+                {/* Front-Right Motor */}
+                <rect x="245" y="15" width="20" height="30" rx="2" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 247,17 L 263,22 M 247,25 L 263,30 M 247,33 L 263,38" stroke="#cbd5e1" strokeWidth="1" className="wheel-thread-anim" />
+                <text x="255" y="55" fill="#475569" textAnchor="middle" className="font-mono text-[5.5px] font-bold">M2 (FR)</text>
+
+                {/* Rear-Right Motor */}
+                <rect x="245" y="105" width="20" height="30" rx="2" fill="#334155" stroke="#1e293b" strokeWidth="1" />
+                <path d="M 247,107 L 263,112 M 247,115 L 263,120 M 247,123 L 263,128" stroke="#cbd5e1" strokeWidth="1" className="wheel-thread-anim" />
+                <text x="255" y="145" fill="#475569" textAnchor="middle" className="font-mono text-[5.5px] font-bold">M4 (RR)</text>
+
+                {/* Central L298N Dual Motor Driver Block */}
+                <rect x="120" y="60" width="60" height="40" rx="3" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.5" />
+                <text x="150" y="78" fill="#2563eb" textAnchor="middle" className="font-mono text-[7px] font-bold">L298N DRIVER</text>
+                <text x="150" y="88" fill="#64748b" textAnchor="middle" className="font-mono text-[5px]">PWM CONTROLLERS</text>
+
+                {/* Independent PWM signal lines flowing outward to corner motors */}
+                <path d="M 120,70 L 55,30" stroke="#3b82f6" strokeWidth="1.5" className="pwm-wire" />
+                <path d="M 120,90 L 55,120" stroke="#3b82f6" strokeWidth="1.5" className="pwm-wire" />
+                <path d="M 180,70 L 245,30" stroke="#3b82f6" strokeWidth="1.5" className="pwm-wire" />
+                <path d="M 180,90 L 245,120" stroke="#3b82f6" strokeWidth="1.5" className="pwm-wire" />
               </svg>
             </div>
             <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              High-torque output is managed dynamically via linear PWM voltage increments.
+              Geared motor hubs receive independent duty cycle signals to calibrate speed vectors.
             </div>
           </div>
         </div>
@@ -945,95 +1041,19 @@ export const MechSteeringSlide: React.FC = () => {
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes pulsate-arrows {
-          0%, 100% { transform: scale(1.0); opacity: 0.6; }
-          50% { transform: scale(1.1); opacity: 1.0; }
+          0%, 100% { transform: scale(1.0); opacity: 0.5; }
+          50% { transform: scale(1.15); opacity: 1.0; }
+        }
+        @keyframes rotate-steer {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
         .kinetic-pulse {
-          animation: pulsate-arrows 3s ease-in-out infinite;
-          transform-origin: center;
+          animation: pulsate-arrows 2s ease-in-out infinite;
+          transform-origin: 150px 80px;
         }
-      `}} />
-
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
-      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
-
-      {/* Slide Header */}
-      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
-        <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_MECHANICS // MODULE_03</span>
-          </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Steering System & Kinematics</h2>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-blue-600 font-bold uppercase mb-2">Mecanum Drive Kinematics</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              Our 80mm Mecanum wheels enable omni-directional motion. Angled rollers translate diagonal force vectors, allowing the chassis to move sideways without changing rotation.
-            </p>
-            <div className="bg-slate-50 border border-gray-200 p-3 rounded-lg mb-2">
-              <code className="font-mono text-[9.5px] text-slate-800 font-bold block leading-relaxed">
-                Vx = R/4 * (w1 + w2 + w3 + w4) <br />
-                Vy = R/4 * (-w1 + w2 - w3 + w4)
-              </code>
-            </div>
-            <span className="text-[8px] font-mono text-gray-400 block font-semibold">Where w represents individual motor angular speeds.</span>
-          </div>
-        </div>
-
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              DIFFERENTIAL_MECANUM_VECTORS // VECTOR_GRID
-            </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="80" y="30" width="140" height="100" rx="4" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="3 3" />
-                <rect x="65" y="20" width="15" height="40" rx="2" fill="#e2e8f0" stroke="#2563eb" strokeWidth="1.5" />
-                <rect x="220" y="20" width="15" height="40" rx="2" fill="#e2e8f0" stroke="#2563eb" strokeWidth="1.5" />
-                <rect x="65" y="100" width="15" height="40" rx="2" fill="#e2e8f0" stroke="#2563eb" strokeWidth="1.5" />
-                <rect x="220" y="100" width="15" height="40" rx="2" fill="#e2e8f0" stroke="#2563eb" strokeWidth="1.5" />
-                
-                {/* Slanted lines on wheels simulating mecanum rollers */}
-                <line x1="65" y1="30" x2="80" y2="40" stroke="#2563eb" strokeWidth="1" />
-                <line x1="65" y1="40" x2="80" y2="50" stroke="#2563eb" strokeWidth="1" />
-                <line x1="220" y1="30" x2="235" y2="40" stroke="#2563eb" strokeWidth="1" />
-                <line x1="220" y1="40" x2="235" y2="50" stroke="#2563eb" strokeWidth="1" />
-                
-                {/* Pulsing kinetic forces */}
-                <g className="kinetic-pulse" style={{ transformOrigin: '150px 80px' }}>
-                  <path d="M72.5 10 L72.5 35 M68 20 L72.5 10 L77 20" stroke="#10b981" strokeWidth="2" />
-                  <path d="M227.5 150 L227.5 125 M223 140 L227.5 150 L232 140" stroke="#ef4444" strokeWidth="2" />
-                </g>
-              </svg>
-            </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Counter-rotation of wheel clusters enables tight, obstacle-free zero-turn pivots.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ========================================== SLIDE 9: WHEELS & TRACTION ==========================================
-export const MechTractionSlide: React.FC = () => {
-  return (
-    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes spins {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .tire-spin {
-          animation: spins 8s linear infinite;
+        .steering-rotator {
+          animation: rotate-steer 8s linear infinite;
           transform-origin: 150px 80px;
         }
       `}} />
@@ -1046,116 +1066,81 @@ export const MechTractionSlide: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_MECHANICS // MODULE_04</span>
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Mechanical Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Wheel Selection & Ground Traction</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Steering System & Kinematics</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
+        {/* Left Column (col-span-6 to allow plenty of space for the list) */}
+        <div className="col-span-6 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-blue-600 font-bold uppercase mb-2">Traction & Ground Dynamics</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              We selected high-grip synthetic rubber tires on 80mm hubs to maximize friction and prevent rotational drift on smooth laboratory tiled surfaces.
+            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Coordinated Wheel Kinematics</h3>
+            <p className="text-[13.5px] text-slate-700 font-semibold mb-4 leading-relaxed font-sans font-medium">
+              Our robot uses a coordinated differential system with four independent Mecanum wheels. By spinning each wheel in different directions, we can drive the robot in any direction without changing its angle.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• MATERIAL: FLEXIBLE HIGH-FRICTION RUBBER CONSOLE</li>
-              <li>• PROFILE: LATERAL RIBBED FOR ZERO DRIFT ON TURN</li>
-              <li>• SURFACE EXP: LABORATORY TILES / SMOOTH WORKING SPACES</li>
+            
+            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">System Advantages</span>
+            <ul className="space-y-2 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Omni-directional movement: The robot can drive in any direction instantly</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Better maneuverability: Extremely easy to steer and turn in tight spaces</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Ability to move sideways: Can drive directly left or right to align with targets</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span>Precise indoor navigation: Perfect for navigating narrow corridors and rooms</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
+        {/* Right column: 8-Directional Vector Map with white background */}
+        <div className="col-span-6 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              WHEEL_COEFFICIENT_GRID // FRICTION_ANALYSIS
+              OMNI_DIRECTIONAL_STEERING_VECTORS // MOTION_MAP
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
               <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <g className="tire-spin">
-                  <circle cx="150" cy="80" r="45" stroke="#2563eb" strokeWidth="2.5" />
-                  <circle cx="150" cy="80" r="15" stroke="#94a3b8" strokeWidth="1.5" />
-                  <path d="M150 35 V125 M105 80 H195" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
+                {/* 2D Chassis Top-down Outline */}
+                <rect x="100" y="45" width="100" height="70" rx="6" stroke="#94a3b8" strokeWidth="2" strokeDasharray="3 2" fill="rgba(241,245,249,0.5)" />
+                <rect x="90" y="40" width="10" height="20" rx="1" fill="#334155" />
+                <rect x="90" y="100" width="10" height="20" rx="1" fill="#334155" />
+                <rect x="200" y="40" width="10" height="20" rx="1" fill="#334155" />
+                <rect x="200" y="100" width="10" height="20" rx="1" fill="#334155" />
+
+                {/* Coordinated Rotating Steering Ring */}
+                <circle cx="150" cy="80" r="42" stroke="rgba(37,99,235,0.15)" strokeWidth="1.5" strokeDasharray="6 4" className="steering-rotator" />
+
+                {/* 8-Directional Kinematic Motion Vectors */}
+                <g className="kinetic-pulse">
+                  {/* Forward & Reverse */}
+                  <path d="M 150,45 V 15 M 146,25 L 150,15 L 154,25" stroke="#2563eb" strokeWidth="1.8" />
+                  <path d="M 150,115 V 145 M 146,135 L 150,145 L 154,135" stroke="#2563eb" strokeWidth="1.8" />
+                  
+                  {/* Sideways Left & Right */}
+                  <path d="M 100,80 H 60 M 70,76 L 60,80 L 70,84" stroke="#ef4444" strokeWidth="2.2" />
+                  <path d="M 200,80 H 240 M 230,76 L 240,80 L 230,84" stroke="#ef4444" strokeWidth="2.2" />
+
+                  {/* Diagonals */}
+                  <path d="M 115,55 L 90,30 M 102,32 L 90,30 L 98,42" stroke="#10b981" strokeWidth="1.5" />
+                  <path d="M 185,55 L 210,30 M 198,32 L 210,30 L 202,42" stroke="#10b981" strokeWidth="1.5" />
+                  <path d="M 115,105 L 90,130 M 102,128 L 90,130 L 98,118" stroke="#10b981" strokeWidth="1.5" />
+                  <path d="M 185,105 L 210,130 M 198,128 L 210,130 L 202,118" stroke="#10b981" strokeWidth="1.5" />
                 </g>
-                <text x="156" y="55" fill="#2563eb" className="font-mono text-[8px] font-bold">MECANUM_ROLLER_TREAD</text>
               </svg>
             </div>
             <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Lateral grip configurations minimize angle slips and positional odometry drift.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ========================================== SLIDE 10: STRESS & VIBRATIONS ==========================================
-export const MechStructureSlide: React.FC = () => {
-  return (
-    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes scroll-feed {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -120; }
-        }
-        .feed-scroll {
-          stroke-dasharray: 12 6;
-          animation: scroll-feed 3s linear infinite;
-        }
-      `}} />
-
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
-      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
-
-      {/* Slide Header */}
-      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
-        <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_MECHANICS // MODULE_05</span>
-          </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Stress Analysis & Vibrations</h2>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-blue-600 font-bold uppercase mb-2">Vibration Dampening</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              We calculated the stress loads of structural columns. The upper acrylic plate is isolated via synthetic rubber washers to prevent motor vibrations from causing gyroscope drift inside the IMU.
-            </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• STRESS MARGIN: HIGH FACTOR OF SAFETY (&gt; 3.0)</li>
-              <li>• DAMPENING: RUBBER ISOLATION SLEEVES ON SCREWS</li>
-              <li>• FREQUENCY RESONANCE: COMPLETELY FILTERED COUPLING</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              VIBRATION_RESONANCE_ANALYSIS // DATA_GRAPH
-            </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <path d="M 40,20 L 40,140 L 280,140" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M 40,80 Q 90,140 140,80 T 240,80" stroke="#f59e0b" strokeWidth="1.5" className="feed-scroll" />
-                <path d="M 40,80 Q 90,90 140,80 T 240,80" stroke="#10b981" strokeWidth="2.5" className="animate-pulse" />
-                <text x="200" y="60" fill="#10b981" className="font-mono text-[7px] font-bold">DAMPED FREQ</text>
-                <text x="200" y="115" fill="#f59e0b" className="font-mono text-[7px] font-bold">RAW RESONANCE</text>
-              </svg>
-            </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Passive isolation washers successfully filter high-frequency structural resonances.
+              Independent wheel speed ratios translate diagonal forces into sideways and turn vectors.
             </div>
           </div>
         </div>
@@ -2077,10 +2062,6 @@ export const DynamicSlide: React.FC<{
       return <MechPowertrainSlide />;
     case 'mech_steering':
       return <MechSteeringSlide />;
-    case 'mech_traction':
-      return <MechTractionSlide />;
-    case 'mech_structure':
-      return <MechStructureSlide />;
     case 'elec_components':
       return <ElecComponentsSlide />;
     case 'elec_controllers':

@@ -72,22 +72,6 @@ export const INITIAL_SLIDES: Slide[] = [
     coordinates: { x: 3600, y: 3800, scale: 0.85, rotate: 90 },
     transitionType: 'spring'
   },
-  {
-    id: 'slide_9',
-    title: 'Wheel Selection & Ground Traction',
-    subtitle: 'Surface friction: Wheel metrics and tile-floor traction coefficients.',
-    type: 'mech_traction',
-    coordinates: { x: 4800, y: 3800, scale: 0.85, rotate: 90 },
-    transitionType: 'snappy'
-  },
-  {
-    id: 'slide_10',
-    title: 'Stress Analysis & Vibrations',
-    subtitle: 'Structural safety: Support pillar stress calculations and motor vibration dampening.',
-    type: 'mech_structure',
-    coordinates: { x: 6000, y: 3800, scale: 0.85, rotate: 90 },
-    transitionType: 'slow'
-  },
 
   // ==================== ELECTRICAL SECTION ====================
   {

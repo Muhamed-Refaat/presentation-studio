@@ -273,62 +273,197 @@ export const TeamSlide: React.FC = () => {
 export const IntroductionSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes comparator-pulse {
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(239,68,68,0.1)); }
+          50% { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(239,68,68,0.3)); }
+        }
+        @keyframes signal-flow {
+          0% { stroke-dashoffset: 24; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes text-blink {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 1.0; }
+        }
+        @keyframes crawl-trajectory {
+          0% { stroke-dashoffset: 350; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes pulse-dot {
+          0%, 100% { transform: scale(1); opacity: 0.7; }
+          50% { transform: scale(1.3); opacity: 1.0; }
+        }
+        .error-node {
+          animation: comparator-pulse 2.5s ease-in-out infinite;
+          transform-origin: 75px 45px;
+        }
+        .loop-flow {
+          stroke-dasharray: 6 3;
+          animation: signal-flow 1.5s linear infinite;
+        }
+        .blink-txt {
+          animation: text-blink 2s ease-in-out infinite;
+        }
+        .corrected-curve {
+          stroke-dasharray: 350;
+          stroke-dashoffset: 350;
+          animation: crawl-trajectory 6s ease-in-out infinite;
+        }
+        .dot-pulse {
+          animation: pulse-dot 2s infinite;
+        }
+      `}} />
+
       <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
       <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_DOCUMENTATION // ACADEMIC_VISION</span>
-          </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Project Introduction</h2>
         </div>
       </div>
 
       {/* Main Grid Content */}
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column: Vision Statement */}
-        <div className="col-span-7 flex flex-col justify-center items-start text-left pl-2">
-          <span className="font-mono text-[10px] text-blue-600 font-bold uppercase tracking-wider mb-2">Executive Summary</span>
-          <p className="text-base text-gray-600 font-semibold leading-relaxed mb-6 font-sans font-medium">
-            Autonomous robots are becoming an important part of modern smart environments. The Adaptive Smart Autonomous Robot (ASAR) represents a pioneering development in modern autonomous ground vehicle (AGV) systems. Designed and implemented at Borg El Arab Technological University, it bridges raw robotic kinematics with high-level software orchestration.
-          </p>
-          <p className="text-sm text-gray-500 leading-relaxed font-sans font-medium">
-            The platform’s core objective is to deliver an adaptive, resilient, and cost-effective mobile robotics framework capable of: understanding its surroundings, detecting obstacles, making navigation decisions, and moving independently in dynamic indoor workspaces.
-          </p>
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-stretch z-10 relative py-2 select-text">
+        {/* Left Column: Refructured 3 Sub-Areas with elevated text sizes */}
+        <div className="col-span-7 flex flex-col justify-between text-left pl-2 py-1 gap-4">
+          {/* Sub-Area 1: The Introduction Area */}
+          <div className="bg-slate-50/30 p-4 rounded-xl border border-slate-200/40">
+            <span className="font-mono text-[11px] text-blue-600 font-extrabold uppercase tracking-wider mb-1 block">01 / Introduction</span>
+            <p className="text-[15.5px] text-slate-700 font-semibold leading-relaxed font-sans font-medium">
+              The Adaptive Smart Autonomous Robot (ASAR) is a smart 4-wheeled robot that utilizes sensor fusion to consolidate environmental readings. It exposes this data to either AI or conventional control systems to achieve self-driving, self-adaptation, and self-avoidance capabilities.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 flex-grow">
+            {/* Sub-Area 2: Project Idea */}
+            <div className="bg-slate-50/50 border border-slate-200/50 p-4 rounded-xl flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[11.5px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">02 / The Project Idea</span>
+                <p className="text-[12px] text-slate-500 font-bold leading-relaxed mb-3">
+                  ASAR operates as a closed-loop system, using live sensors to check if actual movements match commands:
+                </p>
+                <ul className="space-y-2 text-[11.5px] text-slate-800 font-bold font-mono uppercase leading-tight">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                    <span>Closed-Loop: Checks sensor feeds to verify correct movements</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                    <span>Error Calculation: Computes drift in angles or distance on-the-fly</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                    <span>Adaptive Math: Adjusts the next equation with + or - errors</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                    <span>Exposes data: Outlines clean profiles for AI or manual override control</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Sub-Area 3: Project Objectives */}
+            <div className="bg-slate-50/50 border border-slate-200/50 p-4 rounded-xl flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-[11.5px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">03 / Project Objectives</span>
+                <p className="text-[12px] text-slate-500 font-bold leading-relaxed mb-3">
+                  We engineered the robot to achieve these key criteria:
+                </p>
+                <ul className="space-y-2 text-[11.5px] text-slate-800 font-bold font-mono uppercase leading-tight">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                    <span>Self-Drive: Map rooms and navigate on its own</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                    <span>Self-Adapt: Adjust to floors and correct gyro drift</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                    <span>Self-Avoid: Detect obstacles and brake safely</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                    <span>Real-Time Sync: Dual-MCU communications loop</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Right Column: Visual Academic Goals Grid */}
-        <div className="col-span-5 h-full flex flex-col justify-center gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl flex items-center gap-4 shadow-xs">
-            <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-              <Cpu className="w-5 h-5 text-blue-600 animate-pulse" />
+        {/* Right Column: Visual Splitted Diagram (White Background with active 60fps animations) */}
+        <div className="col-span-5 h-full flex flex-col justify-between gap-4">
+          {/* Top Panel: System Closed-Loop Flow */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3.5 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              SYSTEM_CLOSED_LOOP_MAP // FLOW_A
             </div>
-            <div>
-              <h4 className="font-bold text-xs uppercase text-slate-800 mb-0.5 font-sans">Multi-Modal Integration</h4>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-normal">Coordinating LiDAR arrays, gyro sensors, and ultrasonic modules in real time.</p>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 90" fill="none">
+                {/* Input Target */}
+                <rect x="5" y="30" width="35" height="20" rx="2" fill="#f8fafc" stroke="#94a3b8" strokeWidth="1" />
+                <text x="22.5" y="42" fill="#64748b" textAnchor="middle" className="font-mono text-[5.5px] font-bold">TARGET</text>
+                
+                {/* Comparator */}
+                <g className="error-node">
+                  <circle cx="75" cy="40" r="9" fill="#fef2f2" stroke="#ef4444" strokeWidth="1" />
+                  <text x="75" y="43" fill="#ef4444" textAnchor="middle" className="font-mono text-[8px] font-bold blink-txt">±</text>
+                </g>
+                <path d="M 40,40 H 66" stroke="#3b82f6" strokeWidth="1.2" className="loop-flow" />
+
+                {/* Controller Brain */}
+                <rect x="105" y="20" width="65" height="30" rx="3" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.2" />
+                <text x="137.5" y="32" fill="#2563eb" textAnchor="middle" className="font-mono text-[6.5px] font-bold">BRAIN</text>
+                <text x="137.5" y="42" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px]">AI/CONTROL</text>
+                <path d="M 84,40 H 105" stroke="#3b82f6" strokeWidth="1.2" className="loop-flow" />
+
+                {/* 4-Wheel Actuation Output */}
+                <rect x="205" y="25" width="55" height="25" rx="2" fill="#f8fafc" stroke="#10b981" strokeWidth="1.2" />
+                <text x="232.5" y="36" fill="#10b981" textAnchor="middle" className="font-mono text-[5.5px] font-bold">4-WHEEL</text>
+                <text x="232.5" y="44" fill="#64748b" textAnchor="middle" className="font-mono text-[4.5px]">MOTION</text>
+                <path d="M 170,40 H 205" stroke="#3b82f6" strokeWidth="1.2" className="loop-flow" />
+
+                {/* Feedback line and Sensor box */}
+                <path d="M 232.5,50 V 75 H 75 V 49" stroke="#fbbf24" strokeWidth="1.2" className="loop-flow" />
+                <rect x="110" y="65" width="65" height="20" rx="2" fill="#f8fafc" stroke="#fbbf24" strokeWidth="1.2" />
+                <text x="142.5" y="77" fill="#d97706" textAnchor="middle" className="font-mono text-[5.5px] font-bold">SENSORS</text>
+              </svg>
             </div>
           </div>
 
-          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl flex items-center gap-4 shadow-xs">
-            <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
-              <Compass className="w-5 h-5 text-emerald-600" />
+          {/* Bottom Panel: Motion Trajectory & Real-Time Adjustment Graph */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3.5 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              REAL_TIME_ERROR_CORRECTION_PLOT // FLOW_B
             </div>
-            <div>
-              <h4 className="font-bold text-xs uppercase text-slate-800 mb-0.5 font-sans">Spatially-Aware Navigation</h4>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-normal font-sans">Simultaneous localization and mapping (SLAM) in unstructured environments.</p>
-            </div>
-          </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 90" fill="none">
+                {/* Reference Coordinate Axes */}
+                <line x1="20" y1="10" x2="20" y2="80" stroke="#cbd5e1" strokeWidth="1" />
+                <line x1="20" y1="80" x2="290" y2="80" stroke="#cbd5e1" strokeWidth="1" />
+                
+                {/* Target Path - Straight Green Dashed Line */}
+                <line x1="20" y1="45" x2="290" y2="45" stroke="#10b981" strokeWidth="1.5" strokeDasharray="4 3" />
+                <text x="235" y="40" fill="#10b981" className="font-mono text-[6px] font-bold">TARGET PATH</text>
 
-          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl flex items-center gap-4 shadow-xs">
-            <div className="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
-              <Shield className="w-5 h-5 text-indigo-600" />
-            </div>
-            <div>
-              <h4 className="font-bold text-xs uppercase text-slate-800 mb-0.5 font-sans">Bifurcated Fail-Safes</h4>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-normal">Dual-core computing separation prevents processor overload and lockups.</p>
+                {/* Raw Drift/Jitter - Red Curve (moving away from target!) */}
+                <path d="M 20,45 Q 60,25 110,20 T 200,10 T 290,5" stroke="#ef4444" strokeWidth="1.2" strokeDasharray="2 1" />
+                <text x="210" y="20" fill="#ef4444" className="font-mono text-[6px] font-bold">DRIFT & JITTER</text>
+
+                {/* Corrected Path - Blue Self-Correcting Curve (oscillates but converges to green target!) */}
+                <path d="M 20,45 Q 60,65 110,48 T 200,45 H 290" stroke="#2563eb" strokeWidth="2" className="corrected-curve" />
+                <text x="145" y="62" fill="#2563eb" className="font-mono text-[6px] font-bold">CLOSED-LOOP CORRECTED</text>
+
+                {/* Real-time feedback point indicator */}
+                <g className="dot-pulse">
+                  <circle cx="200" cy="45" r="4.5" fill="#2563eb" stroke="white" strokeWidth="1" />
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -341,83 +476,145 @@ export const IntroductionSlide: React.FC = () => {
 export const ProblemStatementSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes traditional-crash {
+          0% { transform: translateX(0px); opacity: 1; }
+          40% { transform: translateX(55px); opacity: 1; }
+          45% { transform: translateX(55px); }
+          100% { transform: translateX(55px); }
+        }
+        @keyframes ai-bypass {
+          0% { transform: translate(0px, 0px); }
+          30% { transform: translate(35px, 0px); } /* Approaches obstacle, triggers API call */
+          50% { transform: translate(55px, -22px); } /* Curves around barrier */
+          75% { transform: translate(95px, 0px); } /* Restores path */
+          100% { transform: translate(115px, 0px); }
+        }
+        @keyframes alert-flash {
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 1.0; }
+        }
+        @keyframes pulse-ring {
+          0% { transform: scale(0.6); opacity: 0.9; }
+          100% { transform: scale(1.6); opacity: 0; }
+        }
+        .crash-dot {
+          animation: traditional-crash 4s ease-in-out infinite;
+        }
+        .bypass-dot {
+          animation: ai-bypass 5s ease-in-out infinite;
+        }
+        .flash-alert {
+          animation: alert-flash 1s step-end infinite;
+        }
+        .ping-ring {
+          animation: pulse-ring 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+          transform-origin: 75px 40px;
+        }
+        .api-ring {
+          animation: pulse-ring 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+          transform-origin: 55px 40px;
+        }
+      `}} />
+
       <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
       <div className="border-l-4 border-red-500 pl-4 py-1 flex justify-between items-center z-10">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-red-600 font-bold uppercase">SYSTEM_RESTRICTION_LOG // COLLISION_DANGER</span>
-          </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Problem Statement</h2>
         </div>
       </div>
 
       {/* Grid Split */}
-      <div className="grid grid-cols-12 gap-6 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left: Traditional Mobile Robot Problems */}
-        <div className="col-span-7 flex flex-col gap-4">
-          <span className="font-mono text-[10px] text-red-600 font-bold uppercase tracking-wider pl-1 font-semibold">Traditional Mobile Robots Pitfalls</span>
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-stretch z-10 relative py-2 select-text">
+        {/* Left Column: Traditional Problems vs. Our Agile AI solution in plain English */}
+        <div className="col-span-7 flex flex-col justify-between text-left pl-2 py-1 gap-4">
           
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-red-50/45 border border-red-100 p-4 rounded-xl shadow-xs relative">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                <h4 className="font-bold text-[11.5px] uppercase text-slate-900 leading-none font-sans">Limited Sensor Coverage</h4>
-              </div>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-relaxed">Traditional platforms use single-axis rangers, resulting in severe spatial data gaps.</p>
+          {/* Sub-Area 1: The Traditional System Problem */}
+          <div className="bg-red-50/30 p-4 rounded-xl border border-red-150/40 flex-1 flex flex-col justify-between">
+            <div>
+              <span className="font-mono text-[11px] text-red-600 font-extrabold uppercase tracking-wider mb-1 block">01 / Traditional Mobile Obstruction</span>
+              <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed font-medium">
+                Traditional autonomous systems are locked into the exact logic they were programmed with. If they face an unplanned situation or dynamic layout they do not recognize, they immediately get stuck, crash, or fail entirely. They cannot adapt on-the-fly.
+              </p>
             </div>
-
-            <div className="bg-red-50/45 border border-red-100 p-4 rounded-xl shadow-xs relative">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Compass className="w-4 h-4 text-red-500" />
-                <h4 className="font-bold text-[11.5px] uppercase text-slate-900 leading-none font-sans">Kinematic Blind Spots</h4>
-              </div>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-relaxed">Static scan planes cannot detect overhanging or floor obstacles, triggering collisions.</p>
-            </div>
-
-            <div className="bg-red-50/45 border border-red-100 p-4 rounded-xl shadow-xs relative">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Cpu className="w-4 h-4 text-red-500 animate-pulse" />
-                <h4 className="font-bold text-[11.5px] uppercase text-slate-900 leading-none font-sans">High Controller Overhead</h4>
-              </div>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-relaxed">One processor handling motor actuation and SLAM mapping triggers CPU choke/timeouts.</p>
-            </div>
-
-            <div className="bg-red-50/45 border border-red-100 p-4 rounded-xl shadow-xs relative">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Activity className="w-4 h-4 text-red-500" />
-                <h4 className="font-bold text-[11.5px] uppercase text-slate-900 leading-none font-sans">Dynamic Obstructions</h4>
-              </div>
-              <p className="text-[10.5px] text-gray-500 font-medium leading-relaxed">Rigid hardcoded logic fails in unstructured, moving human-occupied indoor workspaces.</p>
+            <div className="border-t border-red-100/50 pt-2 mt-2 font-mono text-[9px] text-red-500 font-bold uppercase">
+              • CONSTRAINT: HARDCODED LOGIC & STATIC OBSTACLE BLIND SPOTS
             </div>
           </div>
+
+          {/* Sub-Area 2: Our Agile Embedded AI Solution */}
+          <div className="bg-blue-50/30 p-4 rounded-xl border border-blue-150/40 flex-1 flex flex-col justify-between">
+            <div>
+              <span className="font-mono text-[11px] text-blue-600 font-extrabold uppercase tracking-wider mb-1 block">02 / Agile Embedded AI Resolution</span>
+              <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed font-medium">
+                Our robot uses an agile AI engine via on-board API calls. We do not run a heavy, power-hungry LLM model directly on-board our small car. Instead, our lightweight API setup communicates with cloud AI models in real-time, allowing the robot to dynamically generate entirely new maneuvers and bypass paths for limitless situations.
+              </p>
+            </div>
+            <div className="border-t border-blue-100/50 pt-2 mt-2 font-mono text-[9px] text-blue-600 font-bold uppercase">
+              • SOLUTION: LIGHTWEIGHT API INTELLIGENCE & REAL-TIME MANEUVERS
+            </div>
+          </div>
+
         </div>
 
-        {/* Right: ASAR Integrated Solution */}
-        <div className="col-span-5 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between shadow-2xl relative h-full min-h-[340px] text-white">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+        {/* Right Column: Split Dual-Visualizer (White Background) */}
+        <div className="col-span-5 h-full flex flex-col justify-between gap-4">
           
-          <div>
-            <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded w-fit mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              <span className="font-mono text-[8px] tracking-wider text-blue-300 font-bold uppercase">ASAR CORE_RESOLUTION</span>
+          {/* Visualizer A: Traditional Rigid Logic Failure */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3.5 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-red-500 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              TRADITIONAL_RIGID_SYSTEM // CRASH_FAIL
             </div>
-            <h3 className="text-xl font-extrabold uppercase mb-3 text-slate-100 font-sans">Our Solution</h3>
-            <p className="text-[11.5px] text-slate-400 leading-relaxed font-sans font-medium">
-              ASAR deploys a <strong>bifurcated dual-controller topology</strong> (Arduino Mega 2560 + ESP32) synchronized with <strong>multi-modal sensor fusion</strong> (LiDAR, Sonar, and IMU).
-            </p>
-            <p className="text-[11.5px] text-slate-400 leading-relaxed font-sans font-medium mt-3">
-              By isolating low-level real-time motor actuation from high-level mapping and cognitive algorithms, we resolve computing lag and eliminate blind spots entirely.
-            </p>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 200 80" fill="none">
+                {/* Path corridor */}
+                <line x1="10" y1="40" x2="190" y2="40" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
+                
+                {/* Obstacle block */}
+                <rect x="75" y="20" width="10" height="40" fill="#fca5a5" stroke="#ef4444" strokeWidth="1" />
+                
+                {/* Traditional Rigid Robot - Red Dot */}
+                <circle cx="20" cy="40" r="4.5" fill="#ef4444" stroke="white" strokeWidth="1" className="crash-dot" />
+                
+                {/* Impact Alarm flash */}
+                <circle cx="75" cy="40" r="8" stroke="#ef4444" strokeWidth="1.5" fill="none" className="ping-ring" />
+                <rect x="95" y="30" width="45" height="20" rx="2" fill="#fef2f2" stroke="#fca5a5" strokeWidth="1" className="flash-alert" />
+                <text x="117.5" y="42" fill="#ef4444" textAnchor="middle" className="font-mono text-[5.5px] font-bold font-sans">STUCK / FAIL</text>
+              </svg>
+            </div>
           </div>
 
-          <div className="border-t border-slate-800 pt-3 mt-4 flex items-center justify-between text-[9px] font-mono text-slate-500">
-            <span>FUSION: ENABLED</span>
-            <span className="text-emerald-500 font-bold animate-pulse">● SYSTEMS SECURE</span>
+          {/* Visualizer B: Our Agile AI Recalculation Success */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3.5 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-blue-500 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              ASAR_EMBEDDED_AI_SYSTEM // RE-ROUTE_SUCCESS
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 200 80" fill="none">
+                {/* Target path line */}
+                <line x1="10" y1="40" x2="190" y2="40" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
+                
+                {/* Obstacle block */}
+                <rect x="75" y="25" width="10" height="30" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="1" />
+                
+                {/* Dynamic AI Bypass curved path overlay */}
+                <path d="M 10,40 H 55 Q 75,18 95,40 H 190" stroke="#2563eb" strokeWidth="1.5" strokeDasharray="4 2" />
+
+                {/* Our Smart Robot - Blue Dot with API beam animation */}
+                <circle cx="20" cy="40" r="4.5" fill="#2563eb" stroke="white" strokeWidth="1" className="bypass-dot" />
+                
+                {/* API Ingestion call rings */}
+                <circle cx="55" cy="40" r="6" stroke="#3b82f6" strokeWidth="1.2" fill="none" className="api-ring" />
+
+                <rect x="115" y="25" width="55" height="20" rx="2" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1" />
+                <text x="142.5" y="37" fill="#15803d" textAnchor="middle" className="font-mono text-[5px] font-bold font-sans">AI DECISION</text>
+              </svg>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -428,116 +625,157 @@ export const ProblemStatementSlide: React.FC = () => {
 export const SystemOverviewSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes core-pulse {
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(37,99,235,0.15)); }
+          50% { transform: scale(1.07); filter: drop-shadow(0 0 12px rgba(37,99,235,0.35)); }
+        }
+        @keyframes radial-current {
+          0% { stroke-dashoffset: 32; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .pillar-core {
+          animation: core-pulse 3s ease-in-out infinite;
+          transform-origin: 150px 95px;
+        }
+        .current-path {
+          stroke-dasharray: 8 4;
+          animation: radial-current 1.5s linear infinite;
+        }
+      `}} />
+
       <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
       <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">ASAR_PILLARS // THREE-AXIS_ARCHITECTURE</span>
-          </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">System Overview</h2>
         </div>
       </div>
 
-      {/* 3 Pillars Content Layout */}
-      <div className="grid grid-cols-3 gap-6 my-auto flex-grow items-stretch z-10 relative py-4 select-text">
-        {/* Pillar 1: Mechanical */}
-        <div className="bg-slate-50/80 hover:bg-slate-50 border border-gray-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs border-t-4 border-t-blue-500 transition-all">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
-                <Compass className="w-4.5 h-4.5" />
+      {/* Main Grid Layout */}
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-stretch z-10 relative py-2 select-text">
+        {/* Left Column: 3 Pillars with rich, clean plain-English text */}
+        <div className="col-span-7 flex flex-col justify-between text-left pl-2 py-1 gap-3">
+          
+          {/* High-impact Intro Text highlighting the word "Pillars" */}
+          <p className="text-[15px] text-slate-700 font-semibold leading-relaxed font-sans font-medium">
+            The complete ASAR vehicle architecture is constructed on three main <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-extrabold font-sans">Pillars</span>, serving as the core blueprint that coordinates all hardware, power safety modules, and cloud decision APIs.
+          </p>
+
+          <div className="space-y-2 flex-grow mt-1">
+            {/* Pillar 1 */}
+            <div className="bg-slate-50/50 border border-slate-200/50 p-3 rounded-xl">
+              <div className="flex items-center gap-2 mb-1">
+                <Compass className="w-4.5 h-4.5 text-blue-600" />
+                <h4 className="font-extrabold text-[12.5px] uppercase text-slate-900 leading-none">01 / Mechanical Pillar</h4>
               </div>
-              <h3 className="font-extrabold text-sm uppercase text-slate-800 tracking-tight font-sans">Mechanical Pillar</h3>
+              <ul className="space-y-1.5 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1.5 mt-1.5">
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+                  <span>Dual-Deck Acrylic Chassis Structural frame</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+                  <span>Power Train system with geared DC motors</span>
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+                  <span>Steering system with omni-directional motion</span>
+                </li>
+              </ul>
             </div>
-            
-            <p className="text-[11px] text-gray-500 font-semibold leading-relaxed mb-4 font-sans font-medium">
-              Structural design providing stable physical foundations and reliable locomotion vectors.
-            </p>
-            
-            <ul className="space-y-2 font-mono text-[9px] text-gray-500 font-bold uppercase leading-normal">
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1 shrink-0"></span>
-                <span>Chassis Geometry: Dual-deck acrylic chassis frame</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1 shrink-0"></span>
-                <span>Power Train: 4-Wheel independent DC drive</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1 shrink-0"></span>
-                <span>Steering: Differential pivot rotation</span>
-              </li>
-            </ul>
+
+            {/* Pillar 2 */}
+            <div className="bg-slate-50/50 border border-slate-200/50 p-3 rounded-xl">
+              <div className="flex items-center gap-2 mb-1">
+                <Zap className="w-4.5 h-4.5 text-amber-500 animate-bounce" style={{ animationDuration: '4s' }} />
+                <h4 className="font-extrabold text-[12.5px] uppercase text-slate-900 leading-none">02 / Electrical and Electronics Pillar</h4>
+              </div>
+              <ul className="space-y-1.5 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1.5 mt-1.5">
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0 animate-pulse" />
+                  <span>Dual Brain co-processing (Arduino Mega & ESP32)</span>
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                  <span>LM2596 Buck Regulators conditioning stable 5V & 9V lines</span>
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                  <span>3S Lithium Battery Pack guarded by active BMS protection</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="bg-slate-50/50 border border-slate-200/50 p-3 rounded-xl">
+              <div className="flex items-center gap-2 mb-1">
+                <Code className="w-4.5 h-4.5 text-emerald-500" />
+                <h4 className="font-extrabold text-[12.5px] uppercase text-slate-900 leading-none">03 / Software Pillar</h4>
+              </div>
+              <ul className="space-y-1.5 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1.5 mt-1.5">
+                <li className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 shrink-0" />
+                  <span>Closed-Loop movement error feedback calibration</span>
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                  <span>Lightweight cloud API calls to decide dynamic maneuvers</span>
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                  <span>360-degree LiDAR SLAM environmental mapping grid</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="font-mono text-[8px] text-blue-600 font-bold mt-4">AXIS_01 // PHYSICAL_CORE</div>
+
         </div>
 
-        {/* Pillar 2: Electrical */}
-        <div className="bg-slate-50/80 hover:bg-slate-50 border border-gray-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs border-t-4 border-t-amber-500 transition-all">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
-                <Zap className="w-4.5 h-4.5" />
-              </div>
-              <h3 className="font-extrabold text-sm uppercase text-slate-800 tracking-tight font-sans">Electrical Pillar</h3>
+        {/* Right Column: Visual 3-Axis System Architecture Diagram (White Background) */}
+        <div className="col-span-5 h-full">
+          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
+              SYSTEM_PILLARS_RADIAL_BLUEPRINT // VISUAL_V1
             </div>
-            
-            <p className="text-[11px] text-gray-500 font-semibold leading-relaxed mb-4 font-sans font-medium">
-              Power conditioning, dual controller topology, and sensory hardware interfaces.
-            </p>
-            
-            <ul className="space-y-2 font-mono text-[9px] text-gray-500 font-bold uppercase leading-normal">
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-1 shrink-0"></span>
-                <span>Controllers: Dedicated Arduino Mega & ESP32-WROOM</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-1 shrink-0"></span>
-                <span>BMS Power: High-capacity 3S 12.6V Lithium pack</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-1 shrink-0"></span>
-                <span>Circuit Design: Regulated voltage lines</span>
-              </li>
-            </ul>
-          </div>
-          <div className="font-mono text-[8px] text-amber-600 font-bold mt-4">AXIS_02 // HARDWARE_ROUTING</div>
-        </div>
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
+              <svg className="w-[95%] h-[95%] text-slate-400 overflow-visible" viewBox="0 0 300 190" fill="none">
+                {/* Radial paths flowing outwards from Core */}
+                <line x1="150" y1="95" x2="150" y2="35" stroke="#3b82f6" strokeWidth="2.5" className="current-path" />
+                <line x1="150" y1="95" x2="65" y2="145" stroke="#fbbf24" strokeWidth="2.5" className="current-path" />
+                <line x1="150" y1="95" x2="235" y2="145" stroke="#10b981" strokeWidth="2.5" className="current-path" />
 
-        {/* Pillar 3: Software */}
-        <div className="bg-slate-50/80 hover:bg-slate-50 border border-gray-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs border-t-4 border-t-emerald-500 transition-all">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
-                <Code className="w-4.5 h-4.5" />
-              </div>
-              <h3 className="font-extrabold text-sm uppercase text-slate-800 tracking-tight font-sans font-medium">Software Pillar</h3>
+                {/* Mechanical Pillar Node (Top-Center) */}
+                <g className="animate-bounce" style={{ animationDuration: '4s', transformOrigin: '150px 35px' }}>
+                  <rect x="110" y="20" width="80" height="25" rx="3" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.5" />
+                  <text x="150" y="35" fill="#2563eb" textAnchor="middle" className="font-mono text-[6px] font-bold font-sans">MECHANICAL</text>
+                </g>
+
+                {/* Electrical & Electronics Pillar Node (Bottom-Left) */}
+                <g className="animate-bounce" style={{ animationDuration: '4.5s', transformOrigin: '65px 145px' }}>
+                  <rect x="25" y="130" width="80" height="25" rx="3" fill="#f8fafc" stroke="#d97706" strokeWidth="1.5" />
+                  <text x="65" y="145" fill="#d97706" textAnchor="middle" className="font-mono text-[6px] font-bold font-sans font-sans">ELECTRICAL</text>
+                </g>
+
+                {/* Software Pillar Node (Bottom-Right) */}
+                <g className="animate-bounce" style={{ animationDuration: '5s', transformOrigin: '235px 145px' }}>
+                  <rect x="195" y="130" width="80" height="25" rx="3" fill="#f8fafc" stroke="#059669" strokeWidth="1.5" />
+                  <text x="235" y="145" fill="#059669" textAnchor="middle" className="font-mono text-[6px] font-bold font-sans">SOFTWARE</text>
+                </g>
+
+                {/* Central System Core Hub */}
+                <g className="pillar-core">
+                  <circle cx="150" cy="95" r="22" fill="#1e293b" stroke="white" strokeWidth="2" />
+                  <text x="150" y="98" fill="white" textAnchor="middle" className="font-mono text-[7px] font-bold">ASAR CORE</text>
+                </g>
+              </svg>
             </div>
-            
-            <p className="text-[11px] text-gray-500 font-semibold leading-relaxed mb-4 font-sans font-medium">
-              Spatial tracking algorithms, data cleaning, communication bridges, and hosting.
-            </p>
-            
-            <ul className="space-y-2 font-mono text-[9px] text-gray-500 font-bold uppercase leading-normal">
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1 shrink-0"></span>
-                <span>Core Logic: Static & Dynamic architectural code</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1 shrink-0"></span>
-                <span>SLAM algorithms: Noise filtering & LiDAR mapping</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1 shrink-0"></span>
-                <span>VCS Hosting: Continuous Integration on GitHub</span>
-              </li>
-            </ul>
+            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
+              Unified 3-axis blueprint connects mechanical, power, and AI loop networks.
+            </div>
           </div>
-          <div className="font-mono text-[8px] text-emerald-600 font-bold mt-4">AXIS_03 // CODE_CORE</div>
         </div>
       </div>
     </div>

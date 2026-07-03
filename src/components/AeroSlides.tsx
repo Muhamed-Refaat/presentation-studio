@@ -3090,65 +3090,41 @@ export const SoftAppsSlide: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column: Sibling Cards (col-span-6) */}
-        <div className="col-span-6 flex flex-col gap-3.5">
+        {/* Left Column: Sibling Cards (col-span-5) */}
+        <div className="col-span-5 h-full flex flex-col justify-center">
           
-          {/* Card 1: Warehouses & Delivery */}
-          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
-            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">01 / Smart Warehouses & Indoor Deliveries</h3>
-            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
-              ASAR's omni-directional chassis and mapping accuracy are highly scalable. It can be directly deployed in smart warehouses for autonomous freight hauling and indoor delivery runs.
-            </p>
-            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
-              <li>• Smart Warehouses: Navigates narrow racking lanes safely via TEB planners</li>
-              <li>• Indoor Deliveries: Delivers documents or medical packages inside hospitals</li>
-            </ul>
-          </div>
-
-          {/* Card 2: Industrial Automation & Rescue */}
-          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
-            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">02 / Industrial Automation & Rescue Missions</h3>
-            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
-              Our bifurcated dual-core safety architecture can scale to industrial assembly plants and hazardous disaster zones for autonomous mapping and payload retrieval.
-            </p>
-            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
-              <li>• Industrial Automation: Carries parts across assembly factory floors</li>
-              <li>• Rescue Robots: Enters collapsed structural areas to search for survivors using SLAM</li>
+          {/* Card 1: Widescreen bullet list of Applications */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-6 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[11px] text-emerald-600 font-bold uppercase mb-4 leading-none">01 / High-Scale Industry Scalability</h3>
+            <ul className="space-y-4 text-[18px] font-sans font-bold text-slate-800 uppercase tracking-tight pl-1">
+              <li className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                Smart warehouses
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                Indoor delivery robots
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                Industrial automation
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                Rescue robots
+              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
-        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
-          
-          {/* Visualizer A: top-down industrial factory racks */}
-          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
-              SMART_WAREHOUSE_RACK_COORDINATES // FLOW_A
+        {/* Right Column: Giant Real Robot Assembly Snapshot Visualizer (col-span-7) */}
+        <div className="col-span-7 h-full flex items-center justify-center">
+          <div className="bg-white border border-gray-200 rounded-xl w-full h-[400px] p-2 relative overflow-hidden text-gray-800 shadow-sm">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1.5 uppercase tracking-widest leading-none mb-1.5">
+              ASAR_PHYSICAL_ROBOT_ASSEMBLY_RECORD // SNAPSHOT_STAGE
             </div>
-            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
-              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
-                <rect x="20" y="10" width="80" height="15" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1" rx="1" />
-                <text x="60" y="20" fill="#64748b" textAnchor="middle" className="font-mono text-[5px] font-bold">RACK SHELF A</text>
-
-                <rect x="200" y="10" width="80" height="15" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1" rx="1" />
-                <text x="240" y="20" fill="#64748b" textAnchor="middle" className="font-mono text-[5px] font-bold">RACK SHELF B</text>
-
-                {/* Auto path */}
-                <path d="M 60,35 Q 150,55 240,35" stroke="#10b981" strokeWidth="1.2" className="log-flow-line" />
-                <polygon points="240,35 234,31 234,39" fill="#10b981" />
-                <text x="150" y="52" fill="#047857" textAnchor="middle" className="font-mono text-[5px] font-bold">OPTIMIZED HAULING PATH</text>
-              </svg>
-            </div>
-          </div>
-
-          {/* Visualizer B: Real Robot Assembly Snapshot! */}
-          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-2 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
-              ASAR_PHYSICAL_ROBOT_ASSEMBLY_RECORD // SNAPSHOT_FLOW_B
-            </div>
-            <div className="flex-grow flex items-center justify-center relative overflow-hidden h-[85%] rounded-lg">
+            <div className="flex-grow flex items-center justify-center relative overflow-hidden h-[92%] rounded-lg">
               <img 
                 src="assets/images/6c00895f-7e06-411d-8cb4-c7564bc116e4.jpg" 
                 alt="ASAR Physical Robot Assembly" 
@@ -3156,8 +3132,8 @@ export const SoftAppsSlide: React.FC = () => {
               />
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   );

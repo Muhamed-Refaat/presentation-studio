@@ -3075,15 +3075,15 @@ export const SoftVcsSlide: React.FC = () => {
 export const SoftAppsSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
-      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Autonomous Mobile Robot</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Future Industry Applications</h2>
         </div>
@@ -3095,22 +3095,22 @@ export const SoftAppsSlide: React.FC = () => {
           
           {/* Card 1: Widescreen bullet list of Applications */}
           <div className="bg-gray-50/80 border border-gray-200/60 p-6 rounded-xl shadow-xs">
-            <h3 className="font-mono text-[11px] text-emerald-600 font-bold uppercase mb-4 leading-none">01 / High-Scale Industry Scalability</h3>
+            <h3 className="font-mono text-[11px] text-blue-600 font-bold uppercase mb-4 leading-none">01 / High-Scale Industry Scalability</h3>
             <ul className="space-y-4 text-[18px] font-sans font-bold text-slate-800 uppercase tracking-tight pl-1">
               <li className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
                 Smart warehouses
               </li>
               <li className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
                 Indoor delivery robots
               </li>
               <li className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
                 Industrial automation
               </li>
               <li className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
                 Rescue robots
               </li>
             </ul>
@@ -3143,15 +3143,15 @@ export const SoftAppsSlide: React.FC = () => {
 export const SoftThankYouSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
-      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Autonomous Mobile Robot</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Thank You</h2>
         </div>
@@ -3161,7 +3161,7 @@ export const SoftThankYouSlide: React.FC = () => {
         {/* Left Column (col-span-5): Warm acknowledgement */}
         <div className="col-span-5 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-2">Borg El Arab Technological University</h3>
+            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Borg El Arab Technological University</h3>
             <p className="text-[9.5px] text-gray-400 font-bold uppercase tracking-widest leading-none mb-3">FACULTY OF INDUSTRY & ENERGY | IT DEPT</p>
             <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed mb-4 font-sans font-medium">
               We express our deepest gratitude to our academic advisors, faculty mentors, and fellow peers for their unwavering guidance, technical reviews, and support throughout the design, construction, and software orchestration of the ASAR project.

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background-color: #0d1117;">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9b72" />
+    </marker>
+  </defs>
+
+  <text x="500" y="45" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" letter-spacing="1">
+    GIT WORKFLOW &amp; ROLLBACK LIFECYCLE
+  </text>
+
+  <g id="panel-developers">
+    <rect x="40" y="90" width="320" height="470" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <text x="60" y="125" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">1. Shared Local Workspace</text>
+    
+    <g transform="translate(0, 0)">
+      <circle cx="110" cy="210" r="14" fill="#8b949e" />
+      <path d="M 85 245 C 85 225, 135 225, 135 245 Z" fill="#8b949e" />
+      <rect x="150" y="220" width="32" height="22" rx="3" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5" />
+      <path d="M 145 242 L 187 242 L 192 247 L 140 247 Z" fill="#21262d" stroke="#58a6ff" stroke-width="1.5" />
+      <line x1="155" y1="226" x2="167" y2="226" stroke="#2ea44f" stroke-width="2" />
+      <line x1="155" y1="232" x2="174" y2="232" stroke="#58a6ff" stroke-width="2" />
+      <text x="110" y="270" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Dev Alpha</text>
+    </g>
+
+    <g transform="translate(0, 180)">
+      <circle cx="110" cy="210" r="14" fill="#8b949e" />
+      <path d="M 85 245 C 85 225, 135 225, 135 245 Z" fill="#8b949e" />
+      <rect x="150" y="220" width="32" height="22" rx="3" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5" />
+      <path d="M 145 242 L 187 242 L 192 247 L 140 247 Z" fill="#21262d" stroke="#58a6ff" stroke-width="1.5" />
+      <line x1="155" y1="226" x2="170" y2="226" stroke="#ff9b72" stroke-width="2" />
+      <line x1="155" y1="232" x2="162" y2="232" stroke="#58a6ff" stroke-width="2" />
+      <text x="110" y="270" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Dev Beta</text>
+    </g>
+
+    <text x="200" y="335" fill="#8b949e" font-family="system-ui, sans-serif" font-size="13" font-style="italic" text-anchor="middle">Coding &amp; Committing</text>
+  </g>
+
+  <g id="panel-github">
+    <rect x="420" y="90" width="540" height="160" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <text x="440" y="125" fill="#ff7b72" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">2. GitHub Remote Code Hosting</text>
+    
+    <g id="github-server" transform="translate(640, 120)">
+      <rect x="0" y="0" width="150" height="95" rx="6" fill="#21262d" stroke="#ff7b72" stroke-width="2" />
+      <rect x="15" y="15" width="120" height="15" rx="2" fill="#0d1117" />
+      <circle cx="25" cy="22.5" r="3" fill="#2ea44f"><animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="22.5" x2="120" y2="22.5" stroke="#30363d" stroke-width="3" />
+
+      <rect x="15" y="40" width="120" height="15" rx="2" fill="#0d1117" />
+      <circle cx="25" cy="47.5" r="3" fill="#58a6ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.4s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="47.5" x2="100" y2="47.5" stroke="#30363d" stroke-width="3" />
+
+      <rect x="15" y="65" width="120" height="15" rx="2" fill="#0d1117" />
+      <circle cx="25" cy="72.5" r="3" fill="#f85149"><animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="72.5" x2="110" y2="72.5" stroke="#30363d" stroke-width="3" />
+      
+      <text x="75" y="112" fill="#8b949e" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">origin/main</text>
+    </g>
+  </g>
+
+  <path d="M 185 235 C 320 235, 450 165, 640 165" fill="none" stroke="#30363d" stroke-width="3" stroke-dasharray="4 4" />
+  <path d="M 185 415 C 320 415, 450 165, 640 165" fill="none" stroke="#30363d" stroke-width="3" stroke-dasharray="4 4" />
+
+  <circle r="6" fill="#58a6ff" filter="url(#glow)">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M 185 235 C 320 235, 450 165, 640 165" />
+  </circle>
+  <circle r="6" fill="#2ea44f" filter="url(#glow)">
+    <animateMotion dur="5s" repeatCount="indefinite" path="M 185 415 C 320 415, 450 165, 640 165" />
+  </circle>
+
+  <text x="350" y="210" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" transform="rotate(-11, 350, 210)">git push</text>
+  <text x="350" y="355" fill="#2ea44f" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" transform="rotate(14, 350, 355)">git push</text>
+
+  <g id="panel-git-history">
+    <rect x="420" y="280" width="540" height="280" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <text x="440" y="315" fill="#34d058" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">3. Git Commit Graph Lifecycle</text>
+
+    <path d="M 715 215 C 715 270, 460 290, 460 460" fill="none" stroke="#21262d" stroke-width="2" stroke-dasharray="6 6" />
+
+    <path d="M 450 460 H 910" fill="none" stroke="#444c56" stroke-width="5" />
+
+    <g id="commit-c1">
+      <circle cx="510" cy="460" r="16" fill="#1f4e29" stroke="#2ea44f" stroke-width="3" />
+      <text x="510" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C1</text>
+      <text x="510" y="495" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">9a1b5c</text>
+      <text x="510" y="430" fill="#2ea44f" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">STABLE</text>
+    </g>
+
+    <g id="commit-c2">
+      <circle cx="690" cy="460" r="16" fill="#1f4e29" stroke="#2ea44f" stroke-width="3" />
+      <text x="690" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C2</text>
+      <text x="690" y="495" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">e4f2a1</text>
+      <text x="690" y="430" fill="#2ea44f" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SAFE HEAD</text>
+    </g>
+
+    <g id="commit-c3">
+      <circle cx="870" cy="460" r="16" fill="#4c1e1a" stroke="#f85149" stroke-width="3" />
+      <text x="870" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C3</text>
+      <text x="870" y="495" fill="#8b949e" font-family="monospace" font-size="11" text-anchor="middle">7b0c9e</text>
+      <text x="870" y="430" fill="#f85149" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">BROKEN</text>
+      <path d="M 864 454 L 876 466 M 876 454 L 864 466" fill="none" stroke="#f85149" stroke-width="2.5" />
+    </g>
+
+    <path d="M 870 435 C 820 355, 740 355, 690 432" fill="none" stroke="#ff9b72" stroke-width="3" stroke-dasharray="6 4" marker-end="url(#arrow)" />
+    
+    <circle r="6" fill="#ff9b72" filter="url(#glow)">
+      <animateMotion dur="2.5s" repeatCount="indefinite" path="M 870 435 C 820 355, 740 355, 690 432" />
+    </circle>
+
+    <text x="780" y="350" fill="#ff9b72" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">git reset --hard C2</text>
+    <text x="780" y="370" fill="#ff9b72" font-family="system-ui, sans-serif" font-size="11" font-style="italic" text-anchor="middle">Destructive Rollback to Save Point</text>
+  </g>
+</svg>

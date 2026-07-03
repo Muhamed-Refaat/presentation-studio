@@ -35,9 +35,12 @@ export interface Slide {
     | 'soft_static' 
     | 'soft_dynamic' 
     | 'soft_slam' 
-    | 'soft_kalman' 
     | 'soft_fsm' 
-    | 'soft_github';
+    | 'soft_github'
+    | 'soft_testing'
+    | 'soft_vcs'
+    | 'soft_apps'
+    | 'soft_thankyou';
   coordinates: SlideCoordinates;
   transitionType?: TransitionType;
 }

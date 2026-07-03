@@ -134,34 +134,58 @@ export const INITIAL_SLIDES: Slide[] = [
   },
   {
     id: 'slide_18',
-    title: 'LiDAR SLAM Occupancy Mapping',
-    subtitle: 'Spatial grid representation: Real-time range measurements and 2D grid cell values.',
+    title: 'LiDAR SLAM & Navigation',
+    subtitle: 'Real-time 2D occupancy mapping cell grids and global-to-local path planners.',
     type: 'soft_slam',
     coordinates: { x: -3900, y: 3800, scale: 0.9, rotate: 180 },
     transitionType: 'snappy'
   },
   {
-    id: 'slide_19',
-    title: 'Kalman Attitude Math',
-    subtitle: '6-Axis sensor fusion: Noise filtering equations and real-time gyro calibration.',
-    type: 'soft_kalman',
-    coordinates: { x: -3900, y: 2400, scale: 0.9, rotate: 180 },
-    transitionType: 'spring'
-  },
-  {
     id: 'slide_20',
-    title: 'FSM Obstacle Avoidance Loop',
-    subtitle: 'Finite State Machine: Sensor feedback driving obstacle state control routines.',
+    title: 'Obstacle Avoidance & Adaptive Behavior',
+    subtitle: 'Finite State Machine (FSM): Reactive state trigger loops and adaptive heading recovery.',
     type: 'soft_fsm',
     coordinates: { x: -2700, y: 2400, scale: 0.9, rotate: 180 },
     transitionType: 'smooth'
   },
   {
     id: 'slide_21',
-    title: 'VCS Integration & GitHub Hosting',
-    subtitle: 'Collaborative pipeline: Hosting version control, tests, and CI/CD compiler triggers.',
+    title: 'Mobile & Web Interface',
+    subtitle: 'Real-time telemetry control: Low-latency virtual joysticks, active motor HUD overlays, and cloud analytics.',
     type: 'soft_github',
     coordinates: { x: -1500, y: 2400, scale: 0.9, rotate: 180 },
+    transitionType: 'spring'
+  },
+  {
+    id: 'slide_22',
+    title: 'Testing & Evaluation',
+    subtitle: 'Experimental validation: Real-world trials, sensor calibration checks, and communication audits.',
+    type: 'soft_testing',
+    coordinates: { x: -300, y: 2400, scale: 0.9, rotate: 180 },
+    transitionType: 'smooth'
+  },
+  {
+    id: 'slide_23',
+    title: 'VCS Integration & Parallel Work',
+    subtitle: 'Version control workflows: Parallel coding, branch protection, and robust rollback recovery.',
+    type: 'soft_vcs',
+    coordinates: { x: 900, y: 2400, scale: 0.9, rotate: 180 },
+    transitionType: 'snappy'
+  },
+  {
+    id: 'slide_24',
+    title: 'Future Industry Applications',
+    subtitle: 'Commercial scalability: Adapting the ASAR architecture for smart warehouses, delivery, and automation.',
+    type: 'soft_apps',
+    coordinates: { x: 2100, y: 2400, scale: 0.9, rotate: 180 },
+    transitionType: 'smooth'
+  },
+  {
+    id: 'slide_25',
+    title: 'Thank You',
+    subtitle: 'Borg El Arab Technological University | Autonomous Robot Project closing remarks.',
+    type: 'soft_thankyou',
+    coordinates: { x: 3300, y: 2400, scale: 0.9, rotate: 180 },
     transitionType: 'spring'
   }
 ];

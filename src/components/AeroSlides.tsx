@@ -1393,15 +1393,15 @@ export const ElecControllersSlide: React.FC = () => {
         }
       `}} />
 
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
 
       {/* Slide Header */}
-      <div className="border-l-4 border-blue-600 pl-4 py-1 flex justify-between items-center z-10">
+      <div className="border-l-4 border-amber-500 pl-4 py-1 flex justify-between items-center z-10">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-blue-600 font-bold uppercase">Electric and electronics Pillar</span>
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
           <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Dual-Controller Topology</h2>
         </div>
@@ -1411,23 +1411,23 @@ export const ElecControllersSlide: React.FC = () => {
         {/* Left Column (col-span-6 to allow plenty of space) */}
         <div className="col-span-6 flex flex-col gap-4">
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Bifurcated Dual-Brain Computing</h3>
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-2">Bifurcated Dual-Brain Computing</h3>
             <p className="text-[13.5px] text-slate-700 font-semibold mb-4 leading-relaxed font-sans font-medium">
               We separate low-level motor actuation from high-level mapping and decision algorithms by partitioning critical tasks onto separate microcontrollers. This bifurcated dual-brain topology eliminates computing lag and resolves latency bottlenecks.
             </p>
             
-            <span className="font-mono text-[10px] text-blue-600 font-extrabold uppercase tracking-wider mb-2 block">Processing Division of Labor</span>
+            <span className="font-mono text-[10px] text-amber-600 font-extrabold uppercase tracking-wider mb-2 block">Processing Division of Labor</span>
             <ul className="space-y-2 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
               <li className="flex items-start gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1 shrink-0" />
                 <span>Arduino Mega 2560: Handles real-time motor PWM speed outputs and sonar poller interrupts</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1 shrink-0" />
                 <span>ESP32 Co-Processor: Executes SLAM environmental mapping and processes cloud AI API calls</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1 shrink-0" />
                 <span>UART communication: High-speed, CRC-8 validated serial packet bridge to prevent signal noise</span>
               </li>
             </ul>
@@ -1502,9 +1502,17 @@ export const ElecPowerSlide: React.FC = () => {
           0% { stroke-dashoffset: 40; }
           100% { stroke-dashoffset: 0; }
         }
+        @keyframes pwm-scroll {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -40; }
+        }
         .wire-flow {
           stroke-dasharray: 6 3;
           animation: current-run 1.5s linear infinite;
+        }
+        .pwm-wave-scroll {
+          stroke-dasharray: 10 5;
+          animation: pwm-scroll 1s linear infinite;
         }
       `}} />
 
@@ -1518,52 +1526,96 @@ export const ElecPowerSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Power Step-Down Regulators</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Power & Motor Control</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Stable Power Conditioning</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              We step down the raw battery voltage (12.6V peak) to stable voltage lines via LM2596 high-efficiency switching buck converters.
+        {/* Left Column: Sibling cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          {/* Card A: Power regulation */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">01 / Stable Power Conditioning</h3>
+            <p className="text-[12px] text-slate-500 font-bold mb-2">
+              We step down the raw battery voltage (12.6V peak) to stable voltage lines via LM2596 switching buck converters.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• INPUT: 12.6V DIRECT LITHIUM BMS CHANNEL</li>
-              <li>• LINE 01: 5.0V STABILIZED FOR ARDUINO / SENSORS LOGIC</li>
-              <li>• LINE 02: 9.0V REGULATED FOR L298N DRIVER LOGIC</li>
-              <li>• COUPLING: PARALLEL ISOLATION PREVENTS MOTOR BACK-EMF</li>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Input: 12.6V Direct raw battery BMS feed</li>
+              <li>• 5.0V Line: Feeds stable logic to Arduino Mega</li>
+              <li>• 9.0V Line: Feeds stable logic to L298N driver gates</li>
+            </ul>
+          </div>
+
+          {/* Card B: Motor Control handles by Arduino Mega */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">02 / Arduino Mega Motor Control</h3>
+            <p className="text-[12px] text-slate-500 font-bold mb-2">
+              Our low-level deterministic motor actuation is managed completely by the processing core of the Arduino Mega.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Generate PWM signals to govern wheel speeds</li>
+              <li>• Control motor direction dynamically inside loops</li>
+              <li>• Synchronize four motors to match target speed</li>
+              <li>• Handle movement commands streamed from ESP32</li>
             </ul>
           </div>
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              POWER_DISTRIBUTION_SCHEMATIC // CAD_PCB
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: LM2596 Power Buck routing */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              LM2596_BUCK_POWER_ROUTING // FLOW_A
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="20" y="55" width="60" height="50" rx="3" fill="#f8fafc" stroke="#f59e0b" strokeWidth="1.5" />
-                <rect x="160" y="20" width="100" height="40" rx="3" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1.5" />
-                <rect x="160" y="100" width="100" height="40" rx="3" fill="#f8fafc" stroke="#10b981" strokeWidth="1.5" />
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 80" fill="none">
+                <rect x="15" y="25" width="45" height="30" rx="2" fill="#f8fafc" stroke="#f59e0b" strokeWidth="1" />
+                <rect x="160" y="10" width="100" height="22" rx="2" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1" />
+                <rect x="160" y="48" width="100" height="22" rx="2" fill="#f8fafc" stroke="#10b981" strokeWidth="1" />
                 
-                {/* Active electron flow */}
-                <path d="M80 80 H120 V40 H160" stroke="#fbbf24" strokeWidth="2" className="wire-flow" />
-                <path d="M120 40 V120 H160" stroke="#fbbf24" strokeWidth="2" className="wire-flow" />
+                {/* Active current routes */}
+                <path d="M 60,40 H 110 V 21 H 160" stroke="#fbbf24" strokeWidth="1.5" className="wire-flow" />
+                <path d="M 110,21 V 59 H 160" stroke="#fbbf24" strokeWidth="1.5" className="wire-flow" />
                 
-                <text x="50" y="83" fill="#f59e0b" textAnchor="middle" className="font-mono text-[7px] font-bold">12.6V BATT</text>
-                <text x="210" y="43" fill="#3b82f6" textAnchor="middle" className="font-mono text-[7px] font-bold">5V LM2596 BUCK</text>
-                <text x="210" y="123" fill="#10b981" textAnchor="middle" className="font-mono text-[7px] font-bold">9V LM2596 BUCK</text>
+                <text x="37.5" y="42" fill="#f59e0b" textAnchor="middle" className="font-mono text-[6.5px] font-bold">12.6V BATT</text>
+                <text x="210" y="23" fill="#3b82f6" textAnchor="middle" className="font-mono text-[6px] font-bold">5V BUCK (CPU LOGIC)</text>
+                <text x="210" y="61" fill="#10b981" textAnchor="middle" className="font-mono text-[6px] font-bold">9V BUCK (DRIVERS)</text>
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Buck converters preserve stable logic voltages during high-current motor draws.
+          </div>
+
+          {/* Visualizer B: Synchronized Multi-Channel PWM Waves */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              MEGA_PWM_SYNCHRONIZED_CHANNELS // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 80" fill="none">
+                {/* Channel M1 Pulse */}
+                <path d="M 15,11 H 285" stroke="#e2e8f0" strokeWidth="1" />
+                <path d="M 20,11 H 280" stroke="#10b981" strokeWidth="1.5" className="pwm-wave-scroll" />
+                <text x="20" y="8" fill="#047857" className="font-mono text-[5px] font-bold">CH1: M1 PWM SPEED SYNC</text>
+
+                {/* Channel M2 Pulse */}
+                <path d="M 15,29 H 285" stroke="#e2e8f0" strokeWidth="1" />
+                <path d="M 20,29 H 280" stroke="#10b981" strokeWidth="1.5" className="pwm-wave-scroll" />
+                <text x="20" y="26" fill="#047857" className="font-mono text-[5px] font-bold">CH2: M2 PWM SPEED SYNC</text>
+
+                {/* Channel M3 Pulse */}
+                <path d="M 15,47 H 285" stroke="#e2e8f0" strokeWidth="1" />
+                <path d="M 20,47 H 280" stroke="#10b981" strokeWidth="1.5" className="pwm-wave-scroll" />
+                <text x="20" y="44" fill="#047857" className="font-mono text-[5px] font-bold">CH3: M3 PWM SPEED SYNC</text>
+
+                {/* Channel M4 Pulse */}
+                <path d="M 15,65 H 285" stroke="#e2e8f0" strokeWidth="1" />
+                <path d="M 20,65 H 280" stroke="#10b981" strokeWidth="1.5" className="pwm-wave-scroll" />
+                <text x="20" y="62" fill="#047857" className="font-mono text-[5px] font-bold">CH4: M4 PWM SPEED SYNC</text>
+              </svg>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -1575,13 +1627,21 @@ export const ElecBmsSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes balance-charge {
+        @keyframes bms-balance {
           0%, 100% { height: 10px; fill: #ef4444; }
-          50% { height: 80px; fill: #10b981; }
+          50% { height: 40px; fill: #10b981; }
         }
-        .cell-charge {
-          animation: balance-charge 6s ease-in-out infinite;
+        @keyframes radar-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .bms-cell-level {
+          animation: bms-balance 5s ease-in-out infinite;
           transform-origin: bottom;
+        }
+        .radar-sweep-spin {
+          animation: radar-spin 4s linear infinite;
+          transform-origin: 150px 40px;
         }
       `}} />
 
@@ -1595,53 +1655,90 @@ export const ElecBmsSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">BMS Battery Protection</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Power Source & LiDAR</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 p-5 rounded-2xl shadow-xs border border-gray-200">
-            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Battery Management Safety</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              To prevent over-discharge and balance cell voltages, we integrate a hardware 3S Battery Management System (BMS) with active balancing circuits.
+        {/* Left Column: Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          {/* Sibling Card 1: Concise Battery Power */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">01 / Battery & BMS Power Source</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2">
+              ASAR runs on a high-capacity 3S Lithium battery pack providing a stable 12.6V peak voltage, completely protected by a hardware BMS card.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• BALANCE: ACTIVE INDUCTIVE balancing (4.2V CELLS)</li>
-              <li>• THRESHOLDS: OVERCURRENT LIMIT 20A COUPLING SHIELD</li>
-              <li>• SAFETY: AUTOMATIC SHUTDOWN UPON CELL UNDERVOLTAGE (&lt;2.7V)</li>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Active Balancing: Keeps all three cells at equal voltages</li>
+              <li>• Safety Cutoff: Cuts off power instantly if draw exceeds 20A</li>
+              <li>• Low Voltage Alarm: Shuts down cores if cells drop below 2.7V</li>
+            </ul>
+          </div>
+
+          {/* Sibling Card 2: LiDAR Power Interfacing */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">02 / LiDAR Active Sensor Power</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2">
+              The high-speed LiDAR scanner rotates at 10Hz and draws a clean 5V logic line. We isolate its motor lanes to prevent electrical noise from leaking.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• 5V Isolated Supply: Dedicated buck line blocks voltage drops</li>
+              <li>• High-Rate Ingestion: Draws constant range data on UART</li>
+              <li>• Opto-Isolators: Blocks motor ripples from compute cores</li>
             </ul>
           </div>
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              BATTERY_BMS_CELL_MONITOR // SIGNAL_CONSOLE
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: 3S Cells Active Balancer */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              BATTERY_3S_CELL_BALANCER_LOG // FLOW_A
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="30" y="30" width="50" height="100" rx="4" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="110" y="30" width="50" height="100" rx="4" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="190" y="30" width="50" height="100" rx="4" stroke="currentColor" strokeWidth="1.5" />
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 80" fill="none">
+                {/* 3S Lithium cell frames (Grouped Snugly) */}
+                <rect x="65" y="15" width="45" height="50" rx="3" stroke="#cbd5e1" strokeWidth="1" />
+                <rect x="127.5" y="15" width="45" height="50" rx="3" stroke="#cbd5e1" strokeWidth="1" />
+                <rect x="190" y="15" width="45" height="50" rx="3" stroke="#cbd5e1" strokeWidth="1" />
                 
-                {/* Dynamically charging columns */}
-                <rect x="35" y="40" width="40" height="80" fill="#10b981" rx="2" className="cell-charge" style={{ animationDelay: '0s' }} />
-                <rect x="115" y="40" width="40" height="80" fill="#10b981" rx="2" className="cell-charge" style={{ animationDelay: '1s' }} />
-                <rect x="195" y="40" width="40" height="80" fill="#10b981" rx="2" className="cell-charge" style={{ animationDelay: '2s' }} />
+                {/* Balancing charge level columns */}
+                <rect x="68" y="20" width="39" height="40" fill="#10b981" rx="1.5" className="bms-cell-level" style={{ animationDelay: '0s' }} />
+                <rect x="130.5" y="20" width="39" height="40" fill="#10b981" rx="1.5" className="bms-cell-level" style={{ animationDelay: '0.8s' }} />
+                <rect x="193" y="20" width="39" height="40" fill="#10b981" rx="1.5" className="bms-cell-level" style={{ animationDelay: '1.6s' }} />
 
-                <path d="M80 80 H110 M160 80 H190" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="2 2" />
-                <text x="55" y="83" fill="#ffffff" textAnchor="middle" className="font-mono text-[8px] font-bold z-10">CELL 1</text>
-                <text x="135" y="83" fill="#ffffff" textAnchor="middle" className="font-mono text-[8px] font-bold z-10">CELL 2</text>
-                <text x="215" y="83" fill="#ffffff" textAnchor="middle" className="font-mono text-[8px] font-bold z-10">CELL 3</text>
+                <text x="87.5" y="43" fill="white" textAnchor="middle" className="font-mono text-[6px] font-bold z-10">CELL 1</text>
+                <text x="150" y="43" fill="white" textAnchor="middle" className="font-mono text-[6px] font-bold z-10">CELL 2</text>
+                <text x="212.5" y="43" fill="white" textAnchor="middle" className="font-mono text-[6px] font-bold z-10">CELL 3</text>
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              BMS provides auto-level cell balancing and short-circuit system cutoffs.
+          </div>
+
+          {/* Visualizer B: Active LiDAR 360-Degree Point-Cloud Radar */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              RPLIDAR_ACTIVE_360_SCANNER_RADAR // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 80" fill="none">
+                {/* Concentric radar scan rings */}
+                <circle cx="150" cy="40" r="30" stroke="#cbd5e1" strokeWidth="0.8" strokeDasharray="4 2" />
+                <circle cx="150" cy="40" r="18" stroke="#cbd5e1" strokeWidth="0.5" />
+                
+                {/* Active radar sweeps */}
+                <line x1="150" y1="40" x2="210" y2="20" stroke="#10b981" strokeWidth="1.5" className="radar-sweep-spin" />
+                
+                {/* Static target obstacle dot */}
+                <circle cx="130" cy="28" r="3" fill="#ef4444" className="animate-ping" />
+                <circle cx="130" cy="28" r="2.5" fill="#ef4444" />
+                
+                <text x="150" y="43" fill="#10b981" textAnchor="middle" className="font-mono text-[7px] font-bold">10Hz SCAN</text>
+              </svg>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -1653,13 +1750,28 @@ export const ElecWiringSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes signal-bursts {
-          0% { stroke-dashoffset: 40; }
-          100% { stroke-dashoffset: 0; }
+        @keyframes sonar-wave {
+          0% { r: 5; opacity: 0.8; }
+          100% { r: 25; opacity: 0; }
         }
-        .wiring-signals {
+        @keyframes raw-noise {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: 120; }
+        }
+        @keyframes gyro-needle-osc {
+          0%, 100% { transform: rotate(-25deg); }
+          50% { transform: rotate(25deg); }
+        }
+        .sonar-pulse-beam {
+          animation: sonar-wave 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        }
+        .noise-scroll {
           stroke-dasharray: 4 2;
-          animation: signal-bursts 1s linear infinite;
+          animation: raw-noise 1s linear infinite;
+        }
+        .gyro-needle {
+          animation: gyro-needle-osc 3s ease-in-out infinite;
+          transform-origin: 150px 27px;
         }
       `}} />
 
@@ -1673,58 +1785,121 @@ export const ElecWiringSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-amber-600 font-bold uppercase">Electric and electronics Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Sensor Interfacing Schematic</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Sensor Interfacing & Fusion</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-amber-600 font-bold uppercase mb-2">Interfacing Buses</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              Sensors connect directly to hardware buses: the MPU6050 gyroscope utilizes the I2C bus while the RPLIDAR A8 occupies a dedicated high-speed serial UART core.
+        {/* Left Column: 3 Standalone Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3">
+          
+          {/* Card 1: Ultrasonic */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3.5 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">01 / Ultrasonic Proximity Sensors</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold leading-relaxed">
+              Four HC-SR04 ultrasonic sensors are placed at the front, rear, left, and right. They measure close obstacle distances to build an instant safety shield around our robot.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• IMU MPU6050: HIGH RATE SDA/SCL I2C PINS (ADDR 0X68)</li>
-              <li>• LIDAR RANGE: DIRECT HARDWARE SERIAL BAUD AT 115200</li>
-              <li>• SONAR HC-SR04: DIRECT PIN COUPLING WITH PWM CLK TRIGGER</li>
-            </ul>
           </div>
+
+          {/* Card 2: IMU Gyro */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3.5 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">02 / MPU6050 Gyroscope & IMU</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold leading-relaxed">
+              The 6-axis inertial measurement unit (IMU) tracks actual acceleration and rotation rates to measure the robot's physical heading and correct for driving slips.
+            </p>
+          </div>
+
+          {/* Card 3: Sensor Fusion */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3.5 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-amber-600 font-bold uppercase mb-1 leading-none">03 / Real-Time Sensor Fusion</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold leading-relaxed">
+              We fuse distance readings with gyro angles to calculate positional error. The next movement is dynamically corrected by adding or subtracting (+ or -) drift on-the-fly.
+            </p>
+          </div>
+
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              SENSOR_BUS_ROUTING_DIAGRAM // CAD_BOARD
+        {/* Right Column: 3 Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-3">
+          
+          {/* Visualizer A: Ultrasonic Sonar Beams */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-2.5 relative overflow-hidden text-gray-800 shadow-xs h-[31%]">
+            <div className="font-mono text-[7px] text-gray-400 font-bold border-b border-gray-100 pb-0.5 uppercase tracking-widest leading-none mb-1">
+              4-WAY_ULTRASONIC_PROXIMITY_RADAR // FLOW_A
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                {/* Center Controller */}
-                <rect x="100" y="55" width="100" height="50" rx="3" fill="#f8fafc" stroke="#fbbf24" strokeWidth="1.5" />
-                <text x="150" y="83" fill="#f59e0b" textAnchor="middle" className="font-mono text-[8px] font-bold">ATMEGA2560</text>
+            <div className="flex-grow flex items-center justify-center bg-gray-50/50 rounded-lg border border-gray-100 relative h-[70%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                {/* Center Robot body */}
+                <rect x="143" y="20" width="14" height="14" rx="2" stroke="#2563eb" fill="rgba(37,99,235,0.04)" strokeWidth="1.2" />
                 
-                {/* Sonar */}
-                <rect x="20" y="15" width="50" height="30" rx="2" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1" />
-                <path d="M70 30 H100" stroke="#3b82f6" strokeWidth="1.5" className="wiring-signals" />
-                <text x="45" y="32" fill="#3b82f6" textAnchor="middle" className="font-mono text-[6.5px]">SONAR</text>
-                
-                {/* IMU */}
-                <rect x="20" y="115" width="50" height="30" rx="2" fill="#f8fafc" stroke="#10b981" strokeWidth="1" />
-                <path d="M70 130 H100" stroke="#10b981" strokeWidth="1.5" className="wiring-signals" />
-                <text x="45" y="132" fill="#10b981" textAnchor="middle" className="font-mono text-[6.5px]">MPU6050</text>
+                {/* 4 pulsing sonar beams */}
+                {/* Front beam */}
+                <path d="M 141,10 Q 150,5 159,10" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" className="sonar-pulse-beam" style={{ transformOrigin: '150px 27px' }} />
+                <circle cx="150" cy="5" r="2.5" fill="#ef4444" className="animate-ping" />
+                <text x="150" y="4" fill="#ef4444" textAnchor="middle" className="font-mono text-[5px] font-bold">12cm [STOP]</text>
 
-                {/* LiDAR */}
-                <rect x="230" y="55" width="50" height="50" rx="2" fill="#f8fafc" stroke="#a78bfa" strokeWidth="1.2" />
-                <path d="M200 80 H230" stroke="#a78bfa" strokeWidth="2" strokeDasharray="3 3" className="wiring-signals" />
-                <text x="255" y="83" fill="#a78bfa" textAnchor="middle" className="font-mono text-[7px] font-bold">LiDAR</text>
+                {/* Left beam */}
+                <path d="M 133,21 Q 128,27 133,33" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" className="sonar-pulse-beam" style={{ transformOrigin: '150px 27px', animationDelay: '0.4s' }} />
+                <text x="105" y="30" fill="#10b981" textAnchor="end" className="font-mono text-[5px] font-bold">85cm</text>
+
+                {/* Right beam */}
+                <path d="M 167,21 Q 172,27 167,33" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" className="sonar-pulse-beam" style={{ transformOrigin: '150px 27px', animationDelay: '0.8s' }} />
+                <text x="195" y="30" fill="#94a3b8" textAnchor="start" className="font-mono text-[5px]">OOR</text>
+
+                {/* Rear beam */}
+                <path d="M 141,44 Q 150,49 159,44" stroke="#10b981" strokeWidth="1.2" strokeLinecap="round" className="sonar-pulse-beam" style={{ transformOrigin: '150px 27px', animationDelay: '1.2s' }} />
+                <text x="150" y="52" fill="#94a3b8" textAnchor="middle" className="font-mono text-[5px]">OOR</text>
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Independent hardware buses prevent high-frequency sensory signal cross-talk.
+          </div>
+
+          {/* Visualizer B: IMU Attitude Gyro Compass Dial */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-2.5 relative overflow-hidden text-gray-800 shadow-xs h-[31%]">
+            <div className="font-mono text-[7px] text-gray-400 font-bold border-b border-gray-100 pb-0.5 uppercase tracking-widest leading-none mb-1">
+              MPU6050_ATTITUDE_COMPASS_DIAL // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center bg-gray-50/50 rounded-lg border border-gray-100 relative h-[70%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                <circle cx="150" cy="27" r="18" fill="#f8fafc" stroke="#2563eb" strokeWidth="1.2" strokeDasharray="3 2" />
+                {/* Oscillating compass needle pointer */}
+                <line x1="150" y1="27" x2="150" y2="12" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" className="gyro-needle" />
+                <circle cx="150" cy="27" r="3" fill="#334155" />
+              </svg>
             </div>
           </div>
+
+          {/* Visualizer C: Sensor Fusion Plot */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-2.5 relative overflow-hidden text-gray-800 shadow-xs h-[31%]">
+            <div className="font-mono text-[7px] text-gray-400 font-bold border-b border-gray-100 pb-0.5 uppercase tracking-widest leading-none mb-1">
+              SENSOR_FUSION_COMPLEMENTARY_SCHEMATIC // FLOW_C
+            </div>
+            <div className="flex-grow flex items-center justify-center bg-gray-50/50 rounded-lg border border-gray-100 relative h-[70%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                {/* Input Channels */}
+                <rect x="15" y="6" width="60" height="13" rx="2" fill="#f8fafc" stroke="#10b981" strokeWidth="0.8" />
+                <text x="45" y="14" fill="#047857" textAnchor="middle" className="font-mono text-[4.5px] font-bold">SONAR TARGET</text>
+
+                <rect x="15" y="28" width="60" height="13" rx="2" fill="#f8fafc" stroke="#a78bfa" strokeWidth="0.8" />
+                <text x="45" y="36" fill="#7c3aed" textAnchor="middle" className="font-mono text-[4.5px] font-bold">GYRO HEADING</text>
+
+                {/* Fusion core */}
+                <circle cx="150" cy="24" r="14" fill="#eff6ff" stroke="#3b82f6" strokeWidth="1.2" />
+                <text x="150" y="23" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[5px] font-extrabold">FUSION</text>
+                <text x="150" y="29" fill="#2563eb" textAnchor="middle" className="font-mono text-[4px] font-bold">a = 0.98</text>
+
+                {/* Flow lines with current */}
+                <path d="M 75,12 H 110 V 24 H 136" stroke="#3b82f6" strokeWidth="1" className="noise-scroll" />
+                <path d="M 75,34 H 110 V 24 H 136" stroke="#3b82f6" strokeWidth="1" className="noise-scroll" />
+                <path d="M 164,24 H 220" stroke="#10b981" strokeWidth="1.2" className="noise-scroll" />
+
+                {/* Output box */}
+                <rect x="220" y="15" width="65" height="18" rx="2" fill="#f0fdf4" stroke="#10b981" strokeWidth="1" />
+                <text x="252.5" y="23" fill="#15803d" textAnchor="middle" className="font-mono text-[4.5px] font-bold">± HEADING</text>
+                <text x="252.5" y="29" fill="#15803d" textAnchor="middle" className="font-mono text-[4px] font-bold">CORRECTION</text>
+              </svg>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -1738,12 +1913,20 @@ export const SoftStaticSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes link-pulse {
-          0%, 100% { stroke-width: 1px; stroke: #94a3b8; }
-          50% { stroke-width: 2px; stroke: #10b981; }
+        @keyframes flow-uart-packets {
+          0% { stroke-dashoffset: 24; }
+          100% { stroke-dashoffset: 0; }
         }
-        .static-link {
-          animation: link-pulse 3s infinite;
+        @keyframes core-breathe {
+          0%, 100% { filter: drop-shadow(0 0 2px rgba(37,99,235,0.05)); }
+          50% { filter: drop-shadow(0 0 8px rgba(37,99,235,0.15)); }
+        }
+        .uart-bridge-path {
+          stroke-dasharray: 6 3;
+          animation: flow-uart-packets 1.2s linear infinite;
+        }
+        .ecu-breathe {
+          animation: core-breathe 4s ease-in-out infinite;
         }
       `}} />
 
@@ -1757,50 +1940,148 @@ export const SoftStaticSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Static Software Architecture</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Software Static Architecture</h2>
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Modular Static Setup</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              We deploy modular task schedulers. Code modules are encapsulated to prevent memory-leak thrashing and guarantee deterministic block timings.
-            </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• SCHEDULER: NON-BLOCKING TICK MATRIX DRIVER (100HZ)</li>
-              <li>• MODULES: SEPARATE HEADERS FOR LIDAR, SONAR, & STATE MACHINES</li>
-              <li>• SECURITY: SANITIZED COMPONENT SCOPES WITH STATIC POINTERS</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              STATIC_MODULAR_CLASS_DIAGRAM // BLOCK_LAYOUT
+      {/* Main Full-Width Widescreen Layout (col-span-12) */}
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-stretch z-10 relative py-2 select-text">
+        <div className="col-span-12 h-full">
+          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 min-h-[460px] shadow-xs">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1.5 uppercase tracking-widest leading-none mb-1">
+              ASAR_FULL_SYSTEM_SOFTWARE_STACK_BLUEPRINT // END_TO_END_MAP
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <rect x="110" y="15" width="80" height="30" rx="3" fill="#f8fafc" stroke="#10b981" strokeWidth="1.5" />
-                <text x="150" y="33" fill="#10b981" textAnchor="middle" className="font-mono text-[7px] font-bold">CORE_SCHEDULER</text>
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-1 relative">
+              <svg className="w-[100%] h-[100%] text-slate-400 overflow-visible" viewBox="0 0 1100 370" fill="none">
                 
-                <rect x="20" y="95" width="70" height="35" rx="2" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1" />
-                <rect x="115" y="95" width="70" height="35" rx="2" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1" />
-                <rect x="210" y="95" width="70" height="35" rx="2" fill="#f8fafc" stroke="#3b82f6" strokeWidth="1" />
-                <text x="55" y="115" fill="#2563eb" textAnchor="middle" className="font-mono text-[6.5px] font-bold">LIDAR_PARSER</text>
-                <text x="150" y="115" fill="#2563eb" textAnchor="middle" className="font-mono text-[6.5px] font-bold">SONAR_POLLER</text>
-                <text x="245" y="115" fill="#2563eb" textAnchor="middle" className="font-mono text-[6.5px] font-bold">MOTOR_ACTUATE</text>
-                
-                {/* Pulsing connections */}
-                <path d="M150 45 V70 H55 V95 M150 70 V95 M150 70 H245 V95" stroke="#94a3b8" strokeWidth="1.2" className="static-link" />
+                {/* 1. ARDUINO MEGA 2560 (LEFT CORE SYSTEM) */}
+                <g className="ecu-breathe">
+                  {/* ECU 1 Container (Narrower: 270px) */}
+                  <rect x="15" y="10" width="270" height="340" rx="10" fill="#f8fafc" stroke="#2563eb" strokeWidth="2" />
+                  <rect x="25" y="18" width="250" height="28" rx="4" fill="#eff6ff" />
+                  <text x="150" y="36" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">ECU 1: ARDUINO MEGA (ACTUATION)</text>
+                  
+                  {/* Sub-module: Sonar Poller */}
+                  <rect x="30" y="60" width="240" height="50" rx="6" fill="#ffffff" stroke="#3b82f6" strokeWidth="1.2" />
+                  <text x="150" y="78" fill="#2563eb" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">sonar_poller_interrupt 📡</text>
+                  <text x="150" y="93" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Gathers 4-Direction Sonar Ranges @ 50Hz</text>
+
+                  {/* Sub-module: IMU gyro angles */}
+                  <rect x="30" y="125" width="240" height="50" rx="6" fill="#ffffff" stroke="#3b82f6" strokeWidth="1.2" />
+                  <text x="150" y="143" fill="#2563eb" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">mpu6050_gyro_filter 🌀</text>
+                  <text x="150" y="158" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Calculates Complementary Gyro Heading</text>
+
+                  {/* Sub-module: Motor Actuator L298N */}
+                  <rect x="30" y="190" width="240" height="50" rx="6" fill="#ffffff" stroke="#fbbf24" strokeWidth="1.5" />
+                  <text x="150" y="208" fill="#b45309" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">motor_actuator_driver ⚡</text>
+                  <text x="150" y="223" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Generates Synced PWM Speed Rates</text>
+
+                  {/* Sub-module: Hardware Abstraction Layer (HAL) */}
+                  <rect x="30" y="270" width="240" height="55" rx="6" fill="#fffbeb" stroke="#d97706" strokeWidth="2" />
+                  <text x="150" y="288" fill="#b45309" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">hardware_abstraction_layer (HAL)</text>
+                  <text x="150" y="303" fill="#d97706" textAnchor="middle" className="font-mono text-[9px] font-bold">Registers Direct Low-Level PWM / I2C Pin Gates</text>
+
+                  {/* Internal Flow Arrows */}
+                  <path d="M 150,110 V 125" stroke="#94a3b8" strokeWidth="1.2" />
+                  <path d="M 150,175 V 190" stroke="#94a3b8" strokeWidth="1.2" />
+                  <path d="M 150,240 V 270" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 2" />
+                </g>
+
+                {/* 2. ESP32-WROOM (MIDDLE EDGE COMPUTE CORE) */}
+                <g className="ecu-breathe" style={{ animationDelay: '1.5s' }}>
+                  {/* ECU 2 Container (Narrower: 270px) */}
+                  <rect x="385" y="10" width="270" height="340" rx="10" fill="#f8fafc" stroke="#10b981" strokeWidth="2" />
+                  <rect x="395" y="18" width="250" height="28" rx="4" fill="#f0fdf4" />
+                  <text x="520" y="36" fill="#047857" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">ECU 2: ESP32-WROOM (EDGE & SLAM)</text>
+
+                  {/* Sub-module: LiDAR slam mapper */}
+                  <rect x="400" y="60" width="240" height="50" rx="6" fill="#ffffff" stroke="#10b981" strokeWidth="1.2" />
+                  <text x="520" y="78" fill="#047857" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">lidar_slam_toolbox_engine 📦</text>
+                  <text x="520" y="93" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Maps 2D Cell Grid sweeps from RPLIDAR A8</text>
+
+                  {/* Sub-module: Cloud AI Orchestrator */}
+                  <rect x="400" y="125" width="240" height="50" rx="6" fill="#ffffff" stroke="#10b981" strokeWidth="1.2" />
+                  <text x="520" y="143" fill="#047857" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">ai_cloud_orchestrator 💭</text>
+                  <text x="520" y="158" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Triggers cloud AI decision API JSON calls</text>
+
+                  {/* Sub-module: Web App WebSocket Telemetry */}
+                  <rect x="400" y="190" width="240" height="50" rx="6" fill="#ffffff" stroke="#3b82f6" strokeWidth="1.2" />
+                  <text x="520" y="208" fill="#2563eb" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">web_app_telemetry_node 📡</text>
+                  <text x="520" y="223" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Hosts server for Web Joysticks & client logs</text>
+
+                  {/* Sub-module: ESP32 HAL */}
+                  <rect x="400" y="270" width="240" height="55" rx="6" fill="#fffbeb" stroke="#d97706" strokeWidth="2" />
+                  <text x="520" y="288" fill="#b45309" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">hardware_abstraction_layer (HAL)</text>
+                  <text x="520" y="303" fill="#d97706" textAnchor="middle" className="font-mono text-[9px] font-bold">Registers UART / SPI / Wi-Fi Socket Drivers</text>
+
+                  {/* Internal Flow Arrows */}
+                  <path d="M 520,110 V 125" stroke="#94a3b8" strokeWidth="1.2" />
+                  <path d="M 520,175 V 190" stroke="#94a3b8" strokeWidth="1.2" />
+                  <path d="M 520,240 V 270" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 2" />
+                </g>
+
+                {/* 3. WEB & MOBILE CLIENT STACK (RIGHT REMOTE CONTROL) */}
+                <g className="ecu-breathe" style={{ animationDelay: '3s' }}>
+                  {/* Client Stack Container (Compacted and Less Wide) */}
+                  <rect x="805" y="10" width="280" height="260" rx="10" fill="#f8fafc" stroke="#a855f7" strokeWidth="2" />
+                  <rect x="815" y="18" width="260" height="28" rx="4" fill="#faf5ff" />
+                  <text x="945" y="36" fill="#7e22ce" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">REMOTE CONTROL (USER STACK)</text>
+
+                  {/* Sub-module: React Leaflet UI */}
+                  <rect x="820" y="60" width="250" height="50" rx="6" fill="#ffffff" stroke="#a855f7" strokeWidth="1.2" />
+                  <text x="945" y="78" fill="#7e22ce" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">react_leaflet_canvas_ui 🌐</text>
+                  <text x="945" y="93" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Renders live 2D Grid & Slide HUD metrics</text>
+
+                  {/* Sub-module: WebSocket Teleop Client */}
+                  <rect x="820" y="125" width="250" height="50" rx="6" fill="#ffffff" stroke="#a855f7" strokeWidth="1.2" />
+                  <text x="945" y="143" fill="#7e22ce" textAnchor="middle" className="font-mono text-[11px] font-extrabold font-sans">websocket_teleop_client 🎮</text>
+                  <text x="945" y="158" fill="#64748b" textAnchor="middle" className="font-mono text-[9px]">Sends low-latency Virtual Joystick speed inputs</text>
+
+                  {/* Sub-module: Runtime Mode Selector Dashboard */}
+                  <rect x="820" y="190" width="250" height="60" rx="6" fill="#faf5ff" stroke="#a855f7" strokeWidth="1.5" />
+                  <text x="945" y="205" fill="#7e22ce" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">runtime_mode_selector 🔘</text>
+                  
+                  {/* Selection pills (Manual highlighted) */}
+                  <g>
+                    {/* Manual (Active) */}
+                    <rect x="826" y="215" width="70" height="15" rx="3" fill="#dcfce7" stroke="#10b981" strokeWidth="1.2" />
+                    <text x="861" y="226" fill="#15803d" textAnchor="middle" className="font-mono text-[8px] font-extrabold font-sans">[MANUAL]</text>
+
+                    {/* SLAM Logic */}
+                    <rect x="902" y="215" width="82" height="15" rx="3" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                    <text x="943" y="226" fill="#64748b" textAnchor="middle" className="font-mono text-[8px] font-bold font-sans">[SLAM_LOG]</text>
+
+                    {/* Cloud AI */}
+                    <rect x="990" y="215" width="74" height="15" rx="3" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                    <text x="1027" y="226" fill="#64748b" textAnchor="middle" className="font-mono text-[8px] font-bold font-sans">[CLOUD_AI]</text>
+                  </g>
+
+                  {/* Internal Flow Arrows */}
+                  <path d="M 945,110 V 125" stroke="#94a3b8" strokeWidth="1.2" />
+                  <path d="M 945,175 V 190" stroke="#94a3b8" strokeWidth="1.2" />
+                </g>
+
+                {/* 4. COPROC COMMS CHANNELS (INTER-ECU BUSES - EXPANDED AREA) */}
+                {/* Channel A: UART Serial between Arduino and ESP32 HALs */}
+                <g>
+                  <path d="M 285,297.5 H 385" stroke="#f59e0b" strokeWidth="3.5" className="uart-bridge-path" />
+                  <rect x="295" y="285.5" width="80" height="24" rx="2" fill="#fffbeb" stroke="#d97706" strokeWidth="0.8" />
+                  <text x="335" y="295" fill="#b45309" textAnchor="middle" className="font-mono text-[5.5px] font-extrabold">115200 UART</text>
+                  <text x="335" y="302" fill="#d97706" textAnchor="middle" className="font-mono text-[5px]">SERIAL BRIDGE</text>
+                </g>
+
+                {/* Channel B: WebSockets between ESP32 Server Node and Web Client Teleop */}
+                <g>
+                  <path d="M 640,215 H 820" stroke="#a855f7" strokeWidth="3.5" className="uart-bridge-path" />
+                  <rect x="670" y="203" width="120" height="24" rx="2" fill="#faf5ff" stroke="#a855f7" strokeWidth="0.8" />
+                  <text x="730" y="212.5" fill="#7e22ce" textAnchor="middle" className="font-mono text-[6px] font-extrabold">WIFI WS CLIENT LINK</text>
+                  <text x="730" y="219.5" fill="#a855f7" textAnchor="middle" className="font-mono text-[5.5px]">WEBSOCKET BYPASS</text>
+                </g>
+
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Isolated class segments guarantee stable stack margins during execution.
+            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-100 pt-1.5 text-center uppercase leading-none mt-1">
+              Isolated class segments and Hardware Abstraction Layers (HAL) guarantee robust execution, preventing memory thrashing and signal collisions.
             </div>
           </div>
         </div>
@@ -1809,18 +2090,18 @@ export const SoftStaticSlide: React.FC = () => {
   );
 };
 
-// ========================================== SLIDE 17: DYNAMIC SERIAL HANDSHAKES ==========================================
+// ========================================== SLIDE 17: DYNAMIC CONTROL SEQUENCE ==========================================
 export const SoftDynamicSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes slide-checker {
-          0% { transform: translateX(-40px); opacity: 0.1; }
-          50% { opacity: 0.8; }
-          100% { transform: translateX(240px); opacity: 0.1; }
+        @keyframes flow-seq-packets {
+          0% { stroke-dashoffset: 24; }
+          100% { stroke-dashoffset: 0; }
         }
-        .serial-checker {
-          animation: slide-checker 3s linear infinite;
+        .seq-flow-path {
+          stroke-dasharray: 6 4;
+          animation: flow-seq-packets 1.5s linear infinite;
         }
       `}} />
 
@@ -1834,51 +2115,100 @@ export const SoftDynamicSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Dynamic Serial Handshakes</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">End-to-End Control Sequence</h2>
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Inter-Processor Communication</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              Controllers communicate via bi-directional UART, utilizing a strict CRC-validated packet struct to prevent data corruption.
-            </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• PROTOCOL: ASYNC PACKET-BASED SERIAL UART CORE</li>
-              <li>• BAUD RATE: 115200 HIGH STABILITY SPEED (UART2)</li>
-              <li>• VALIDATION: 8-BIT CRC CHECK FOR SYSTEM NOISE CUTOFF</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              SERIAL_PACKET_FRAME_STRUCTURE // TELEMETRY_GRID
+      {/* Main Full-Width Widescreen Layout (col-span-12) */}
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-stretch z-10 relative py-2 select-text">
+        <div className="col-span-12 h-full">
+          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 min-h-[460px] shadow-xs">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1.5 uppercase tracking-widest leading-none mb-1">
+              ASAR_SYSTEM_REAL_TIME_DATA_TRANSMISSION // SEQUENCE_DIAGRAM
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                {/* Packet Struct Block */}
-                <rect x="20" y="60" width="40" height="40" stroke="#ef4444" strokeWidth="1.5" fill="#f8fafc" />
-                <rect x="60" y="60" width="50" height="40" stroke="#2563eb" strokeWidth="1.5" fill="#f8fafc" />
-                <rect x="110" y="60" width="110" height="40" stroke="#10b981" strokeWidth="1.5" fill="#f8fafc" />
-                <rect x="220" y="60" width="60" height="40" stroke="#fbbf24" strokeWidth="1.5" fill="#f8fafc" />
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-1 relative">
+              <svg className="w-[100%] h-[100%] text-slate-400 overflow-visible" viewBox="0 0 1100 320" fill="none">
                 
-                <text x="40" y="83" fill="#ef4444" textAnchor="middle" className="font-mono text-[8px] font-bold">START</text>
-                <text x="85" y="83" fill="#2563eb" textAnchor="middle" className="font-mono text-[7px] font-bold">ID [1B]</text>
-                <text x="165" y="83" fill="#10b981" textAnchor="middle" className="font-mono text-[8px] font-bold">DATA PAYLOAD [8B]</text>
-                <text x="250" y="83" fill="#d97706" textAnchor="middle" className="font-mono text-[8px] font-bold">CRC [1B]</text>
+                {/* Lifeline Headers (Swimlanes) */}
+                {/* 1. Remote user client */}
+                <g>
+                  <rect x="50" y="10" width="180" height="30" rx="4" fill="#faf5ff" stroke="#a855f7" strokeWidth="1.5" />
+                  <text x="140" y="29" fill="#7e22ce" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">USER APP (React Client)</text>
+                  <line x1="140" y1="40" x2="140" y2="300" stroke="#cbd5e1" strokeWidth="1.2" strokeDasharray="4 2" />
+                  <rect x="135" y="60" width="10" height="230" fill="#a855f7" rx="2" />
+                </g>
 
-                {/* Animated Scanner checkbar */}
-                <line x1="20" y1="50" x2="20" y2="110" stroke="#10b981" strokeWidth="2" className="serial-checker" />
+                {/* 2. ESP32 Co-processor */}
+                <g>
+                  <rect x="330" y="10" width="180" height="30" rx="4" fill="#f0fdf4" stroke="#10b981" strokeWidth="1.5" />
+                  <text x="420" y="29" fill="#047857" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">ESP32 CO-PROCESSOR</text>
+                  <line x1="420" y1="40" x2="420" y2="300" stroke="#cbd5e1" strokeWidth="1.2" strokeDasharray="4 2" />
+                  <rect x="415" y="80" width="10" height="200" fill="#10b981" rx="2" />
+                </g>
+
+                {/* 3. Arduino Mega Actuator */}
+                <g>
+                  <rect x="610" y="10" width="180" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" strokeWidth="1.5" />
+                  <text x="700" y="29" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">ARDUINO MEGA 2560</text>
+                  <line x1="700" y1="40" x2="700" y2="300" stroke="#cbd5e1" strokeWidth="1.2" strokeDasharray="4 2" />
+                  <rect x="695" y="120" width="10" height="150" fill="#2563eb" rx="2" />
+                </g>
+
+                {/* 4. Motor Actuators L298N */}
+                <g>
+                  <rect x="890" y="10" width="180" height="30" rx="4" fill="#fffbeb" stroke="#d97706" strokeWidth="1.5" />
+                  <text x="980" y="29" fill="#b45309" textAnchor="middle" className="font-mono text-[10px] font-extrabold font-sans">MOTOR ACTUATORS (L298N)</text>
+                  <line x1="980" y1="40" x2="980" y2="300" stroke="#cbd5e1" strokeWidth="1.2" strokeDasharray="4 2" />
+                  <rect x="975" y="160" width="10" height="100" fill="#f59e0b" rx="2" />
+                </g>
+
+                {/* Sequence Message Arrows */}
+                {/* Message 1: Client streams cmd_vel to ESP32 */}
+                <g>
+                  <path d="M 145,90 H 415" stroke="#a855f7" strokeWidth="1.5" className="seq-flow-path" />
+                  <polygon points="415,90 409,86 409,94" fill="#a855f7" />
+                  <text x="280" y="83" fill="#7e22ce" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">1. WiFi WebSockets: Speed Vector Commands (/cmd_vel) [10Hz]</text>
+                </g>
+
+                {/* Message 2: ESP32 dispatches binary UART packets to Arduino */}
+                <g>
+                  <path d="M 425,130 H 695" stroke="#10b981" strokeWidth="1.5" className="seq-flow-path" />
+                  <polygon points="695,130 689,126 689,134" fill="#10b981" />
+                  <text x="560" y="123" fill="#047857" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">2. Serial Comms: Binary Telemetry Frame [115200 Baud UART]</text>
+                </g>
+
+                {/* Message 3: Arduino Mega drives PWM to L298N */}
+                <g>
+                  <path d="M 705,170 H 975" stroke="#2563eb" strokeWidth="1.5" className="seq-flow-path" />
+                  <polygon points="975,170 969,166 969,174" fill="#2563eb" />
+                  <text x="840" y="163" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">3. Analog PWM: Direct H-Bridge Gates [Independent Wheel Syncs]</text>
+                </g>
+
+                {/* Message 4: Encoder INT return to Arduino */}
+                <g>
+                  <path d="M 975,200 H 705" stroke="#d97706" strokeWidth="1.2" strokeDasharray="3 2" className="seq-flow-path" style={{ animationDirection: 'reverse' }} />
+                  <polygon points="705,200 711,196 711,204" fill="#d97706" />
+                  <text x="840" y="193" fill="#b45309" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">4. Async INT Ticks: Independent Motor Rotation Rates [Dual Ch]</text>
+                </g>
+
+                {/* Message 5: Arduino dispatches telemetry back to ESP32 */}
+                <g>
+                  <path d="M 695,235 H 425" stroke="#3b82f6" strokeWidth="1.2" strokeDasharray="3 2" className="seq-flow-path" style={{ animationDirection: 'reverse' }} />
+                  <polygon points="425,235 431,231 431,239" fill="#3b82f6" />
+                  <text x="560" y="228" fill="#1d4ed8" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">5. UART Feedback: Consolidated Sonar Range Buffers & IMU Heading</text>
+                </g>
+
+                {/* Message 6: ESP32 dispatches 2D grids/state logs back to Client UI */}
+                <g>
+                  <path d="M 415,270 H 145" stroke="#a855f7" strokeWidth="1.2" strokeDasharray="3 2" className="seq-flow-path" style={{ animationDirection: 'reverse' }} />
+                  <polygon points="145,270 151,266 151,274" fill="#a855f7" />
+                  <text x="280" y="263" fill="#7e22ce" textAnchor="middle" className="font-mono text-[8.5px] font-bold font-sans">6. WiFi WebSockets: 2D SLAM Occupancy Grids & State Logs [Live]</text>
+                </g>
+
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              CRC-8 byte verification blocks serial frame corruption from EMF motor noise.
+            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-100 pt-1.5 text-center uppercase leading-none mt-1">
+              End-to-end data sequence routes high-level telemetry and low-level actuation on closed loops, preserving failsafe motor control states.
             </div>
           </div>
         </div>
@@ -1896,16 +2226,17 @@ export const SoftSlamSlide: React.FC = () => {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        @keyframes path-pulsing {
+          0%, 100% { stroke-dashoffset: 0; opacity: 0.6; }
+          50% { stroke-dashoffset: -10; opacity: 1; }
+        }
         .laser-rotate {
           animation: rotating-laser 5s linear infinite;
-          transform-origin: 120px 100px;
+          transform-origin: 150px 27px;
         }
-        @keyframes obstacle-flicker {
-          0%, 100% { opacity: 0.15; }
-          50% { opacity: 0.5; }
-        }
-        .flicker-block {
-          animation: obstacle-flicker 2s infinite;
+        .local-path-pulse {
+          stroke-dasharray: 4 2;
+          animation: path-pulsing 1s linear infinite;
         }
       `}} />
 
@@ -1919,158 +2250,132 @@ export const SoftSlamSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">LiDAR SLAM Occupancy Mapping</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">LiDAR SLAM & Navigation</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Simultaneous Localization</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              We process 360-degree point clouds from the RPLIDAR A8 scanner to build real-time 2D occupancy grid cell layouts inside the ESP32 memory stack.
+        {/* Left Column: Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          
+          {/* Card 1: LiDAR SLAM */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">01 / Real-Time Occupancy Grid Mapping</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              The robot deploys the slam_toolbox ROS2 engine to process 360-degree range rays. By matching laser shapes dynamically, it builds a high-contrast 2D cell occupancy map.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• SCANNER: RPLIDAR A8 CORE AT 10HZ ROTATION FREQUENCY</li>
-              <li>• RESOLUTION: 100MM PER GRID CELL OCCUPANCY COUPLING</li>
-              <li>• UPDATE RATE: 50MS SCAN CORRELATION LOOPS</li>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• slam_toolbox Nodes: Executed on a concurrent FreeRTOS thread</li>
+              <li>• Grid Resolution: Renders the environment in highly precise 5cm cells</li>
             </ul>
           </div>
+
+          {/* Card 2: Path Planning / Navigation */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">02 / Dual-Layer Path Planning</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              Navigation is managed by combining global and local planning algorithms, allowing the robot to steer around obstacles dynamically.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Global A* Planner: Computes static shortest path from start to goal</li>
+              <li>• Local TEB Planner: Calculates dynamic collision-free vectors at 20Hz</li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              SLAM_GRID_CELL_MAPPING // DYNAMIC_COORDINATES
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: Active 2D SLAM grid map */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              SLAM_OCCUPANCY_GRID_COORDINATES // FLOW_A
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2 relative">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <path d="M 0,20 L 300,20 M 0,40 L 300,40 M 0,60 L 300,60 M 0,80 L 300,80 M 0,100 L 300,100 M 0,120 L 300,120" stroke="#cbd5e1" strokeWidth="0.5" />
-                <path d="M 40,0 L 40,160 M 80,0 L 80,160 M 120,0 L 120,160 M 160,0 L 160,160 M 200,0 L 200,160 M 240,0 L 240,160" stroke="#cbd5e1" strokeWidth="0.5" />
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                {/* Grid matrix overlay */}
+                <path d="M 0,10 H 300 M 0,20 H 300 M 0,30 H 300 M 0,40 H 300 M 0,50 H 300" stroke="#e2e8f0" strokeWidth="0.5" />
+                <path d="M 50,0 V 55 M 100,0 V 55 M 150,0 V 55 M 200,0 V 55 M 250,0 V 55" stroke="#e2e8f0" strokeWidth="0.5" />
                 
-                {/* Blinking obstacles */}
-                <rect x="80" y="40" width="40" height="40" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" strokeWidth="1" className="flicker-block" />
-                <rect x="160" y="80" width="40" height="40" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" strokeWidth="1" className="flicker-block" />
-                
+                {/* Flashing detected red obstacles */}
+                <rect x="50" y="20" width="10" height="10" fill="#fee2e2" stroke="#ef4444" strokeWidth="0.8" />
+                <rect x="200" y="10" width="10" height="10" fill="#fee2e2" stroke="#ef4444" strokeWidth="0.8" />
+
+                {/* Rotating scanner laser sweep */}
                 <g className="laser-rotate">
-                  {/* Sweep ray */}
-                  <line x1="120" y1="100" x2="280" y2="100" stroke="rgba(37,99,235,0.3)" strokeWidth="1.5" />
-                  <circle cx="280" cy="100" r="3" fill="#3b82f6" className="animate-ping" />
+                  <line x1="150" y1="27" x2="260" y2="27" stroke="rgba(16,185,129,0.4)" strokeWidth="1.5" />
+                  <circle cx="260" cy="27" r="2" fill="#10b981" />
                 </g>
 
-                <circle cx="120" cy="100" r="8" fill="#10b981" stroke="#34d399" strokeWidth="1.5" />
-                <line x1="120" y1="100" x2="135" y2="85" stroke="#34d399" strokeWidth="2" />
+                {/* Center robot dot */}
+                <circle cx="150" cy="27" r="5" fill="#3b82f6" stroke="#2563eb" strokeWidth="1" />
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              LiDAR scan matrices map obstacle boundary cells in real-time coordinates.
+          </div>
+
+          {/* Visualizer B: Global and Local planning paths */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              GLOBAL_VS_LOCAL_PATH_PLANNING_ALGORITHMS // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                {/* Start node A and Target node B */}
+                <circle cx="30" cy="27" r="4" fill="#2563eb" />
+                <text x="30" y="23" fill="#2563eb" textAnchor="middle" className="font-mono text-[5px] font-bold">START (A)</text>
+
+                <polygon points="270,27 274,31 278,27 274,23" fill="#10b981" />
+                <text x="274" y="19" fill="#047857" textAnchor="middle" className="font-mono text-[5px] font-bold">GOAL (B)</text>
+
+                {/* Static obstacle block in the center */}
+                <rect x="135" y="13" width="30" height="28" fill="#f8fafc" stroke="#64748b" strokeWidth="1.5" rx="2" />
+                <text x="150" y="30" fill="#475569" textAnchor="middle" className="font-mono text-[5px] font-bold">OBSTACLE</text>
+
+                {/* Global Static Path (Dashed blue line straight through/under the map) */}
+                <path d="M 34,27 H 266" stroke="#2563eb" strokeWidth="1" strokeDasharray="3 3" />
+                <text x="75" y="23" fill="#2563eb" className="font-mono text-[4.5px] font-bold">GLOBAL path (A*)</text>
+
+                {/* Local Dynamic Path (Symmetric, pulsing green arc wiggling over the obstacle) */}
+                <path d="M 34,27 Q 150,-10 266,27" stroke="#10b981" strokeWidth="1.8" fill="none" className="local-path-pulse" />
+                <text x="150" y="5" fill="#047857" textAnchor="middle" className="font-mono text-[5px] font-bold">LOCAL TEB PLANNED TRAJECTORY (ACTIVE)</text>
+              </svg>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   );
 };
 
-// ========================================== SLIDE 19: KALMAN SENSOR FUSION MATH ==========================================
-export const SoftKalmanSlide: React.FC = () => {
-  return (
-    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes noise-scroll {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: 120; }
-        }
-        .scrolling-noise {
-          stroke-dasharray: 6 3;
-          animation: noise-scroll 1.5s linear infinite;
-        }
-        @keyframes k-gliders {
-          0% { cx: 40; cy: 80; }
-          50% { cx: 140; cy: 95; }
-          100% { cx: 240; cy: 80; }
-        }
-        .k-tracer {
-          animation: k-gliders 5s ease-in-out infinite;
-        }
-      `}} />
-
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
-      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
-
-      {/* Slide Header */}
-      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
-        <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
-          </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Kalman Attitude Math</h2>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Sensor Fusion Math</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans">
-              High-frequency motor oscillations corrupt accelerometer tilt readings. We implement a Kalman-inspired complementary fusion filter to obtain stable angles.
-            </p>
-            <div className="bg-slate-50 border border-gray-200 p-3.5 rounded-lg mb-2">
-              <code className="font-mono text-[9.5px] text-slate-800 font-bold block">
-                θ_n+1 = α * (θ_n + ω_gyro * dt) + (1 - α) * a_accel
-              </code>
-            </div>
-            <span className="text-[8px] font-mono text-gray-400 block font-semibold">
-              Where α (0.98) isolates low-frequency accelerometer gravity vectors and integrates high-frequency gyroscope angular rates.
-            </span>
-          </div>
-        </div>
-
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              FILTER_RESONANCE_RESPONSE // GRAPH_PLOT
-            </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <path d="M 40,20 L 40,140 L 280,140" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M 40,80 Q 90,140 140,80 T 240,80" stroke="#ef4444" strokeWidth="1.2" className="scrolling-noise" />
-                <path d="M 40,80 Q 90,95 140,80 T 240,80" stroke="#10b981" strokeWidth="2.5" />
-                
-                {/* Rolling Tracer Dot */}
-                <circle cx="140" cy="80" r="4.5" fill="#10b981" stroke="white" strokeWidth="1.5" className="k-tracer" />
-
-                <text x="180" y="65" fill="#10b981" className="font-mono text-[7px] font-bold">FUSED KALMAN OUTPUT</text>
-                <text x="180" y="115" fill="#ef4444" className="font-mono text-[7px] font-bold font-sans">ACCEL OSCILLATIONS</text>
-              </svg>
-            </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              Complementary filter algorithms efficiently eliminate gyroscope drift.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ========================================== SLIDE 20: FSM OBSTACLE CONTROL ==========================================
+// ========================================== SLIDE 19: OBSTACLE AVOIDANCE & ADAPTIVE BEHAVIOR ==========================================
 export const SoftFsmSlide: React.FC = () => {
   return (
     <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes packets-transit {
-          0% { stroke-dashoffset: 40; }
+        @keyframes laser-spin-sweep {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse-collision-ring {
+          0%, 100% { r: 23; stroke-width: 1.2px; opacity: 0.5; }
+          50% { r: 27; stroke-width: 2.5px; opacity: 1; }
+        }
+        @keyframes path-ai-flow {
+          0% { stroke-dashoffset: 20; }
           100% { stroke-dashoffset: 0; }
         }
-        .fsm-packets {
-          stroke-dasharray: 6 3;
-          animation: packets-transit 1.2s linear infinite;
+        .laser-sweep-line {
+          animation: laser-spin-sweep 4s linear infinite;
+          transform-origin: 150px 42px;
+        }
+        .collision-sonar-ring {
+          animation: pulse-collision-ring 1.5s ease-in-out infinite;
+        }
+        .ai-path-pulse {
+          stroke-dasharray: 5 3;
+          animation: path-ai-flow 1.2s linear infinite;
         }
       `}} />
 
@@ -2084,52 +2389,107 @@ export const SoftFsmSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">FSM Obstacle Avoidance Loop</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Obstacle Avoidance & Adaptive Behavior</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Finite State Machine</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              Low-level safety routines utilize a strict, synchronous Finite State Machine (FSM) to handle obstacle emergency brakes and pivot routines.
+        {/* Left Column: Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          
+          {/* Card 1: Dual-Zone Avoidance */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">01 / Dual-Zone Obstacle Avoidance</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              Our avoidance algorithm splits protection into two spatial detection zones. By fusing long-range LiDAR array sweeps with close-proximity ultrasonic sonar echo lines, the robot guarantees a collision-free safe buffer.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• STATE_0: FORWARD_RUN (SENSORS &gt; 30CM DISTANCE)</li>
-              <li>• STATE_1: BRAKE_AND_REVERSE (OBSTACLE &lt; 15CM ON SECTOR)</li>
-              <li>• STATE_2: PIVOT_TURN_SWEEP (COMPASS HEADING ALIGN)</li>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Long-Range LiDAR Zone: Scans distant objects (&gt;30cm) to proactively map bottlenecks</li>
+              <li>• Close-Range Sonar Zone: Scans immediate boundaries (&lt;15cm) to trigger failsafe brakes</li>
             </ul>
           </div>
+
+          {/* Card 2: Adaptive AI Bypass */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">02 / Adaptive AI-Driven Bypass</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              When the robot gets stuck in unexpected dead-ends, it sends a quick status description to a Cloud AI model. The AI sends back smart steering commands to help the robot find its way out.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• AI Fallback: Triggers automatically if the local planner is stuck for 3 seconds</li>
+              <li>• Smart Escape Path: Uses Cloud AI to calculate creative steering angles and resolve deadlocks</li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Right column: White Background */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              STATE_MACHINE_FLOW_DIAGRAM // LOGIC_BOARD
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: Concentric Dual-Zone Collision Shield (Enlarged Height: 85px) */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              DUAL-ZONE_COLLISION_SHIELD_TOPOLOGY // FLOW_A
             </div>
-            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/50 rounded-xl border border-gray-100 my-2">
-              <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 160" fill="none">
-                <circle cx="60" cy="80" r="22" fill="#f8fafc" stroke="#2563eb" strokeWidth="2.5" className="animate-pulse" style={{ animationDuration: '3s' }} />
-                <circle cx="150" cy="40" r="22" fill="#f8fafc" stroke="#ef4444" strokeWidth="2.5" />
-                <circle cx="240" cy="80" r="22" fill="#f8fafc" stroke="#fbbf24" strokeWidth="2.5" />
-                
-                <text x="60" y="83" fill="#2563eb" textAnchor="middle" className="font-mono text-[6.5px] font-bold">FORWARD</text>
-                <text x="150" y="43" fill="#ef4444" textAnchor="middle" className="font-mono text-[6.5px] font-bold">EMERGENCY</text>
-                <text x="240" y="83" fill="#d97706" textAnchor="middle" className="font-mono text-[6.5px] font-bold">PIVOTING</text>
-                
-                {/* Animated transitioning signals */}
-                <path d="M 82,70 L 128,48" stroke="#cbd5e1" strokeWidth="1.5" className="fsm-packets" />
-                <path d="M 172,48 L 218,70" stroke="#cbd5e1" strokeWidth="1.5" className="fsm-packets" />
-                <path d="M 218,90 L 82,90" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 85" fill="none">
+                {/* Center Robot Chassis */}
+                <rect x="143" y="36" width="14" height="12" rx="2" stroke="#2563eb" fill="rgba(37,99,235,0.04)" strokeWidth="1.2" />
+                <circle cx="150" cy="42" r="1.8" fill="#334155" />
+
+                {/* Inner Concentric Circle: Close-Range Sonar Brake Zone (Bigger: r=25) */}
+                <circle cx="150" cy="42" r="25" fill="none" stroke="#ef4444" strokeWidth="1.8" className="collision-sonar-ring" />
+                <text x="150" y="45" fill="#ef4444" textAnchor="middle" className="font-mono text-[5.5px] font-extrabold">SONAR SAFE ZONE (&lt;15cm)</text>
+
+                {/* Outer Concentric Circle: Long-Range LiDAR Detection Zone (Bigger: r=42) */}
+                <circle cx="150" cy="42" r="42" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="4 2" />
+                <text x="150" y="78" fill="#047857" textAnchor="middle" className="font-mono text-[5.5px] font-extrabold">LIDAR DETECTION ZONE (&gt;30cm)</text>
+
+                {/* Rotating LiDAR Laser Sweep */}
+                <g className="laser-sweep-line">
+                  <line x1="150" y1="42" x2="280" y2="42" stroke="rgba(16,185,129,0.35)" strokeWidth="1" />
+                  <circle cx="280" cy="42" r="1.5" fill="#10b981" />
+                </g>
               </svg>
             </div>
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase">
-              State transitions occur deterministically inside the Arduino 10ms loop interrupt.
+          </div>
+
+          {/* Visualizer B: AI Fallback Dead-End Trap Bypass (Enlarged Height: 85px) */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              CLOUD_AI_FALLBACK_DEAD-END_TRAP_BYPASS // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 85" fill="none">
+                {/* Start node */}
+                <circle cx="25" cy="55" r="4" fill="#2563eb" />
+                <text x="25" y="48" fill="#2563eb" textAnchor="middle" className="font-mono text-[5.5px] font-bold">START (A)</text>
+
+                {/* Dead-End Wall Traps (Detailed, Large U-shaped obstacle block in grey) */}
+                <rect x="90" y="10" width="10" height="65" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" rx="1.5" />
+                <rect x="100" y="10" width="85" height="10" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" rx="1.5" />
+                <rect x="175" y="10" width="10" height="65" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="0.8" rx="1.5" />
+                <text x="142.5" y="42" fill="#475569" textAnchor="middle" className="font-mono text-[6.5px] font-bold font-sans">DEAD-END TRAP</text>
+
+                {/* Traditional Path (Solid blue line leading straight into dead-end) */}
+                <path d="M 29,55 H 125" stroke="#2563eb" strokeWidth="1.2" />
+                <circle cx="125" cy="55" r="3.5" fill="#ef4444" />
+                <text x="125" y="55" fill="white" textAnchor="middle" className="font-mono text-[5.5px] font-extrabold" style={{ dominantBaseline: 'central' }}>X</text>
+                <text x="125" y="46" fill="#ef4444" textAnchor="middle" className="font-mono text-[5px] font-bold leading-none">LOCAL STUCK</text>
+
+                {/* Adaptive Cloud AI Bypass Path (Looping purple path leading backwards and around!) */}
+                <path d="M 125,55 Q 60,65 50,30 T 142.5,-5 T 225,18 T 265,45" stroke="#a855f7" strokeWidth="1.8" fill="none" className="ai-path-pulse" />
+                <circle cx="265" cy="45" r="1.5" fill="#10b981" />
+                
+                {/* Goal star */}
+                <polygon points="265,45 268,49 273,45 268,41" fill="#10b981" />
+                <text x="265" y="38" fill="#10b981" textAnchor="middle" className="font-mono text-[5.5px] font-bold">GOAL (B)</text>
+                
+                <text x="180" y="24" fill="#7e22ce" className="font-mono text-[5.5px] font-extrabold">CLOUD AI BYPASS TRAJECTORY</text>
+              </svg>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -2145,9 +2505,17 @@ export const SoftGithubSlide: React.FC = () => {
           0%, 100% { transform: rotate(-45deg); }
           50% { transform: rotate(45deg); }
         }
+        @keyframes flow-log-packets {
+          0% { stroke-dashoffset: 20; }
+          100% { stroke-dashoffset: 0; }
+        }
         .needle-sweep {
           animation: gauge-sweep 4s ease-in-out infinite;
-          transform-origin: 150px 105px;
+          transform-origin: 215px 35px;
+        }
+        .log-flow-line {
+          stroke-dasharray: 5 3;
+          animation: flow-log-packets 1.2s linear infinite;
         }
       `}} />
 
@@ -2161,73 +2529,149 @@ export const SoftGithubSlide: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
           </div>
-          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">VCS Integration & GitHub Hosting</h2>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Mobile & Web Interface</h2>
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
-        {/* Left Column */}
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
-            <h3 className="font-mono text-[10px] text-emerald-600 font-bold uppercase mb-2">Collaborative Development</h3>
-            <p className="text-[11px] text-gray-500 font-semibold mb-3 leading-relaxed font-sans font-medium">
-              The entire firmware stack and presentation studio code is hosted on a secure GitHub repository. We enforce strict branch protections and automated compile triggers.
+        {/* Left Column: Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          
+          {/* Card 1: Teleop UI */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">01 / Live Teleop & Grid Visualization</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              Our custom mobile and web interface connects directly over on-board Wi-Fi. It allows users to control the robot with virtual joysticks, view active sensor status grids, and monitor mapping cells.
             </p>
-            <ul className="space-y-1.5 font-mono text-[9px] text-slate-600 font-bold leading-normal uppercase">
-              <li>• VERSION CONTROL: DISTRIBUTED GIT WORKFLOW WITH PROTECTED MAIN</li>
-              <li>• REPO HOSTING: SECURE PUBLIC PORTAL (MUHAMED-REFAAT/PRESENTATION-STUDIO)</li>
-              <li>• CI ACTIONS: COMPILE TESTS TRIGGERED ON EVERY PULL HANDSHAKE</li>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Low-Latency Control: Employs WebSocket streaming to achieve &lt;15ms joystick response times</li>
+              <li>• Status Board HUD: Displays real-time battery voltages, sensor sweeps, and FSM states</li>
             </ul>
           </div>
+
+          {/* Card 2: Logging & Cloud AI Training */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">02 / Motion Logs & Cloud AI Training</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              The app records detailed physical motion logs and trajectory files. These logs are telemeted directly to the cloud AI to challenge the model, refining navigation rules and making the autonomous behavior more accurate over time.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Trajectory Logs: Captures yaw rates, encoder ticks, and obstacle distance patterns</li>
+              <li>• Cloud AI Analytics: Uploads dataset dumps to train the models and optimize steering decisions</li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Right column: White Background with split git/app diagrams */}
-        <div className="col-span-7 h-full">
-          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-5 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
-            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-200 pb-2 uppercase tracking-widest">
-              GITHUB_WORKFLOW_PORTAL // SECURE_PORTAL
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: Mobile Dashboard cockpit HUD with wheel speeds */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              MOBILE_COCKPIT_HUD_WIDGETS // FLOW_A
             </div>
-            
-            {/* Split Right Content: Git branches above, Mobile App mock below */}
-            <div className="flex flex-col h-full justify-between flex-grow">
-              {/* Git diagram (upper) */}
-              <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/40 rounded-lg border border-gray-100 my-1 h-1/2">
-                <svg className="w-[85%] h-[85%] text-slate-400 overflow-visible" viewBox="0 0 300 80" fill="none">
-                  <circle cx="50" cy="40" r="5" fill="#2563eb" />
-                  <circle cx="110" cy="40" r="5" fill="#2563eb" />
-                  <circle cx="170" cy="40" r="5" fill="#2563eb" />
-                  <circle cx="230" cy="40" r="7" fill="#10b981" stroke="#34d399" strokeWidth="1.5" />
-                  <line x1="56" y1="40" x2="104" y2="40" stroke="#3b82f6" strokeWidth="1.5" />
-                  <line x1="116" y1="40" x2="164" y2="40" stroke="#3b82f6" strokeWidth="1.5" />
-                  <line x1="176" y1="40" x2="222" y2="40" stroke="#10b981" strokeWidth="2" strokeDasharray="3 2" />
-                  <text x="230" y="25" fill="#10b981" className="font-mono text-[6px] font-bold">MAIN</text>
-                </svg>
-              </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 85" fill="none">
+                {/* Active Network status block */}
+                <rect x="15" y="10" width="125" height="15" rx="2" fill="#faf5ff" stroke="#a855f7" strokeWidth="0.8" />
+                <circle cx="23" cy="17.5" r="2.5" fill="#10b981" className="animate-pulse" />
+                <text x="32" y="20" fill="#7e22ce" className="font-mono text-[5.5px] font-bold">WEBSOCKET: CONNECTED [L: 12ms]</text>
 
-              {/* Mobile App mockup (lower) with sweep needle */}
-              <div className="flex items-center gap-4 bg-gray-50/60 p-2.5 rounded-xl border border-gray-200/50 h-1/2 relative">
-                {/* Tiny speed dial widget */}
-                <div className="w-16 h-12 bg-white border border-gray-250 rounded flex items-center justify-center shrink-0 shadow-xs">
-                  <svg className="w-full h-full text-slate-300 overflow-visible" viewBox="0 0 300 120" fill="none">
-                    <path d="M 100,105 A 60,60 0 0,1 200,105" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    {/* Sweeping analog needle */}
-                    <line x1="150" y1="105" x2="150" y2="60" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" className="needle-sweep" />
-                    <circle cx="150" cy="105" r="4" fill="#334155" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-[11px] text-slate-800 uppercase leading-none mb-1 font-sans">Mobile Telemetry App</h4>
-                  <p className="text-[10px] text-gray-500 font-semibold leading-normal font-sans">
-                    Provides remote-control overrides, active sensor logs, and SLAM map visualizations via WebSocket syncs.
-                  </p>
-                </div>
-              </div>
-            </div>
+                {/* Speedometer Gauge in the center */}
+                <circle cx="215" cy="35" r="24" fill="none" stroke="#e2e8f0" strokeWidth="1.5" />
+                <path d="M 191,35 A 24,24 0 0,1 239,35" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Sweeping speed indicator needle */}
+                <line x1="215" y1="35" x2="215" y2="15" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" className="needle-sweep" />
+                <circle cx="215" cy="35" r="4" fill="#334155" />
+                <text x="215" y="47" fill="#475569" textAnchor="middle" className="font-mono text-[5px] font-bold">CURRENT: 8.5 rad/s</text>
 
-            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-200 pt-2 text-center uppercase mt-2">
-              Continuous integration pipelines ensure compilation sanity prior to code merging.
+                {/* Virtual Joystick Widget */}
+                <circle cx="75" cy="45" r="16" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.2" />
+                <circle cx="80" cy="40" r="6" fill="#3b82f6" stroke="#2563eb" strokeWidth="1.5" />
+
+                {/* 4 Mecanum individual wheel speed progress indicators */}
+                <g>
+                  {/* FL Speed */}
+                  <text x="15" y="62" fill="#15803d" className="font-mono text-[4.5px] font-bold">FL: 8.5 rad/s</text>
+                  <rect x="15" y="65" width="55" height="5" rx="1.5" fill="#e2e8f0" />
+                  <rect x="15" y="65" width="44" height="5" rx="1.5" fill="#10b981" />
+
+                  {/* FR Speed */}
+                  <text x="85" y="62" fill="#15803d" className="font-mono text-[4.5px] font-bold">FR: 8.5 rad/s</text>
+                  <rect x="85" y="65" width="55" height="5" rx="1.5" fill="#e2e8f0" />
+                  <rect x="85" y="65" width="44" height="5" rx="1.5" fill="#10b981" />
+
+                  {/* RL Speed */}
+                  <text x="155" y="62" fill="#15803d" className="font-mono text-[4.5px] font-bold">RL: 8.5 rad/s</text>
+                  <rect x="155" y="65" width="55" height="5" rx="1.5" fill="#e2e8f0" />
+                  <rect x="155" y="65" width="44" height="5" rx="1.5" fill="#10b981" />
+
+                  {/* RR Speed */}
+                  <text x="225" y="62" fill="#15803d" className="font-mono text-[4.5px] font-bold">RR: 8.5 rad/s</text>
+                  <rect x="225" y="65" width="55" height="5" rx="1.5" fill="#e2e8f0" />
+                  <rect x="225" y="65" width="44" height="5" rx="1.5" fill="#10b981" />
+                </g>
+              </svg>
             </div>
           </div>
+
+          {/* Visualizer B: Telemetry ring-buffer & compaction upload pipeline */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              LOG_BUFFER_COMPACTION_AI_PIPELINE // FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 85" fill="none">
+                {/* On-board logger block */}
+                <rect x="10" y="27" width="50" height="30" rx="3" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.2" />
+                <text x="35" y="40" fill="#475569" textAnchor="middle" className="font-mono text-[5.5px] font-bold">ON-BOARD</text>
+                <text x="35" y="48" fill="#64748b" textAnchor="middle" className="font-mono text-[4.5px] font-bold">LOGS REC</text>
+
+                {/* 20-Log Queue Ring Buffer */}
+                <g>
+                  {/* Log cells */}
+                  <rect x="70" y="32" width="20" height="20" rx="1.5" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="80" y="44" fill="#64748b" textAnchor="middle" className="font-mono text-[4.5px] font-bold">Log17</text>
+
+                  <rect x="94" y="32" width="20" height="20" rx="1.5" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="104" y="44" fill="#64748b" textAnchor="middle" className="font-mono text-[4.5px] font-bold">Log18</text>
+
+                  <rect x="118" y="32" width="20" height="20" rx="1.5" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="128" y="44" fill="#64748b" textAnchor="middle" className="font-mono text-[4.5px] font-bold">Log19</text>
+
+                  {/* Active latest cell */}
+                  <rect x="142" y="32" width="20" height="20" rx="1.5" fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.2" />
+                  <text x="152" y="44" fill="#0369a1" textAnchor="middle" className="font-mono text-[4.5px] font-extrabold">Log20</text>
+
+                  {/* Arrow pointing down to Disposed logs bin */}
+                  <path d="M 80,52 V 65 H 105" stroke="#ef4444" strokeWidth="0.8" strokeLinecap="round" />
+                  <polygon points="105,65 99,61 99,69" fill="#ef4444" />
+                  <text x="110" y="68" fill="#ef4444" className="font-mono text-[4.5px] font-bold">DISPOSED LOGS 21+ [ROTATED]</text>
+                </g>
+
+                {/* Compact and Zip Block */}
+                <g>
+                  <rect x="172" y="32" width="32" height="20" rx="1.5" fill="#fef3c7" stroke="#d97706" strokeWidth="1" />
+                  <text x="188" y="41" fill="#b45309" textAnchor="middle" className="font-mono text-[5px] font-bold">COMPACT</text>
+                  <text x="188" y="49" fill="#b45309" textAnchor="middle" className="font-mono text-[4px] font-bold">&amp; EXPOSE</text>
+                </g>
+
+                {/* Cloud AI Server node block on the right */}
+                <rect x="235" y="10" width="55" height="65" rx="3" fill="#faf5ff" stroke="#a855f7" strokeWidth="1.5" />
+                <text x="262.5" y="28" fill="#7e22ce" textAnchor="middle" className="font-mono text-[6.5px] font-extrabold">CLOUD AI</text>
+                <text x="262.5" y="42" fill="#a855f7" textAnchor="middle" className="font-mono text-[5px] font-bold">CHALLENGE</text>
+                <text x="262.5" y="56" fill="#10b981" textAnchor="middle" className="font-mono text-[5px] font-extrabold">ACCURACY</text>
+
+                {/* Animated data flow bridge */}
+                <path d="M 60,42 H 70" stroke="#cbd5e1" strokeWidth="1" />
+                <path d="M 162,42 H 172" stroke="#0284c7" strokeWidth="1" />
+                <path d="M 204,42 H 235" stroke="#a855f7" strokeWidth="1.5" className="log-flow-line" />
+                <polygon points="235,42 229,38 229,46" fill="#a855f7" />
+              </svg>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -2274,13 +2718,535 @@ export const DynamicSlide: React.FC<{
       return <SoftDynamicSlide />;
     case 'soft_slam':
       return <SoftSlamSlide />;
-    case 'soft_kalman':
-      return <SoftKalmanSlide />;
     case 'soft_fsm':
       return <SoftFsmSlide />;
     case 'soft_github':
       return <SoftGithubSlide />;
+    case 'soft_testing':
+      return <SoftTestingSlide />;
+    case 'soft_vcs':
+      return <SoftVcsSlide />;
+    case 'soft_apps':
+      return <SoftAppsSlide />;
+    case 'soft_thankyou':
+      return <SoftThankYouSlide />;
     default:
       return null;
   }
+};
+
+// ========================================== SLIDE 22: TESTING & EVALUATION ==========================================
+export const SoftTestingSlide: React.FC = () => {
+  return (
+    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes test-stimulus-flow {
+          0% { stroke-dashoffset: 20; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .test-flow-line {
+          stroke-dasharray: 4 3;
+          animation: test-stimulus-flow 1.5s linear infinite;
+        }
+      `}} />
+
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
+
+      {/* Slide Header */}
+      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+        <div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+          </div>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Testing & Evaluation</h2>
+        </div>
+      </div>
+
+      {/* Preamble Header Paragraph: Outside and above any card boxes! */}
+      <div className="z-10 relative select-text bg-gray-50/80 border border-gray-200/60 p-3 rounded-xl shadow-xs mt-3.5">
+        <p className="text-[13.5px] font-sans font-semibold text-slate-800 leading-relaxed">
+          Three testing types are applied to validate the ASAR robotic stack: Integration Testing, End-to-End (E2E) Black-Box Testing, and Exploratory Stress Testing. These verify that software co-processors, hardware actuators, and steering planners interact flawlessly in all dynamic situations.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
+        {/* Left Column: 3 Split Sibling Cards representing each test type (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-2.5">
+          
+          {/* Card 1: Integration Testing */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[9.5px] text-emerald-600 font-bold uppercase mb-0.5 leading-none">01 / Module-Interface Integration</h3>
+            <p className="text-[11.5px] text-slate-700 font-semibold leading-normal">
+              Integration testing verifies the physical data interfaces and UART/SPI signal handshakes in-between our primary on-board ECU modules (Arduino Mega and ESP32 co-processors).
+            </p>
+            <span className="font-mono text-[9px] text-slate-700 font-bold uppercase leading-none block mt-1">
+              • Interface: Confirmed 0% packet drops across serial bridges
+            </span>
+          </div>
+
+          {/* Card 2: E2E Black-Box Testing */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[9.5px] text-emerald-600 font-bold uppercase mb-0.5 leading-none">02 / End-to-End (E2E) Loop</h3>
+            <p className="text-[11.5px] text-slate-700 font-semibold leading-normal">
+              E2E testing audits the entire data loop—from dispatching commands on the mobile app, executing steering outputs on-board, to receiving refreshed status telemetry back on the mobile screen.
+            </p>
+            <span className="font-mono text-[9px] text-slate-700 font-bold uppercase leading-none block mt-1">
+              • E2E Flow: Achieved bi-directional round-trip syncs under 15ms latency
+            </span>
+          </div>
+
+          {/* Card 3: Manual Exploratory Stress Testing */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-3 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[9.5px] text-emerald-600 font-bold uppercase mb-0.5 leading-none">03 / Manual Exploratory Stress Trials</h3>
+            <p className="text-[11.5px] text-slate-700 font-semibold leading-normal">
+              Exploratory testing is applied as random manual runs conducted by engineers in the field. These trials manually challenge steering overrides and emergency stops to verify feature stability.
+            </p>
+            <span className="font-mono text-[9px] text-slate-700 font-bold uppercase leading-none block mt-1">
+              • Stress Runs: Confirms instantaneous emergency override responses
+            </span>
+          </div>
+
+        </div>
+
+        {/* Right Column: Single Unified Graph in White Theme (col-span-6) */}
+        <div className="col-span-6 h-full">
+          <div className="bg-white border border-gray-200 rounded-xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 shadow-xs min-h-[350px]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-2">
+              THREE-TIER_PARALLEL_VAL_MATRIX // SYSTEM_OK
+            </div>
+            
+            {/* White background visualization inside */}
+            <div className="flex-grow flex items-center justify-center p-2 bg-gray-50/30 rounded-lg border border-gray-150 h-[85%] relative">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 145" fill="none">
+                
+                {/* BOX 1: INTEGRATION TESTING CORE [INTER-ECU CHANNELS] */}
+                <g>
+                  {/* Unified Integration Container Box */}
+                  <rect x="5" y="5" width="290" height="38" rx="2" fill="#fafaf9" stroke="#cbd5e1" strokeWidth="1" />
+                  <text x="12" y="14" fill="#475569" className="font-mono text-[5px] font-extrabold">01 / INTEGRATION TESTS: INTER-ECU SIGNALS</text>
+                  
+                  {/* Inside Flow */}
+                  <rect x="15" y="19" width="45" height="15" rx="1" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="37.5" y="28" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px] font-bold">MEGA 2560</text>
+
+                  <path d="M 60,26.5 H 85" stroke="#cbd5e1" strokeWidth="1" className="test-flow-line" />
+
+                  <rect x="85" y="19" width="55" height="15" rx="1" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="112.5" y="28" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px] font-bold">UART CO-PROC</text>
+
+                  <path d="M 140,26.5 H 170" stroke="#cbd5e1" strokeWidth="1" className="test-flow-line" />
+
+                  <rect x="170" y="19" width="40" height="15" rx="1" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="190" y="28" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px] font-bold">ESP32 LINK</text>
+
+                  {/* Pass badge */}
+                  <rect x="225" y="19" width="60" height="15" rx="1" fill="#f0fdf4" stroke="#86efac" strokeWidth="0.6" />
+                  <circle cx="231" cy="26.5" r="1.5" fill="#10b981" />
+                  <text x="238" y="28.5" fill="#166534" className="font-mono text-[4.5px] font-bold">INTEG PASS ✓</text>
+                </g>
+
+                {/* BOX 2: END-TO-END BLACK-BOX LOOP CONTAINER */}
+                <g>
+                  {/* Unified E2E Container Box */}
+                  <rect x="5" y="49" width="290" height="38" rx="2" fill="#faf5ff" stroke="#a855f7" strokeWidth="1" />
+                  <text x="12" y="58" fill="#7e22ce" className="font-mono text-[5px] font-extrabold">02 / END-TO-END BLACK-BOX: COMPLETE DATA LOOP</text>
+
+                  {/* Inside Flow */}
+                  <rect x="15" y="63" width="45" height="15" rx="1" fill="#ffffff" stroke="#a855f7" strokeWidth="0.8" />
+                  <text x="37.5" y="72" fill="#7e22ce" textAnchor="middle" className="font-mono text-[4.5px] font-bold">MOBILE APP</text>
+
+                  <path d="M 60,70.5 H 85" stroke="#a855f7" strokeWidth="1" className="test-flow-line" />
+
+                  <rect x="85" y="63" width="55" height="15" rx="1" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="112.5" y="72" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px] font-bold">ON-BOARD ECU</text>
+
+                  <path d="M 140,70.5 H 170" stroke="#cbd5e1" strokeWidth="1" className="test-flow-line" />
+
+                  <rect x="170" y="63" width="40" height="15" rx="1" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
+                  <text x="190" y="72" fill="#475569" textAnchor="middle" className="font-mono text-[4.5px] font-bold">APP TELEM</text>
+
+                  {/* Pass badge */}
+                  <rect x="225" y="63" width="60" height="15" rx="1" fill="#f0fdf4" stroke="#86efac" strokeWidth="0.6" />
+                  <circle cx="231" cy="70.5" r="1.5" fill="#10b981" />
+                  <text x="238" y="72.5" fill="#166534" className="font-mono text-[4.5px] font-bold">E2E PASS ✓</text>
+                </g>
+
+                {/* BOX 3: EXPLORATORY TESTING AND MANUAL STRESS CONTAINER */}
+                <g>
+                  {/* Unified Exploratory Container Box */}
+                  <rect x="5" y="93" width="290" height="42" rx="2" fill="#f0f9ff" stroke="#0284c7" strokeWidth="1" />
+                  <text x="12" y="102" fill="#0369a1" className="font-mono text-[5px] font-extrabold">03 / EXPLORATORY TESTING: MANUAL FIELD TRIALS</text>
+
+                  {/* Inside Wavy Path */}
+                  <path d="M 15,115 Q 90,102 150,115 T 215,115" stroke="#2563eb" strokeWidth="1.2" strokeDasharray="3 1" className="test-flow-line" />
+                  <circle cx="95" cy="108" r="3" fill="#fee2e2" stroke="#ef4444" strokeWidth="0.5" />
+                  <circle cx="160" cy="120" r="3" fill="#fee2e2" stroke="#ef4444" strokeWidth="0.5" />
+                  <text x="110" y="128.5" fill="#1d4ed8" className="font-mono text-[4.5px] font-extrabold">MANUAL OVERRIDES & RANDOM ROAD HAZARDS</text>
+
+                  {/* Pass badge */}
+                  <rect x="225" y="106" width="60" height="15" rx="1" fill="#f0fdf4" stroke="#86efac" strokeWidth="0.6" />
+                  <circle cx="231" cy="113.5" r="1.5" fill="#10b981" />
+                  <text x="238" y="115.5" fill="#166534" className="font-mono text-[4.5px] font-bold">STRESS PASS ✓</text>
+                </g>
+
+              </svg>
+            </div>
+            
+            <div className="font-mono text-[8.5px] text-gray-400 font-bold border-t border-gray-100 pt-2 text-center uppercase tracking-wider leading-none mt-1">
+              ALL TESTS VERIFIED ON HIGH-FIDELITY AUTOMATED INTEGRATION SCOPES
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ========================================== SLIDE 23: VCS & PARALLEL INTEGRATION ==========================================
+export const SoftVcsSlide: React.FC = () => {
+  return (
+    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
+
+      {/* Slide Header */}
+      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+        <div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+          </div>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Version Control</h2>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
+        {/* Left Column: Exactly 1 Sibling Card (col-span-6) */}
+        <div className="col-span-5 h-full flex flex-col justify-center">
+          
+          {/* Unified single Card */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[11px] text-emerald-600 font-bold uppercase mb-2 leading-none">01 / Repository Hosting & Rollback Recovery</h3>
+            <p className="text-[13px] text-slate-700 font-semibold mb-3 leading-relaxed">
+              The entire ASAR codebase is hosted on a secure <span className="font-extrabold text-purple-600">GitHub</span> repository. We enforce parallel branching, allowing multiple developers to edit hardware drivers and navigation scripts simultaneously. If any merge breaks the build, engineers can instantly roll back to stable save points.
+            </p>
+            <ul className="space-y-1.5 font-mono text-[10px] text-slate-700 font-bold uppercase leading-normal pl-1">
+              <li>• GitHub Cloud Hosting: Centralizes all codebase assets in a secure workspace</li>
+              <li>• Parallel Development: Supports simultaneous driver and navigation script additions</li>
+              <li>• Save Point Recovery: Instantly recovers the last stable tag checkout to bypass bugs</li>
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Right Column: User's custom compiled SVG Graph on a White Background (col-span-7) */}
+        <div className="col-span-7 h-full flex items-center justify-center">
+          <div className="bg-white border border-gray-200 rounded-xl w-full h-[375px] p-2 relative overflow-hidden text-gray-800 shadow-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style={{ backgroundColor: "#ffffff" }}>
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9b72" />
+    </marker>
+  </defs>
+
+  <text x="500" y="45" text-anchor="middle" fill="#1e293b" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" letter-spacing="1">
+    GIT WORKFLOW & ROLLBACK LIFECYCLE
+  </text>
+
+  <g id="panel-developers">
+    <rect x="40" y="90" width="320" height="470" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="60" y="125" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">1. Shared Local Workspace</text>
+    
+    <g transform="translate(0, 0)">
+      <circle cx="110" cy="210" r="14" fill="#64748b" />
+      <path d="M 85 245 C 85 225, 135 225, 135 245 Z" fill="#64748b" />
+      <rect x="150" y="220" width="32" height="22" rx="3" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5" />
+      <path d="M 145 242 L 187 242 L 192 247 L 140 247 Z" fill="#f1f5f9" stroke="#3b82f6" stroke-width="1.5" />
+      <line x1="155" y1="226" x2="167" y2="226" stroke="#2ea44f" stroke-width="2" />
+      <line x1="155" y1="232" x2="174" y2="232" stroke="#58a6ff" stroke-width="2" />
+      <text x="110" y="270" fill="#475569" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Dev Alpha</text>
+    </g>
+
+    <g transform="translate(0, 180)">
+      <circle cx="110" cy="210" r="14" fill="#64748b" />
+      <path d="M 85 245 C 85 225, 135 225, 135 245 Z" fill="#64748b" />
+      <rect x="150" y="220" width="32" height="22" rx="3" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5" />
+      <path d="M 145 242 L 187 242 L 192 247 L 140 247 Z" fill="#f1f5f9" stroke="#3b82f6" stroke-width="1.5" />
+      <line x1="155" y1="226" x2="170" y2="226" stroke="#ff9b72" stroke-width="2" />
+      <line x1="155" y1="232" x2="162" y2="232" stroke="#58a6ff" stroke-width="2" />
+      <text x="110" y="270" fill="#475569" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Dev Beta</text>
+    </g>
+
+    <text x="200" y="335" fill="#64748b" font-family="system-ui, sans-serif" font-size="13" font-style="italic" text-anchor="middle">Coding & Committing</text>
+  </g>
+
+  <g id="panel-github">
+    <rect x="420" y="90" width="540" height="160" rx="12" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5" />
+    <text x="440" y="125" fill="#ff7b72" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">2. GitHub Remote Code Hosting</text>
+    
+    <g id="github-server" transform="translate(640, 120)">
+      <rect x="0" y="0" width="150" height="95" rx="6" fill="#ffffff" stroke="#ff7b72" stroke-width="1.5" />
+      <rect x="15" y="15" width="120" height="15" rx="2" fill="#f1f5f9" />
+      <circle cx="25" cy="22.5" r="3" fill="#2ea44f"><animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="22.5" x2="120" y2="22.5" stroke="#cbd5e1" stroke-width="1.5" />
+
+      <rect x="15" y="40" width="120" height="15" rx="2" fill="#f1f5f9" />
+      <circle cx="25" cy="47.5" r="3" fill="#58a6ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.4s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="47.5" x2="100" y2="47.5" stroke="#cbd5e1" stroke-width="1.5" />
+
+      <rect x="15" y="65" width="120" height="15" rx="2" fill="#f1f5f9" />
+      <circle cx="25" cy="72.5" r="3" fill="#f85149"><animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/></circle>
+      <line x1="40" y1="72.5" x2="110" y2="72.5" stroke="#cbd5e1" stroke-width="1.5" />
+      
+      <text x="75" y="112" fill="#64748b" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" font-weight="bold">origin/main</text>
+    </g>
+  </g>
+
+  <path d="M 185 235 C 320 235, 450 165, 640 165" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" />
+  <path d="M 185 415 C 320 415, 450 165, 640 165" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" />
+
+  <circle r="6" fill="#58a6ff" >
+    <animateMotion dur="4s" repeatCount="indefinite" path="M 185 235 C 320 235, 450 165, 640 165" />
+  </circle>
+  <circle r="6" fill="#2ea44f" >
+    <animateMotion dur="5s" repeatCount="indefinite" path="M 185 415 C 320 415, 450 165, 640 165" />
+  </circle>
+
+  <text x="350" y="210" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" transform="rotate(-11, 350, 210)">git push</text>
+  <text x="350" y="355" fill="#15803d" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" transform="rotate(14, 350, 355)">git push</text>
+
+  <g id="panel-git-history">
+    <rect x="420" y="280" width="540" height="280" rx="12" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5" />
+    <text x="440" y="315" fill="#34d058" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">3. Git Commit Graph Lifecycle</text>
+
+    <path d="M 715 215 C 715 270, 460 290, 460 460" fill="none" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4 4" />
+
+    <path d="M 450 460 H 910" fill="none" stroke="#cbd5e1" stroke-width="3" />
+
+    <g id="commit-c1">
+      <circle cx="510" cy="460" r="16" fill="#f0fdf4" stroke="#10b981" stroke-width="3" />
+      <text x="510" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C1</text>
+      <text x="510" y="495" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">9a1b5c</text>
+      <text x="510" y="430" fill="#15803d" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">STABLE</text>
+    </g>
+
+    <g id="commit-c2">
+      <circle cx="690" cy="460" r="16" fill="#f0fdf4" stroke="#10b981" stroke-width="3" />
+      <text x="690" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C2</text>
+      <text x="690" y="495" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">e4f2a1</text>
+      <text x="690" y="430" fill="#15803d" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SAFE HEAD</text>
+    </g>
+
+    <g id="commit-c3">
+      <circle cx="870" cy="460" r="16" fill="#fee2e2" stroke="#ef4444" stroke-width="3" />
+      <text x="870" y="464" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">C3</text>
+      <text x="870" y="495" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">7b0c9e</text>
+      <text x="870" y="430" fill="#b91c1c" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">BROKEN</text>
+      <path d="M 864 454 L 876 466 M 876 454 L 864 466" fill="none" stroke="#f85149" stroke-width="2.5" />
+    </g>
+
+    <path d="M 870 435 C 820 355, 740 355, 690 432" fill="none" stroke="#ff9b72" stroke-width="3" stroke-dasharray="6 4" marker-end="url(#arrow)" />
+    
+    <circle r="6" fill="#ff9b72" >
+      <animateMotion dur="2.5s" repeatCount="indefinite" path="M 870 435 C 820 355, 740 355, 690 432" />
+    </circle>
+
+    <text x="780" y="350" fill="#ff9b72" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">git reset --hard C2</text>
+    <text x="780" y="370" fill="#ff9b72" font-family="system-ui, sans-serif" font-size="11" font-style="italic" text-anchor="middle">Destructive Rollback to Save Point</text>
+  </g>
+</svg>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+// ========================================== SLIDE 24: FUTURE INDUSTRY APPLICATIONS ==========================================
+export const SoftAppsSlide: React.FC = () => {
+  return (
+    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
+
+      {/* Slide Header */}
+      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+        <div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+          </div>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Future Industry Applications</h2>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
+        {/* Left Column: Sibling Cards (col-span-6) */}
+        <div className="col-span-6 flex flex-col gap-3.5">
+          
+          {/* Card 1: Warehouses & Delivery */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">01 / Smart Warehouses & Indoor Deliveries</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              ASAR's omni-directional chassis and mapping accuracy are highly scalable. It can be directly deployed in smart warehouses for autonomous freight hauling and indoor delivery runs.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Smart Warehouses: Navigates narrow racking lanes safely via TEB planners</li>
+              <li>• Indoor Deliveries: Delivers documents or medical packages inside hospitals</li>
+            </ul>
+          </div>
+
+          {/* Card 2: Industrial Automation & Rescue */}
+          <div className="bg-gray-50/80 border border-gray-200/60 p-4 rounded-xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-1 leading-none">02 / Industrial Automation & Rescue Missions</h3>
+            <p className="text-[12.5px] text-slate-700 font-semibold mb-2 leading-relaxed">
+              Our bifurcated dual-core safety architecture can scale to industrial assembly plants and hazardous disaster zones for autonomous mapping and payload retrieval.
+            </p>
+            <ul className="space-y-1 font-mono text-[10.5px] text-slate-700 font-bold uppercase leading-tight pl-1">
+              <li>• Industrial Automation: Carries parts across assembly factory floors</li>
+              <li>• Rescue Robots: Enters collapsed structural areas to search for survivors using SLAM</li>
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Right Column: Split Widescreen Visualizers (col-span-6) */}
+        <div className="col-span-6 h-full flex flex-col justify-between gap-4">
+          
+          {/* Visualizer A: top-down industrial factory racks */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-3 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              SMART_WAREHOUSE_RACK_COORDINATES // FLOW_A
+            </div>
+            <div className="flex-grow flex items-center justify-center p-1 bg-gray-50/50 rounded-lg border border-gray-100 relative h-[80%]">
+              <svg className="w-full h-full text-slate-400 overflow-visible" viewBox="0 0 300 55" fill="none">
+                <rect x="20" y="10" width="80" height="15" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1" rx="1" />
+                <text x="60" y="20" fill="#64748b" textAnchor="middle" className="font-mono text-[5px] font-bold">RACK SHELF A</text>
+
+                <rect x="200" y="10" width="80" height="15" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1" rx="1" />
+                <text x="240" y="20" fill="#64748b" textAnchor="middle" className="font-mono text-[5px] font-bold">RACK SHELF B</text>
+
+                {/* Auto path */}
+                <path d="M 60,35 Q 150,55 240,35" stroke="#10b981" strokeWidth="1.2" className="log-flow-line" />
+                <polygon points="240,35 234,31 234,39" fill="#10b981" />
+                <text x="150" y="52" fill="#047857" textAnchor="middle" className="font-mono text-[5px] font-bold">OPTIMIZED HAULING PATH</text>
+              </svg>
+            </div>
+          </div>
+
+          {/* Visualizer B: Real Robot Assembly Snapshot! */}
+          <div className="bg-white border border-gray-200 rounded-xl flex-1 flex flex-col justify-between p-2 relative overflow-hidden text-gray-800 shadow-xs h-[48%]">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-1 uppercase tracking-widest leading-none mb-1">
+              ASAR_PHYSICAL_ROBOT_ASSEMBLY_RECORD // SNAPSHOT_FLOW_B
+            </div>
+            <div className="flex-grow flex items-center justify-center relative overflow-hidden h-[85%] rounded-lg">
+              <img 
+                src="assets/images/6c00895f-7e06-411d-8cb4-c7564bc116e4.jpg" 
+                alt="ASAR Physical Robot Assembly" 
+                className="absolute inset-0 w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ========================================== SLIDE 25: THANK YOU / CLOSING SLIDE ==========================================
+export const SoftThankYouSlide: React.FC = () => {
+  return (
+    <div className="w-[1200px] h-[675px] bg-white text-gray-800 p-10 rounded-xl border border-gray-200 relative flex flex-col justify-between overflow-hidden shadow-lg select-none">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none z-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0" />
+
+      {/* Slide Header */}
+      <div className="border-l-4 border-emerald-500 pl-4 py-1 flex justify-between items-center z-10">
+        <div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-mono text-[9px] tracking-wider text-emerald-600 font-bold uppercase">Software Pillar</span>
+          </div>
+          <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900">Thank You</h2>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-12 gap-8 my-auto flex-grow items-center z-10 relative py-2 select-text">
+        {/* Left Column (col-span-5): Warm acknowledgement */}
+        <div className="col-span-5 flex flex-col gap-4">
+          <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
+            <h3 className="font-mono text-[10.5px] text-emerald-600 font-bold uppercase mb-2">Borg El Arab Technological University</h3>
+            <p className="text-[9.5px] text-gray-400 font-bold uppercase tracking-widest leading-none mb-3">FACULTY OF INDUSTRY & ENERGY | IT DEPT</p>
+            <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed mb-4 font-sans font-medium">
+              We express our deepest gratitude to our academic advisors, faculty mentors, and fellow peers for their unwavering guidance, technical reviews, and support throughout the design, construction, and software orchestration of the ASAR project.
+            </p>
+            <div className="border-t border-gray-200 pt-3">
+              <span className="font-mono text-[10px] text-slate-800 font-bold uppercase">Presenter Team // Autonomous Vehicles Group</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column (col-span-7): Real team member JPG gallery grid! */}
+        <div className="col-span-7 h-full">
+          <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
+            <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-2 uppercase tracking-widest leading-none mb-2">
+              ASAR_TEAM_MEMBERS_&_PHYSICAL_DIAGNOSTICS_RUNS // SNAPSHOT_GRID
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3 flex-grow relative overflow-hidden h-[85%]">
+              {/* Image 1 */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+                <img 
+                  src="assets/images/22e3adf3-9b7a-4f20-9bcc-cf8312519183.jpg" 
+                  alt="Team Snapshot 1" 
+                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Image 2 */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+                <img 
+                  src="assets/images/482cba27-50ef-4a95-932c-4c7767f2ccb5.jpg" 
+                  alt="Team Snapshot 2" 
+                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Image 3 */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+                <img 
+                  src="assets/images/498fbef9-dc16-48b4-9b79-9d2a9c671d6f.jpg" 
+                  alt="Team Snapshot 3" 
+                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Image 4 */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+                <img 
+                  src="assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
+                  alt="Team Snapshot 4" 
+                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
+
+            <div className="font-mono text-[9px] text-gray-500 font-bold border-t border-gray-100 pt-2 text-center uppercase leading-none mt-2">
+              Developing smart solutions for real-world automated logistics and indoor navigation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };

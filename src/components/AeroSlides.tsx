@@ -2944,7 +2944,7 @@ export const SoftVcsSlide: React.FC = () => {
         {/* Right Column: User's custom compiled SVG Graph on a White Background (col-span-7) */}
         <div className="col-span-7 h-full flex items-center justify-center">
           <div className="bg-white border border-gray-200 rounded-xl w-full h-[375px] p-2 relative overflow-hidden text-gray-800 shadow-xs">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style={{ backgroundColor: "#ffffff" }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ backgroundColor: "#ffffff" }}>
   <defs>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="5" result="blur" />

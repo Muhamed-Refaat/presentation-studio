@@ -5,8 +5,8 @@ let svgContent = fs.readFileSync(svgPath, 'utf8');
 
 // Compile dark-themed SVG properties to pristine light technical CAD colors
 let whiteSvg = svgContent
-  // Background - converted to standard JSX object style to prevent fatal React runtime crashes
-  .replace('style="background-color: #0d1117;"', 'style={{ backgroundColor: "#ffffff" }}')
+  // Background - converted to standard JSX object style to prevent fatal React runtime crashes, with preserveAspectRatio to prevent horizontal clipping
+  .replace('style="background-color: #0d1117;"', 'preserveAspectRatio="xMidYMid meet" style={{ backgroundColor: "#ffffff" }}')
   // Title text
   .replace('fill="#ffffff"', 'fill="#1e293b"')
   // Panels - Match and replace each rectangle individually by its literal coordinate bounds to prevent overlapping

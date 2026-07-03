@@ -3157,7 +3157,7 @@ export const SoftThankYouSlide: React.FC = () => {
           {/* Image 1: Team Group Selfie */}
           <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm h-[320px]">
             <img 
-              src="assets/images/d8d391d0-f2ca-44e0-a3ca-a7508fdf4e99.jpg" 
+              src="https://raw.githubusercontent.com/Muhamed-Refaat/presentation-studio/main/assets/images/d8d391d0-f2ca-44e0-a3ca-a7508fdf4e99.jpg" 
               alt="ASAR Presenter Team Group Selfie" 
               className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
@@ -3166,7 +3166,7 @@ export const SoftThankYouSlide: React.FC = () => {
           {/* Image 2: ASAR Robot Close-up */}
           <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm h-[320px]">
             <img 
-              src="assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
+              src="https://raw.githubusercontent.com/Muhamed-Refaat/presentation-studio/main/assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
               alt="ASAR Mecanum Robot Assembly Close-up" 
               className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />

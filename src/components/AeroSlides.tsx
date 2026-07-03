@@ -3163,55 +3163,34 @@ export const SoftThankYouSlide: React.FC = () => {
           <div className="bg-gray-50/80 border border-gray-200/60 p-5 rounded-2xl shadow-xs">
             <h3 className="font-mono text-[10.5px] text-blue-600 font-bold uppercase mb-2">Borg El Arab Technological University</h3>
             <p className="text-[9.5px] text-gray-400 font-bold uppercase tracking-widest leading-none mb-3">FACULTY OF INDUSTRY & ENERGY | IT DEPT</p>
-            <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed mb-4 font-sans font-medium">
+            <p className="text-[13.5px] text-slate-700 font-semibold leading-relaxed font-sans font-medium">
               We express our deepest gratitude to our academic advisors, faculty mentors, and fellow peers for their unwavering guidance, technical reviews, and support throughout the design, construction, and software orchestration of the ASAR project.
             </p>
-            <div className="border-t border-gray-200 pt-3">
-              <span className="font-mono text-[10px] text-slate-800 font-bold uppercase">Presenter Team // Autonomous Vehicles Group</span>
-            </div>
           </div>
         </div>
 
-        {/* Right Column (col-span-7): Real team member JPG gallery grid! */}
+        {/* Right Column (col-span-7): Real team member & robot close-up 2-column showcase */}
         <div className="col-span-7 h-full">
           <div className="bg-white border border-gray-200 rounded-2xl h-full flex flex-col justify-between p-4 relative overflow-hidden text-gray-800 min-h-[350px] shadow-xs">
             <div className="font-mono text-[8px] text-gray-400 font-bold border-b border-gray-100 pb-2 uppercase tracking-widest leading-none mb-2">
-              ASAR_TEAM_MEMBERS_&_PHYSICAL_DIAGNOSTICS_RUNS // SNAPSHOT_GRID
+              ASAR_TEAM_SNAPSHOT_&_PHYSICAL_ROBOT_RECORD // STAGE_GRID
             </div>
             
-            <div className="grid grid-cols-2 gap-3 flex-grow relative overflow-hidden h-[85%]">
-              {/* Image 1 */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+            <div className="grid grid-cols-2 gap-4 flex-grow relative overflow-hidden h-[85%]">
+              {/* Image 1: Team Group Selfie */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[265px]">
                 <img 
-                  src="assets/images/22e3adf3-9b7a-4f20-9bcc-cf8312519183.jpg" 
-                  alt="Team Snapshot 1" 
+                  src="assets/images/d8d391d0-f2ca-44e0-a3ca-a7508fdf4e99.jpg" 
+                  alt="ASAR Presenter Team Group Selfie" 
                   className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
-              {/* Image 2 */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
-                <img 
-                  src="assets/images/482cba27-50ef-4a95-932c-4c7767f2ccb5.jpg" 
-                  alt="Team Snapshot 2" 
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
-              {/* Image 3 */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
-                <img 
-                  src="assets/images/498fbef9-dc16-48b4-9b79-9d2a9c671d6f.jpg" 
-                  alt="Team Snapshot 3" 
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
-              {/* Image 4 */}
-              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[125px]">
+              {/* Image 2: Robot Chassis Close-up */}
+              <div className="relative overflow-hidden rounded-xl border border-gray-150 h-[265px]">
                 <img 
                   src="assets/images/e9b51eb7-a033-468a-aaaf-41892472ebeb.jpg" 
-                  alt="Team Snapshot 4" 
+                  alt="ASAR Mecanum Robot Assembly Close-up" 
                   className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>

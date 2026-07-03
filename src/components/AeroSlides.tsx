@@ -3122,7 +3122,7 @@ export const SoftAppsSlide: React.FC = () => {
             </div>
             <div className="flex-grow flex items-center justify-center relative overflow-hidden h-[92%] rounded-lg">
               <img 
-                src="assets/images/6c00895f-7e06-411d-8cb4-c7564bc116e4.jpg" 
+                src="https://raw.githubusercontent.com/Muhamed-Refaat/presentation-studio/main/assets/images/6c00895f-7e06-411d-8cb4-c7564bc116e4.jpg" 
                 alt="ASAR Physical Robot Assembly" 
                 className="absolute inset-0 w-full h-full object-cover rounded-lg"
               />

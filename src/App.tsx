@@ -9,10 +9,12 @@ import { INITIAL_SLIDES } from './data';
 import { SlidesCanvas } from './components/SlidesCanvas';
 import { SlidesList } from './components/SlidesList';
 import { GASPanel } from './components/GASPanel';
+import { DynamicSlide } from './components/AeroSlides';
 import { 
   Play, Pause, ArrowLeft, ArrowRight, Code, 
   Sparkles, Maximize2, Minimize2, Eye, Layers, 
-  Activity, Settings, HelpCircle, Laptop, RotateCcw
+  Activity, Settings, HelpCircle, Laptop, RotateCcw,
+  Printer
 } from 'lucide-react';
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
   const [activeSlideId, setActiveSlideId] = useState<string>('slide_1');
   const [isPresentationMode, setIsPresentationMode] = useState<boolean>(false);
   const [isScriptPanelOpen, setIsScriptPanelOpen] = useState<boolean>(true);
+  const [isPrintMode, setIsPrintMode] = useState<boolean>(false);
 
   // Auto-play slideshow slideshow settings
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
@@ -186,6 +189,34 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeIndex, slides, isPresentationMode]);
 
+  if (isPrintMode) {
+    return (
+      <div className="w-full h-screen bg-slate-100 overflow-y-auto p-10 flex flex-col items-center gap-12 select-none relative print-stack">
+        {/* Back button and Print buttons */}
+        <div className="fixed top-6 left-6 z-50 print-actions-hud flex items-center gap-3">
+          <button 
+            onClick={() => setIsPrintMode(false)}
+            className="px-4 py-2 bg-slate-900 text-white font-mono text-[11px] font-bold rounded-lg border border-slate-800 hover:bg-slate-700 shadow-lg cursor-pointer"
+          >
+            ← Back to Workspace
+          </button>
+          <button 
+            onClick={() => window.print()}
+            className="px-4 py-2 bg-blue-600 text-white font-mono text-[11px] font-bold rounded-lg hover:bg-blue-500 shadow-lg cursor-pointer flex items-center gap-2"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            Print / Save PDF
+          </button>
+        </div>
+        {slides.map((slide, index) => (
+          <div key={slide.id} className="w-[1200px] h-[675px] shrink-0 bg-white rounded-xl shadow-md border border-gray-200 relative overflow-hidden page-break-slide">
+            <DynamicSlide slide={slide} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-screen h-screen overflow-hidden bg-[#f3f4f6] text-slate-800 font-sans">
       {/* Top Application Header bar */}
@@ -205,6 +236,14 @@ export default function App() {
 
           {/* Core mode switch controls */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsPrintMode(true)}
+              className="px-3 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 rounded font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shadow-sm active:scale-95"
+              title="Enter Print Mode to easily export a high-fidelity static 22-page PDF of the entire presentation deck"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              Print PDF
+            </button>
             <button
               onClick={() => {
                 setIsPresentationMode(true);

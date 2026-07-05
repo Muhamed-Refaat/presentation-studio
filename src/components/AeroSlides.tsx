@@ -152,6 +152,21 @@ export const MissionControlSlide: React.FC<SlideProps> = () => {
           </div>
         </div>
       </div>
+
+      {/* Interactive high-tech QR Code box (positioned in the bottom-right corner) */}
+      <div className="absolute bottom-6 right-6 z-30 bg-white/95 border border-slate-200 p-2.5 rounded-xl flex items-center gap-3 shadow-md select-text hover:shadow-lg transition-shadow">
+        <img 
+          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2FAKfycbzUI-rgGHfVQGfWbohw2fvWxvuhWjJ5d7wOGrvDBWsCanF_D8vPJsSrEfLl33S2yd0QeQ%2Fexec" 
+          alt="Scan to Play Live" 
+          className="w-14 h-14 border border-slate-100 rounded-lg"
+        />
+        <div className="text-left font-mono">
+          <div className="text-[7.5px] text-blue-600 font-extrabold uppercase tracking-wider leading-none mb-0.5 animate-pulse">SCAN TO PLAY LIVE</div>
+          <div className="text-[7.5px] text-slate-500 font-bold uppercase leading-none">Interactive 2.5D Web App</div>
+          <div className="text-[5.5px] text-slate-400 font-medium leading-none mt-1.5 uppercase truncate max-w-[105px]">script.google.com/...</div>
+        </div>
+      </div>
+
     </div>
   );
 };
